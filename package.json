@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "version": "0.1.0",
+  "version": "1.22.15",
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.2.0",
@@ -46,11 +46,11 @@
   },
   "devDependencies": {
     "autoprefixer": "^9",
+    "husky": "^7.0.0",
     "lint-staged": "^11.1.2",
     "postcss": "^7",
     "prettier": "^2.3.2",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
-    "husky": "^7.0.0"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "husky": {
     "hooks": {
