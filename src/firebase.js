@@ -6,12 +6,12 @@ import { getStorage } from "firebase/storage";
 import { GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDPJiCx_MN8oHqQUPVLqia14yvfgZqgV2U",
-  authDomain: "capstone-project-library.firebaseapp.com",
-  projectId: "capstone-project-library",
-  storageBucket: "capstone-project-library.appspot.com",
-  messagingSenderId: "36559321892",
-  appId: "1:36559321892:web:5228f418d0ad46764051b1",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
