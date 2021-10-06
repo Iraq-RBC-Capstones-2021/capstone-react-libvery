@@ -3,7 +3,7 @@
   "version": "1.22.15",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.2.0",
+    "@craco/craco": "^6.3.0",
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
