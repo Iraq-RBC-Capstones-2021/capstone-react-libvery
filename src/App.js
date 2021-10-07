@@ -9,20 +9,29 @@ import profile from "./pages/profile";
 import signin from "./pages/signin";
 import signup from "./pages/signup";
 import Navbar from "./components/Navbar";
+import {
+  HOME_ROUTE,
+  ABOUT_ROUTE,
+  BOOKS_ROUTE,
+  FAVOURITES_ROUTE,
+  SIGNIN_ROUTE,
+  ERROR_ROUTE,
+  PROFILE_ROUTE,
+} from "./routes";
 
 function App() {
   return (
     <>
       <Navbar />
       <Switch>
-        <Route exact path="/" component={home} />
-        <Route path="/about" component={about} />
-        <Route path="/books" component={books} />
-        <Route path="/favourites" component={favourites} />
-        <Route path="/signup" component={signup} />
-        <Route path="/singin" component={signin} />
-        <Route path="/error" component={error} />
-        <Route path="/profile" component={profile} />
+        <Route exact path={HOME_ROUTE} component={home} />
+        <Route path={ABOUT_ROUTE} component={about} />
+        <Route path={BOOKS_ROUTE} component={books} />
+        <Route path={FAVOURITES_ROUTE} component={favourites} />
+        <Route path={SIGNIN_ROUTE} component={signup} />
+        <Route path={SIGNIN_ROUTE} component={signin} />
+        <Route path={ERROR_ROUTE} component={error} />
+        <Route path={PROFILE_ROUTE} component={profile} />
       </Switch>
     </>
   );
