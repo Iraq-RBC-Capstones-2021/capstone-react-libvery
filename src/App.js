@@ -8,10 +8,12 @@ import home from "./pages/home";
 import profile from "./pages/profile";
 import signin from "./pages/signin";
 import signup from "./pages/signup";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <div>
+    <>
+      <Navbar />
       <Switch>
         <Route exact path="/" component={home} />
         <Route path="/about" component={about} />
@@ -22,7 +24,7 @@ function App() {
         <Route path="/error" component={error} />
         <Route path="/profile" component={profile} />
       </Switch>
-    </div>
+    </>
   );
 }
 
