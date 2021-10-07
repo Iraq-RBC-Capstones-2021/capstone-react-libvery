@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Signin from "./pages/SignIn";
 import Signup from "./pages/SignUp";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar.jsx";
 import {
   HOME_ROUTE,
   ABOUT_ROUTE,
