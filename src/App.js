@@ -1,13 +1,13 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import about from "./pages/about";
-import books from "./pages/books";
-import error from "./pages/error";
-import favourites from "./pages/favourites";
-import home from "./pages/home";
-import profile from "./pages/profile";
-import signin from "./pages/signin";
-import signup from "./pages/signup";
+import About from "./pages/About";
+import Books from "./pages/Books";
+import Error from "./pages/Error";
+import Favourites from "./pages/Favourites";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import Signin from "./pages/SignIn";
+import Signup from "./pages/SignUp";
 import Navbar from "./components/Navbar";
 import {
   HOME_ROUTE,
@@ -24,14 +24,14 @@ function App() {
     <>
       <Navbar />
       <Switch>
-        <Route exact path={HOME_ROUTE} component={home} />
-        <Route path={ABOUT_ROUTE} component={about} />
-        <Route path={BOOKS_ROUTE} component={books} />
-        <Route path={FAVOURITES_ROUTE} component={favourites} />
-        <Route path={SIGNIN_ROUTE} component={signup} />
-        <Route path={SIGNIN_ROUTE} component={signin} />
-        <Route path={ERROR_ROUTE} component={error} />
-        <Route path={PROFILE_ROUTE} component={profile} />
+        <Route exact path={HOME_ROUTE} component={Home} />
+        <Route path={ABOUT_ROUTE} component={About} />
+        <Route path={BOOKS_ROUTE} component={Books} />
+        <Route path={FAVOURITES_ROUTE} component={Favourites} />
+        <Route path={SIGNIN_ROUTE} component={Signup} />
+        <Route path={SIGNIN_ROUTE} component={Signin} />
+        <Route path={ERROR_ROUTE} component={Error} />
+        <Route path={PROFILE_ROUTE} component={Profile} />
       </Switch>
     </>
   );
