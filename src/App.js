@@ -1,56 +1,27 @@
 import React from "react";
-import logo from "./logo.svg";
-import { Counter } from "./store/counter/Counter";
-import "./App.css";
+import { Switch, Route } from "react-router-dom";
+import about from "./pages/about";
+import books from "./pages/books";
+import error from "./pages/error";
+import favourites from "./pages/favourites";
+import home from "./pages/home";
+import profile from "./pages/profile";
+import signin from "./pages/signin";
+import signup from "./pages/signup";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div>
+      <Switch>
+        <Route exact path="/" component={home} />
+        <Route path="/about" component={about} />
+        <Route path="/books" component={books} />
+        <Route path="/favourites" component={favourites} />
+        <Route path="/signup" component={signup} />
+        <Route path="/singin" component={signin} />
+        <Route path="/error" component={error} />
+        <Route path="/profile" component={profile} />
+      </Switch>
     </div>
   );
 }
