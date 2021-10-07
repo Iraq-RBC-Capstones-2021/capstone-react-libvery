@@ -9,7 +9,7 @@ function Error() {
       <img className="mx-auto sm:max-w-xl" src={error} alt="error" />
       <button
         type="button"
-        className="bg-secondary text-Cards px-3 py-1 rounded-md mx-auto mt-8 text-2xl"
+        className="bg-secondary text-Cards px-3 py-1 rounded-md mx-auto mt-8 text-2xl transform bg-opacity-90 hover:bg-opacity-100 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-opacity-50"
       >
         Back
       </button>
