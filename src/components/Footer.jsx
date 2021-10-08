@@ -92,7 +92,7 @@ function Footer() {
               <select className="my-5 lg:mt-16 self-center" id="lang-dropdown">
                 <option value="english">EN</option>
                 <option value="arabic">AR</option>
-                <option value="arabic">KU</option>
+                <option value="kurdish">KU</option>
               </select>
             </div>
           </div>
