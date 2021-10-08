@@ -1,28 +1,7 @@
 import React from "react";
-import defaultImage from "./team.svg";
-import teamMembers from "../service/about.json";
+import TeamCard from "./TeamCard";
 
 function About() {
-  const teamMember = teamMembers.map((member) => (
-    <div
-      className={`mb-10 sm:flex sm:items-center sm:justify-evenly ${
-        member.reversed ? "flex-row-reverse" : "flex-row"
-      }`}
-    >
-      <div className="flex justify-center items-center flex-col">
-        <img
-          src={member.image || defaultImage}
-          alt={member.name}
-          className="w-40"
-        />
-        <h3 className="text-xl font-medium mb-2">
-          {member.name} - {member.position}
-        </h3>
-      </div>
-      <p>{member.description}</p>
-    </div>
-  ));
-
   return (
     <div className="bg-primary font-sans">
       <div className="text-center mx-10 sm:mx-32 lg:mx-96">
@@ -39,7 +18,7 @@ function About() {
       </div>
       <div className="text-center mx-10 sm:mx-32 lg:mx-52 mt-10">
         <h1 className="text-2xl font-semibold mb-3">Our Team</h1>
-        <div>{teamMember}</div>
+        <TeamCard />
       </div>
     </div>
   );
