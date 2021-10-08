@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/logo.svg";
+import projectLogo from "../assets/projectLogo.svg";
 import { FaFacebook, FaInstagram, FaTwitter, FaGithub } from "react-icons/fa";
 import { GiCheckMark } from "react-icons/gi";
 
@@ -10,7 +10,11 @@ function Footer() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 gap-x-40 ">
             <div className="mb-5 flex flex-col justify-around items-center">
-              <img className="mb-11 lg:mr-36" src={logo} alt="checkmark" />
+              <img
+                className="mb-11 lg:mr-36"
+                src={projectLogo}
+                alt="checkmark"
+              />
               <div className="flex flex-col justify-center items-center md:items-start md:text-left">
                 <p className="font-bold text-lg md:self-center lg:self-start">
                   Contact Us
