@@ -32,16 +32,19 @@ function Footer() {
             </div>
             <div className="flex flex-col">
               <div className="flex justify-center mt-2">
-                <Link to={HOME_ROUTE} className="mx-5">
+                <Link to={HOME_ROUTE} className="mx-5 hover:text-secondary">
                   Home
                 </Link>
-                <Link to={ABOUT_ROUTE} className="mx-5">
+                <Link to={ABOUT_ROUTE} className="mx-5 hover:text-secondary">
                   About
                 </Link>
-                <Link to={BOOKS_ROUTE} className="mx-5">
+                <Link to={BOOKS_ROUTE} className="mx-5 hover:text-secondary">
                   Books
                 </Link>
-                <Link to={FAVOURITES_ROUTE} className="mx-5">
+                <Link
+                  to={FAVOURITES_ROUTE}
+                  className="mx-5 hover:text-secondary"
+                >
                   Favorites
                 </Link>
               </div>
