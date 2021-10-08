@@ -10,13 +10,13 @@ function Footer() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 gap-x-40 ">
             <div className="mb-5 flex flex-col justify-around items-center">
-              <img className="mb-11 lg:mr-28" src={logo} alt="checkmark" />
-              <div className="flex flex-col justify-center items-center md:items-start">
+              <img className="mb-11 lg:mr-36" src={logo} alt="checkmark" />
+              <div className="flex flex-col justify-center items-center md:items-start md:text-left">
                 <p className="font-bold text-lg md:self-center lg:self-start">
                   Contact Us
                 </p>
-                <p>Email Address: Example@gmail.com</p>
-                <p>Phone Number: 750 794 43 23</p>
+                <p>Email Address: example@example.com</p>
+                <p>Phone Number: 0770 000 00 00</p>
               </div>
             </div>
             <div className="flex flex-col">
@@ -35,7 +35,7 @@ function Footer() {
                 </a>
               </div>
               <div className="flex flex-col justify-end items-center mt-10 md:mt-16 mb-5">
-                <p className=" pb-1 md:mr-24">Never miss an update</p>
+                <p className=" pb-1 md:mr-24 ">Never miss an update</p>
 
                 <div className="flex items-center md:mr-2">
                   <input
@@ -52,7 +52,7 @@ function Footer() {
               </div>
             </div>
             <div className="mb-5 md:col-span-2 lg:col-span-1">
-              <div className="flex justify-around  mb-5 mt-2">
+              <div className="flex justify-around  mb-5 mt-2 lg:mb-6">
                 <FaFacebook size="1.7rem" />
                 <FaInstagram size="1.7rem" />
                 <FaTwitter size="1.7rem" />
@@ -61,6 +61,7 @@ function Footer() {
               <select className="mt-5 lg:mt-16" id="lang-dropdown">
                 <option value="english">EN</option>
                 <option value="arabic">AR</option>
+                <option value="arabic">KU</option>
               </select>
             </div>
           </div>
