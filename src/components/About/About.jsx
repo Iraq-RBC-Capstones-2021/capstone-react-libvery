@@ -1,5 +1,6 @@
 import React from "react";
 import TeamCard from "./TeamCard";
+import teamMembers from "../../service/about.json";
 
 function About() {
   return (
@@ -18,7 +19,18 @@ function About() {
       </div>
       <div className="text-center mx-10 sm:mx-32 lg:mx-52 mt-10">
         <h1 className="text-2xl font-semibold mb-3">Our Team</h1>
-        <TeamCard />
+        {teamMembers.map(({ name, image, position, description }) => {
+          // const { name, image, position, description } = member;
+          return (
+            <TeamCard
+              key={name}
+              name={name}
+              image={image}
+              description={description}
+              position={position}
+            />
+          );
+        })}
       </div>
     </div>
   );
