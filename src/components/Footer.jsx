@@ -18,7 +18,7 @@ function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 gap-x-40 ">
             <div className="mb-5 flex flex-col justify-around items-center">
               <img
-                className="mb-11 lg:mr-36"
+                className="mb-11 lg:self-start xl:ml-5"
                 src={projectLogo}
                 alt="checkmark"
               />
