@@ -15,7 +15,6 @@ import {
   BOOKS_ROUTE,
   FAVOURITES_ROUTE,
   SIGNIN_ROUTE,
-  ERROR_ROUTE,
   PROFILE_ROUTE,
 } from "./routes";
 
