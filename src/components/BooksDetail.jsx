@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import book from "../assets/book.jpg";
 import { motion } from "framer-motion";
 import AnimateButton from "./AnimateButton";
 
 function BooksDetail() {
+  const [isBookmarked, setBookmarked] = useState(false);
+
   return (
     <div className="bg-primary min-h-screen font-sans">
       <div className="sm:flex sm:justify-center">
@@ -17,19 +19,22 @@ function BooksDetail() {
             src={book}
             alt="book"
           />
-          <div className="absolute top-0 right-0">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10 rounded-bl-2xl rounded-br-2xl bg-black"
-              viewBox="0 0 20 20"
-              fill="#fff"
-            >
-              <path
-                fillRule="evenodd"
-                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                clipRule="evenodd"
-              />
-            </svg>
+          <div className="absolute top-0 right-0 bg-red-50 rounded-bl-2xl rounded-br-2xl">
+            <AnimateButton>
+              <svg
+                onClick={() => setBookmarked(!isBookmarked)}
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-10 w-10 cursor-pointer"
+                viewBox="0 0 20 20"
+                fill={`${isBookmarked ? "#f44336" : "#c2c2c2"}`}
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </AnimateButton>
           </div>
         </motion.div>
         <motion.div
@@ -46,7 +51,8 @@ function BooksDetail() {
           </div>
           <div className="flex mb-4">
             <p className="flex-1">
-              Author: <span>author name</span>
+              <span className="opacity-50">Author:</span>{" "}
+              <span>author name</span>
             </p>
             <AnimateButton
               classStyle="bg-secondary text-white rounded-sm px-2 py-1"
@@ -55,7 +61,7 @@ function BooksDetail() {
           </div>
           <div className="flex">
             <p className="flex-1 mb-4">
-              Genre:{" "}
+              <span className="opacity-50">Genre: </span>
               <span className="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm">
                 Action
               </span>{" "}
