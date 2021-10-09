@@ -17,12 +17,12 @@ function BooksDetail() {
             src={book}
             alt="book"
           />
-          <div className="drop-shadow-xl absolute bottom-0 right-0">
+          <div className="absolute top-0 right-0">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10"
+              className="h-10 w-10 rounded-bl-2xl rounded-br-2xl bg-black"
               viewBox="0 0 20 20"
-              fill="#b6b6b6"
+              fill="#fff"
             >
               <path
                 fillRule="evenodd"
@@ -56,16 +56,16 @@ function BooksDetail() {
           <div className="flex">
             <p className="flex-1 mb-4">
               Genre:{" "}
-              <span className="bg-black text-white rounded-sm cursor-pointer py-1 px-1 text-sm">
+              <span className="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm">
                 Action
               </span>{" "}
               -{" "}
-              <span className="bg-black text-white rounded-sm cursor-pointer py-1 px-1 text-sm">
+              <span className="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm">
                 Adventure
               </span>
             </p>
-            <p className="col-start-3">
-              Price: <span>3.99$</span>
+            <p className="font-semibold">
+              Price: <span className="">3.99$</span>
             </p>
           </div>
           <p className="mb-4">
