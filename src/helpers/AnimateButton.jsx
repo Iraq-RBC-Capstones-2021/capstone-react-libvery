@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-function AnimateButton({ text, classStyle, children, OnClick }) {
+function AnimateButton({ text, classStyle, children, OnClickHeart }) {
   return (
     <>
       <motion.button
@@ -10,9 +10,7 @@ function AnimateButton({ text, classStyle, children, OnClick }) {
         transition={{ duration: 0.2 }}
         type="button"
         className={classStyle}
-        onClick={() => {
-          OnClick();
-        }}
+        onClick={OnClickHeart}
       >
         {text}
         {children}

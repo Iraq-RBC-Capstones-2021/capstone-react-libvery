@@ -47,7 +47,7 @@ function BooksDetail() {
           <div className="flex mb-4">
             <h1 className="font-semibold flex-1 text-xl">Book Title</h1>
             <AnimateButton
-              OnClick={() => setIsContactModalOpen(true)}
+              OnClickHeart={() => setIsContactModalOpen(true)}
               classStyle="bg-secondary text-white rounded-sm px-2 py-1"
               text="Contact Seller"
             />
