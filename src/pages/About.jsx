@@ -1,6 +1,6 @@
 import React from "react";
-import TeamCard from "./TeamCard";
-import teamMembers from "../../service/about.json";
+import TeamCard from "../components/TeamCard";
+import teamMembers from "../service/about.json";
 
 function About() {
   return (

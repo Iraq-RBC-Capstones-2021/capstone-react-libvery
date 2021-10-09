@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import About from "./pages/About/About";
+import About from "./pages/About";
 import Books from "./pages/Books";
 import Error from "./pages/Error";
 import Favourites from "./pages/Favourites";

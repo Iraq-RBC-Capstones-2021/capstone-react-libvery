@@ -1,5 +1,5 @@
 import React from "react";
-import defaultImage from "../../assets/team.svg";
+import defaultImage from "../assets/team.svg";
 
 function TeamCard({ image, name, description, position, reversed }) {
   return (
