@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import book from "../assets/team.svg";
 import { motion } from "framer-motion";
-import AnimateButton from "../components/AnimateButton";
-import Modal from "react-modal";
+import AnimateButton from "../helpers/AnimateButton";
 import ContactModal from "../components/ContactModal";
 
 function BooksDetail() {
