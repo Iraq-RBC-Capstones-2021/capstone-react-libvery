@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Signin from "./pages/SignIn";
 import Signup from "./pages/SignUp";
 import Navbar from "./components/Navbar.jsx";
+import BooksDetail from "./pages/BooksDetail.jsx";
 import {
   HOME_ROUTE,
   ABOUT_ROUTE,
@@ -33,6 +34,7 @@ function App() {
         <Route path={ERROR_ROUTE} component={Error} />
         <Route path={PROFILE_ROUTE} component={Profile} />
       </Switch>
+      <BooksDetail />
     </>
   );
 }
