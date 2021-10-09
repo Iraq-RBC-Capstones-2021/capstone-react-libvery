@@ -30,8 +30,8 @@ function App() {
         <Route path={FAVOURITES_ROUTE} component={Favourites} />
         <Route path={SIGNIN_ROUTE} component={Signup} />
         <Route path={SIGNIN_ROUTE} component={Signin} />
-        <Route path={ERROR_ROUTE} component={Error} />
         <Route path={PROFILE_ROUTE} component={Profile} />
+        <Route component={Error} />
       </Switch>
     </>
   );
