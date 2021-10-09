@@ -20,7 +20,6 @@ function About() {
       <div className="text-center mx-10 sm:mx-32 lg:mx-52 mt-10">
         <h1 className="text-2xl font-semibold mb-3">Our Team</h1>
         {teamMembers.map(({ name, image, position, description }) => {
-          // const { name, image, position, description } = member;
           return (
             <TeamCard
               key={name}
