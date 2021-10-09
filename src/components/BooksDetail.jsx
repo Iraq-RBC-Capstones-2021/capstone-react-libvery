@@ -1,11 +1,17 @@
 import React from "react";
-import book from "./book.jpg";
+import book from "../assets/book.jpg";
+import { motion } from "framer-motion";
+import AnimateButton from "./AnimateButton";
 
 function BooksDetail() {
   return (
     <div className="bg-primary min-h-screen font-sans">
       <div className="sm:flex sm:justify-center">
-        <div className="relative m-4 flex">
+        <motion.div
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
+          className="relative m-4 flex"
+        >
           <img
             className="flex-1 object-cover rounded-md"
             src={book}
@@ -25,27 +31,27 @@ function BooksDetail() {
               />
             </svg>
           </div>
-        </div>
-        <div className="m-4 sm:max-w-sm lg:max-w-2xl">
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="m-4 sm:max-w-sm lg:max-w-2xl"
+        >
           <div className="flex mb-4">
             <h1 className="font-semibold flex-1 text-xl">Book Title</h1>
-            <button
-              type="button"
-              className="bg-secondary text-white rounded-sm px-2 py-1"
-            >
-              Contact Seller
-            </button>
+            <AnimateButton
+              classStyle="bg-secondary text-white rounded-sm px-2 py-1"
+              text="Contact Seller"
+            />
           </div>
           <div className="flex mb-4">
             <p className="flex-1">
               Author: <span>author name</span>
             </p>
-            <button
-              type="button"
-              className="bg-secondary text-white rounded-sm px-2 py-1"
-            >
-              Edit
-            </button>
+            <AnimateButton
+              classStyle="bg-secondary text-white rounded-sm px-2 py-1"
+              text="Edit"
+            />
           </div>
           <div className="flex">
             <p className="flex-1 mb-4">
@@ -69,10 +75,10 @@ function BooksDetail() {
             labore ipsam?
           </p>
           <div className="flex relative">
-            <div className="absolute left-72 bg-secondary text-white rounded-xl -top-3">
+            <AnimateButton classStyle="absolute left-72 bg-secondary text-white rounded-xl -top-3 cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-7 w-7"
+                className="h-7 w-7"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -84,12 +90,13 @@ function BooksDetail() {
                   d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                 />
               </svg>
-            </div>
+            </AnimateButton>
+
             <img className="h-24 w-24 rounded-md mr-3" src={book} alt="book" />
             <img className="h-24 w-24 rounded-md mr-3" src={book} alt="book" />
             <img className="h-24 w-24 rounded-md" src={book} alt="book" />
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
