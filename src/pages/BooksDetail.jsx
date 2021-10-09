@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import book from "../assets/book.jpg";
 import { motion } from "framer-motion";
-import AnimateButton from "./AnimateButton";
+import AnimateButton from "../components/AnimateButton";
 
 function BooksDetail() {
   const [isBookmarked, setBookmarked] = useState(false);
