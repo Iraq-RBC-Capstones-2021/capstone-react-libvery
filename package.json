@@ -12,7 +12,13 @@
     "framer-motion": "^4.1.17",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+<<<<<<< HEAD
     "react-icons": "^4.3.1",
+||||||| parent of cc75179 (Create BookCard component and Add react-rating-stars-component as dependency)
+=======
+    "react-icons": "^4.3.1",
+    "react-rating-stars-component": "^2.2.0",
+>>>>>>> cc75179 (Create BookCard component and Add react-rating-stars-component as dependency)
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3"
