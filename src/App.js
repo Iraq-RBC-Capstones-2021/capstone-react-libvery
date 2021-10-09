@@ -18,6 +18,7 @@ import {
   PROFILE_ROUTE,
 } from "./routes";
 import Footer from "./components/Footer";
+import BookCard from "./components/BookCard";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
         <Route path={PROFILE_ROUTE} component={Profile} />
         <Route component={Error} />
       </Switch>
+      {/* to showcase the BookCard, Will be removed before merge */}
+      <BookCard />
       <Footer />
     </>
   );
