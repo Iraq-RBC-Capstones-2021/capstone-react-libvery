@@ -22,7 +22,7 @@ function BooksDetail() {
             </svg>
           </div>
         </div>
-        <div className="m-4">
+        <div className="m-4 sm:max-w-xs lg:max-w-2xl">
           <div className="flex mb-4">
             <h1 className="font-semibold flex-1">Book Title</h1>
             <button
