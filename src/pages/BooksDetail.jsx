@@ -5,6 +5,8 @@ import coverImg from "../assets/cover.jpg";
 import page1 from "../assets/page1.png";
 import page2 from "../assets/page2.png";
 import page3 from "../assets/page3.png";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 function BooksDetail() {
   const [isBookmarked, setBookmarked] = useState(false);
@@ -17,11 +19,13 @@ function BooksDetail() {
           animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
           className="relative m-4 flex"
         >
-          <img
-            className="flex-1 object-cover rounded-md"
-            src={coverImg}
-            alt="book"
-          />
+          <Zoom>
+            <img
+              className="flex-1 object-cover rounded-md"
+              src={coverImg}
+              alt="book"
+            />
+          </Zoom>
           <div className="absolute top-0 right-0 bg-red-50 rounded-bl-2xl rounded-br-2xl">
             <AnimateButton>
               <svg
@@ -86,7 +90,7 @@ function BooksDetail() {
             labore ipsam?
           </p>
           <div className="flex relative">
-            <AnimateButton classStyle="absolute left-72 bg-secondary text-white rounded-xl -top-3 cursor-pointer">
+            <AnimateButton classStyle="absolute left-80 bg-secondary text-white rounded-xl -top-3 cursor-pointer z-10">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-7 w-7"
@@ -103,21 +107,27 @@ function BooksDetail() {
               </svg>
             </AnimateButton>
 
-            <img
-              className="h-24 w-24 rounded-md mr-3"
-              src={page1}
-              alt="content preview page 1"
-            />
-            <img
-              className="h-24 w-24 rounded-md mr-3"
-              src={page2}
-              alt="content preview page 2"
-            />
-            <img
-              className="h-24 w-24 rounded-md"
-              src={page3}
-              alt="content preview page 3"
-            />
+            <Zoom>
+              <img
+                className="h-44 w-28 rounded-md mr-3"
+                src={page1}
+                alt="content preview page 1"
+              />
+            </Zoom>
+            <Zoom>
+              <img
+                className="h-44 w-28 rounded-md mr-3"
+                src={page2}
+                alt="content preview page 2"
+              />
+            </Zoom>
+            <Zoom>
+              <img
+                className="h-44 w-28 rounded-md"
+                src={page3}
+                alt="content preview page 3"
+              />
+            </Zoom>
           </div>
         </motion.div>
       </div>
