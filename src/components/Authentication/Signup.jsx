@@ -1,4 +1,5 @@
 import React from "react";
+
 import Email from "../../assets/Email.svg";
 import Key from "../../assets/Key.svg";
 import User from "../../assets/User.svg";
@@ -13,7 +14,7 @@ const Signup = () => {
         </h1>
 
         <form className="space-y-3">
-          <div class="relative text-gray-400 focus-within:text-gray-600 block">
+          <div className="relative text-gray-400 focus-within:text-gray-600 block">
             <img
               src={User}
               className="pointer-events-none h-6 w-6 absolute top-1/2 transform -translate-y-1/2 left-3"
@@ -30,7 +31,7 @@ const Signup = () => {
             />
           </div>
 
-          <div class="relative text-gray-400 focus-within:text-gray-600 block">
+          <div className="relative text-gray-400 focus-within:text-gray-600 block">
             <img
               src={Email}
               className="pointer-events-none w-6 h-6 absolute top-1/2 transform -translate-y-1/2 left-3"
@@ -47,7 +48,7 @@ const Signup = () => {
             />
           </div>
 
-          <div class="relative text-gray-400 focus-within:text-gray-600 block">
+          <div className="relative text-gray-400 focus-within:text-gray-600 block">
             <img
               src={Key}
               className="pointer-events-none h-6 w-6 absolute top-1/2 transform -translate-y-1/2 left-3"
@@ -63,7 +64,7 @@ const Signup = () => {
             />
           </div>
 
-          <div class="relative text-gray-400 focus-within:text-gray-600 block">
+          <div className="relative text-gray-400 focus-within:text-gray-600 block">
             <img
               src={Key}
               className="pointer-events-none h-6 w-6 absolute top-1/2 transform -translate-y-1/2 left-3"
