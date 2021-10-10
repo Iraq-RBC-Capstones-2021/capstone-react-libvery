@@ -1,5 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
+import { useTranslation } from "react-i18next";
 
 import Email from "../assets/Email.svg";
 import Key from "../assets/Key.svg";
@@ -32,6 +33,8 @@ const validate = (values) => {
 };
 
 const SignUp = () => {
+  const { t } = useTranslation();
+
   const formik = useFormik({
     initialValues: {
       userName: "",
@@ -48,7 +51,7 @@ const SignUp = () => {
     <div className="min-h-screen flex  items-center md:space-x-44  justify-center flex-wrap  bg-primary font-sans ">
       <div className="bg-white m-5 p-10 md:p-16 rounded-xl shadow-2xl md:w-6/12 lg:w-5/12 ">
         <h1 className="md:text-3xl  font-bold font-sans	 mb-10 text-black">
-          Create Your Account 📚
+          {t("sign_up")} 📚
         </h1>
 
         <form className="space-y-3" onSubmit={formik.handleSubmit}>
@@ -71,7 +74,7 @@ const SignUp = () => {
               } p-3 rounded outline-none focus:border-black placeholder-gray-400
               form-input border  py-3 px-4 bg-white  text-gray-500 appearance-none  block pl-14 focus:outline-none
               `}
-              placeholder="Username"
+              placeholder={t("username")}
             />
           </div>
           {formik.touched.userName ? (
@@ -97,7 +100,7 @@ const SignUp = () => {
                     } p-3 rounded outline-none focus:border-black placeholder-gray-400
                     form-input border  py-3 px-4 bg-white  text-gray-500 appearance-none  block pl-14 focus:outline-none
                     `}
-              placeholder="E-mail"
+              placeholder={t("email")}
             />
           </div>
           {formik.touched.email ? (
@@ -122,7 +125,7 @@ const SignUp = () => {
               } p-3 rounded outline-none focus:border-black placeholder-gray-400
                     form-input border  py-3 px-4 bg-white  text-gray-500 appearance-none  block pl-14 focus:outline-none
                     `}
-              placeholder="Password"
+              placeholder={t("password")}
             />
           </div>
           {formik.touched.password ? (
@@ -149,7 +152,7 @@ const SignUp = () => {
               } p-3 rounded outline-none focus:border-black placeholder-gray-400
                     form-input border  py-3 px-4 bg-white  text-gray-500 appearance-none  block pl-14 focus:outline-none
                     `}
-              placeholder="Confirm Password"
+              placeholder={t("confirm_password")}
             />
           </div>
           {formik.touched.confirmPassword ? (
@@ -165,15 +168,15 @@ const SignUp = () => {
               type="checkbox"
               id="agree"
             />
-            I Accept Terms and Conditions
+            {t("terms_and_conditions")}
           </div>
 
           <button className="block w-full bg-secondary p-4 rounded text-white font-bold	 hover:text-black transition duration-300">
-            Sign Up
+            {t("sign_up_button")}
           </button>
           <div className="flex items-center  text-gray-800  font-light text-sm">
-            Already have an account?
-            <span className="pl-2  font-bold"> Log In </span>
+            {t("already_have_an_account")}?
+            <span className="pl-2  font-bold"> {t("sign_in")}</span>
           </div>
         </form>
       </div>
