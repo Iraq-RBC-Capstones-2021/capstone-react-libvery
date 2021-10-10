@@ -45,7 +45,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
               setIsEditImageOpen={setIsEditImageOpen}
               isEditImageOpen={isEditImageOpen}
             />
-            <form>
+            <form className="font-sans">
               <h2 className="text-black font-semibold flex justify-center mb-4 text-2xl">
                 Update Images
               </h2>

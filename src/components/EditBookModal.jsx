@@ -44,7 +44,7 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
               setIsEditBookOpen={setIsEditBookOpen}
               isEditBookOpen={isEditBookOpen}
             />
-            <form className="w-full max-w-md bg-white rounded mb-4 mt-10 sm:max-w-2xl md:max-w-md">
+            <form className="w-full max-w-md bg-white rounded mb-4 mt-10 sm:max-w-2xl md:max-w-md font-sans">
               <h2 className="text-black font-semibold flex justify-center mb-4 text-2xl">
                 Update Book Details
               </h2>
