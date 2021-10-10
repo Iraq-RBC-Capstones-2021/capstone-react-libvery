@@ -12,7 +12,7 @@ function BooksDetail() {
   const [isBookmarked, setBookmarked] = useState(false);
 
   return (
-    <div className="bg-primary min-h-screen font-sans">
+    <div className="bg-primary font-sans">
       <div className="sm:flex sm:justify-center">
         <motion.div
           initial={{ opacity: 0, y: -100 }}
@@ -90,10 +90,10 @@ function BooksDetail() {
             labore ipsam?
           </p>
           <div className="flex relative">
-            <AnimateButton classStyle="absolute left-80 bg-secondary text-white rounded-xl -top-3 cursor-pointer z-10">
+            <AnimateButton classStyle="absolute left-56 bg-secondary text-white rounded-full -top-3 cursor-pointer z-10">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-7 w-7"
+                className="md:h-6 md:w-6  h-8 w-8"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
