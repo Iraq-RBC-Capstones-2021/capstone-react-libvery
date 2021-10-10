@@ -62,13 +62,15 @@ function BooksDetail() {
           <div className="flex">
             <p className="flex-1 mb-4">
               <span className="opacity-50">Genre: </span>
-              <span className="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm">
-                Action
-              </span>{" "}
+              <AnimateButton
+                text="Action"
+                classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm"
+              />{" "}
               -{" "}
-              <span className="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm">
-                Adventure
-              </span>
+              <AnimateButton
+                text="Adventure"
+                classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm"
+              />
             </p>
             <p className="font-semibold">
               Price: <span className="">3.99$</span>
