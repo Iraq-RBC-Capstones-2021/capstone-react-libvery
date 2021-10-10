@@ -15,9 +15,9 @@ import {
   BOOKS_ROUTE,
   FAVOURITES_ROUTE,
   SIGNIN_ROUTE,
-  ERROR_ROUTE,
   PROFILE_ROUTE,
 } from "./routes";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -30,9 +30,10 @@ function App() {
         <Route path={FAVOURITES_ROUTE} component={Favourites} />
         <Route path={SIGNIN_ROUTE} component={Signup} />
         <Route path={SIGNIN_ROUTE} component={Signin} />
-        <Route path={ERROR_ROUTE} component={Error} />
         <Route path={PROFILE_ROUTE} component={Profile} />
+        <Route component={Error} />
       </Switch>
+      <Footer />
     </>
   );
 }
