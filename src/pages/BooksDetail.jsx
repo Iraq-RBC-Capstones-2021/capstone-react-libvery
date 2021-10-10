@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import book from "../assets/book.jpg";
 import { motion } from "framer-motion";
 import AnimateButton from "../components/AnimateButton";
+import coverImg from "../assets/cover.jpg";
+import page1 from "../assets/page1.png";
+import page2 from "../assets/page2.png";
+import page3 from "../assets/page3.png";
 
 function BooksDetail() {
   const [isBookmarked, setBookmarked] = useState(false);
@@ -16,7 +19,7 @@ function BooksDetail() {
         >
           <img
             className="flex-1 object-cover rounded-md"
-            src={book}
+            src={coverImg}
             alt="book"
           />
           <div className="absolute top-0 right-0 bg-red-50 rounded-bl-2xl rounded-br-2xl">
@@ -100,9 +103,21 @@ function BooksDetail() {
               </svg>
             </AnimateButton>
 
-            <img className="h-24 w-24 rounded-md mr-3" src={book} alt="book" />
-            <img className="h-24 w-24 rounded-md mr-3" src={book} alt="book" />
-            <img className="h-24 w-24 rounded-md" src={book} alt="book" />
+            <img
+              className="h-24 w-24 rounded-md mr-3"
+              src={page1}
+              alt="content preview page 1"
+            />
+            <img
+              className="h-24 w-24 rounded-md mr-3"
+              src={page2}
+              alt="content preview page 2"
+            />
+            <img
+              className="h-24 w-24 rounded-md"
+              src={page3}
+              alt="content preview page 3"
+            />
           </div>
         </motion.div>
       </div>
