@@ -20,6 +20,7 @@ import {
   ERROR_ROUTE,
   PROFILE_ROUTE,
 } from "./routes";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -34,7 +35,9 @@ function App() {
         <Route path={SIGNIN_ROUTE} component={SignIn} />
         <Route path={ERROR_ROUTE} component={Error} />
         <Route path={PROFILE_ROUTE} component={Profile} />
+        <Route component={Error} />
       </Switch>
+      <Footer />
     </>
   );
 }
