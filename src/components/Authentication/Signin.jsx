@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-// Assets
 import Google from "../../assets/Google.svg";
 import Email from "../../assets/Email.svg";
 import Key from "../../assets/Key.svg";
