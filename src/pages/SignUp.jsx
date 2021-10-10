@@ -1,9 +1,9 @@
 import React from "react";
 
-import Email from "../../assets/Email.svg";
-import Key from "../../assets/Key.svg";
-import User from "../../assets/User.svg";
-import Phone from "../../assets/Phone.svg";
+import Email from "../assets/Email.svg";
+import Key from "../assets/Key.svg";
+import User from "../assets/User.svg";
+import Phone from "../assets/Phone.svg";
 
 const Signup = () => {
   return (

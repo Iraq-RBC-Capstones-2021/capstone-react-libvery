@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import Google from "../../assets/Google.svg";
-import Email from "../../assets/Email.svg";
-import Key from "../../assets/Key.svg";
-import SigninIllustration from "../../assets/SigninIllustration.svg";
+import Google from "../assets/Google.svg";
+import Email from "../assets/Email.svg";
+import Key from "../assets/Key.svg";
+import SigninIllustration from "../assets/SigninIllustration.svg";
 
 const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
