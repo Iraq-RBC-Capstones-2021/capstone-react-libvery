@@ -5,7 +5,7 @@ import Email from "../assets/Email.svg";
 import Key from "../assets/Key.svg";
 import SigninIllustration from "../assets/SigninIllustration.svg";
 
-const Signin = () => {
+const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = (e) => {
@@ -83,4 +83,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SignIn;

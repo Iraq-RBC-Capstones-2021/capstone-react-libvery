@@ -7,8 +7,8 @@ import Error from "./pages/Error";
 import Favourites from "./pages/Favourites";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import Navbar from "./components/Navbar.jsx";
 import {
   HOME_ROUTE,
@@ -30,8 +30,8 @@ function App() {
         <Route path={ABOUT_ROUTE} component={About} />
         <Route path={BOOKS_ROUTE} component={Books} />
         <Route path={FAVOURITES_ROUTE} component={Favourites} />
-        <Route path={SIGNUP_ROUTE} component={Signup} />
-        <Route path={SIGNIN_ROUTE} component={Signin} />
+        <Route path={SIGNUP_ROUTE} component={SignUp} />
+        <Route path={SIGNIN_ROUTE} component={SignIn} />
         <Route path={ERROR_ROUTE} component={Error} />
         <Route path={PROFILE_ROUTE} component={Profile} />
       </Switch>

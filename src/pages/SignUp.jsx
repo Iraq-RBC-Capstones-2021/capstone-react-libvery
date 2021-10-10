@@ -5,7 +5,7 @@ import Key from "../assets/Key.svg";
 import User from "../assets/User.svg";
 import Phone from "../assets/Phone.svg";
 
-const Signup = () => {
+const SignUp = () => {
   return (
     <div className="min-h-screen flex  items-center md:space-x-44  justify-center flex-wrap  bg-primary font-sans ">
       <div className="bg-white m-5 p-10 md:p-16 rounded-xl shadow-2xl md:w-6/12 lg:w-5/12 ">
@@ -106,4 +106,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;
