@@ -24,7 +24,7 @@ function CloseButton({
         xmlns="http://www.w3.org/2000/svg"
         className="h-8 w-8 bg-red-500 rounded-lg absolute top-0 right-0 cursor-pointer"
         viewBox="0 0 20 20"
-        fill="currentColor"
+        fill="#fff"
         onClick={handleClose}
       >
         <path

@@ -12,12 +12,21 @@ function ContactModal({ isContactModalOpen, setIsContactModalOpen }) {
     <>
       {isContactModalOpen && (
         <Modal
-          className="bg-black mx-auto mt-40 rounded-lg text-white h-2/4 w-3/4 sm:max-w-sm"
           isOpen={isContactModalOpen}
           onRequestClose={() => setIsContactModalOpen(false)}
           style={{
             overlay: {
               backgroundColor: "rgba(0, 0, 0, 0.5)",
+            },
+            content: {
+              top: "50%",
+              left: "50%",
+              right: "auto",
+              bottom: "auto",
+              transform: "translate(-50%, -50%)",
+              border: "none",
+              borderRadius: "0",
+              backgroundColor: "transparent",
             },
           }}
         >
@@ -30,7 +39,7 @@ function ContactModal({ isContactModalOpen, setIsContactModalOpen }) {
                 duration: 0.5,
               },
             }}
-            className="flex flex-col justify-center items-center text-white sm:max-w-sm mx-auto relative"
+            className="flex flex-col justify-center items-center text-black bg-white sm:w-96 rounded-lg p-10 mx-auto relative w-80 font-sans text-sm sm:text-lg"
           >
             <CloseButton
               setIsContactModalOpen={setIsContactModalOpen}
@@ -39,15 +48,15 @@ function ContactModal({ isContactModalOpen, setIsContactModalOpen }) {
             <img
               src={defaultImage}
               alt="default"
-              className="w-32 mx-auto mt-8"
+              className="w-32 mx-auto mt-2"
             />
-            <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 rounded-md w-3/4">
+            <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 rounded-md w-4/5">
               User name
             </p>
-            <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 ms:w-1/3 rounded-md w-3/4">
+            <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 ms:w-1/3 rounded-md w-4/5">
               <a href="mailto:example@example.com">example@example.com</a>
             </p>
-            <p className="bg-gray-300 bg-opacity-25 py-1 px-3 ms:w-1/3 rounded-md w-3/4">
+            <p className="bg-gray-300 bg-opacity-25 py-1 px-3 ms:w-1/3 rounded-md w-4/5">
               <a href="tel:+9647700000000">+964770 000 00 00</a>
             </p>
           </motion.div>
