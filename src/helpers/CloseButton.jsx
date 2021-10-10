@@ -1,6 +1,18 @@
 import React from "react";
 
-function CloseButton({ setIsContactModalOpen }) {
+function CloseButton({
+  setIsContactModalOpen,
+  setIsEditBookOpen,
+  isEditBookOpen,
+}) {
+  function handleClose() {
+    if (isEditBookOpen) {
+      setIsEditBookOpen(false);
+    } else {
+      setIsContactModalOpen(false);
+    }
+  }
+
   return (
     <div>
       <svg
@@ -8,7 +20,7 @@ function CloseButton({ setIsContactModalOpen }) {
         className="h-8 w-8 bg-red-500 rounded-lg absolute top-0 right-0 cursor-pointer"
         viewBox="0 0 20 20"
         fill="currentColor"
-        onClick={() => setIsContactModalOpen(false)}
+        onClick={handleClose}
       >
         <path
           fillRule="evenodd"

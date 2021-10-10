@@ -3,10 +3,12 @@ import book from "../assets/team.svg";
 import { motion } from "framer-motion";
 import AnimateButton from "../helpers/AnimateButton";
 import ContactModal from "../components/ContactModal";
+import EditBookModal from "../components/EditBookModal";
 
 function BooksDetail() {
   const [isBookmarked, setBookmarked] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isEditBookOpen, setIsEditBookOpen] = useState(false);
 
   return (
     <div className="bg-primary min-h-screen font-sans">
@@ -47,7 +49,7 @@ function BooksDetail() {
           <div className="flex mb-4">
             <h1 className="font-semibold flex-1 text-xl">Book Title</h1>
             <AnimateButton
-              OnClickHeart={() => setIsContactModalOpen(true)}
+              OnClickContact={() => setIsContactModalOpen(true)}
               classStyle="bg-secondary text-white rounded-sm px-2 py-1"
               text="Contact Seller"
             />
@@ -58,6 +60,7 @@ function BooksDetail() {
               <span>author name</span>
             </p>
             <AnimateButton
+              OnClickContact={() => setIsEditBookOpen(true)}
               classStyle="bg-secondary text-white rounded-sm px-2 py-1"
               text="Edit"
             />
@@ -110,6 +113,10 @@ function BooksDetail() {
       <ContactModal
         isContactModalOpen={isContactModalOpen}
         setIsContactModalOpen={setIsContactModalOpen}
+      />
+      <EditBookModal
+        isEditBookOpen={isEditBookOpen}
+        setIsEditBookOpen={setIsEditBookOpen}
       />
     </div>
   );
