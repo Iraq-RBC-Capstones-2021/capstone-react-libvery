@@ -1,15 +1,20 @@
 import React from "react";
 
 function CloseButton({
+  isContactModalOpen,
   setIsContactModalOpen,
   setIsEditBookOpen,
   isEditBookOpen,
+  isEditImageOpen,
+  setIsEditImageOpen,
 }) {
   function handleClose() {
     if (isEditBookOpen) {
       setIsEditBookOpen(false);
-    } else {
+    } else if (isContactModalOpen) {
       setIsContactModalOpen(false);
+    } else if (isEditImageOpen) {
+      setIsEditImageOpen(false);
     }
   }
 

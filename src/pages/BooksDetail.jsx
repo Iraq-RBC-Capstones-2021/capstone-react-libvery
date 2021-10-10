@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 import AnimateButton from "../helpers/AnimateButton";
 import ContactModal from "../components/ContactModal";
 import EditBookModal from "../components/EditBookModal";
+import EditImageModal from "../components/EditImageModal";
 
 function BooksDetail() {
   const [isBookmarked, setBookmarked] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isEditBookOpen, setIsEditBookOpen] = useState(false);
+  const [isEditImageOpen, setIsEditImageOpen] = useState(false);
 
   return (
     <div className="bg-primary min-h-screen font-sans">
@@ -87,7 +89,10 @@ function BooksDetail() {
             labore ipsam?
           </p>
           <div className="flex relative">
-            <AnimateButton classStyle="absolute left-72 bg-secondary text-white rounded-xl -top-3 cursor-pointer">
+            <AnimateButton
+              OnClickContact={() => setIsEditImageOpen(true)}
+              classStyle="absolute left-72 bg-secondary text-white rounded-xl -top-3 cursor-pointer"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-7 w-7"
@@ -117,6 +122,10 @@ function BooksDetail() {
       <EditBookModal
         isEditBookOpen={isEditBookOpen}
         setIsEditBookOpen={setIsEditBookOpen}
+      />
+      <EditImageModal
+        isEditImageOpen={isEditImageOpen}
+        setIsEditImageOpen={setIsEditImageOpen}
       />
     </div>
   );

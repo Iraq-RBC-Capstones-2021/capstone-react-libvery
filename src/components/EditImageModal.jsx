@@ -6,13 +6,14 @@ import { motion } from "framer-motion";
 const el = document.getElementById("root");
 Modal.setAppElement(el);
 
-function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
+function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
   return (
     <>
-      {isEditBookOpen && (
+      {isEditImageOpen && (
         <Modal
-          isOpen={isEditBookOpen}
-          onRequestClose={() => setIsEditBookOpen(false)}
+          //   className="bg-green-400"
+          isOpen={isEditImageOpen}
+          onRequestClose={() => setIsEditImageOpen(false)}
           style={{
             overlay: {
               backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -41,8 +42,8 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
             className="flex flex-col justify-center items-center text-white sm:max-w-2xl bg-white rounded-lg p-10 mx-auto relative"
           >
             <CloseButton
-              setIsEditBookOpen={setIsEditBookOpen}
-              isEditBookOpen={isEditBookOpen}
+              setIsEditImageOpen={setIsEditImageOpen}
+              isEditImageOpen={isEditImageOpen}
             />
             <form className="w-full max-w-md bg-white rounded mb-4 mt-10 sm:max-w-2xl md:max-w-md">
               <h2 className="text-black font-semibold flex justify-center mb-4 text-2xl">
@@ -116,4 +117,4 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
   );
 }
 
-export default ContactModal;
+export default EditImageModal;

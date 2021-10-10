@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "react-modal";
 import defaultImage from "../assets/team.svg";
 import CloseButton from "../helpers/CloseButton";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -32,7 +32,10 @@ function ContactModal({ isContactModalOpen, setIsContactModalOpen }) {
             }}
             className="flex flex-col justify-center items-center text-white sm:max-w-sm mx-auto relative"
           >
-            <CloseButton setIsContactModalOpen={setIsContactModalOpen} />
+            <CloseButton
+              setIsContactModalOpen={setIsContactModalOpen}
+              isContactModalOpen={isContactModalOpen}
+            />
             <img
               src={defaultImage}
               alt="default"
