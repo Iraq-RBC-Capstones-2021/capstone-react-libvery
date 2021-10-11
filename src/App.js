@@ -22,7 +22,7 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <div className="bg-primary">
       <Navbar />
       <Switch>
         <Route exact path={HOME_ROUTE} component={Home} />
@@ -37,7 +37,7 @@ function App() {
       {/* This is only for preview. I will remove it once the PR is approved. */}
       <BooksDetail />
       <Footer />
-    </>
+    </div>
   );
 }
 
