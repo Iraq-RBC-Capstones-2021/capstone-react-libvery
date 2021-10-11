@@ -53,17 +53,8 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
           overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
           },
-          content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            transform: "translate(-50%, -50%)",
-            border: "none",
-            borderRadius: "0",
-            backgroundColor: "transparent",
-          },
         }}
+        className="mx-auto text-sm flex justify-center mt-10"
       >
         <motion.div
           initial={{ opacity: 0, y: "-100vh" }}
@@ -74,7 +65,7 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
               duration: 0.5,
             },
           }}
-          className="flex flex-col justify-center items-center text-white sm:max-w-2xl bg-white rounded-lg p-10 mx-auto relative"
+          className="flex flex-col justify-center items-center text-white bg-white rounded-lg relative w-80 sm:w-96"
         >
           <CloseButton
             setIsEditBookOpen={setIsEditBookOpen}
@@ -82,9 +73,9 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
           />
           <form
             onSubmit={formik.handleSubmit}
-            className="w-full max-w-md bg-white rounded mb-4 mt-10 sm:max-w-2xl md:max-w-md font-sans"
+            className="w-full max-w-md bg-white rounded mb-4 mt-10 sm:max-w-2xl md:max-w-md font-sans p-4"
           >
-            <h2 className="text-black font-semibold flex justify-center mb-4 text-2xl">
+            <h2 className="text-black font-semibold flex justify-center mb-4 text-sm sm:text-xl">
               Update Book Details
             </h2>
             {formik.touched.BookName && formik.errors.BookName ? (
