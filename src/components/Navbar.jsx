@@ -73,7 +73,7 @@ function Navbar() {
                 alt="dropdown"
               />
             </div>
-            <div className="hidden md:flex  ml-4 items-baseline">
+            <div className="hidden md:flex  ml-3 items-baseline">
               <img className="w-8" src="./user.svg" alt="avatar" />
               <h1 className="mx-2 text-black"> username</h1>
               <img className="w-5 " src="./dropdown.svg" alt="dropdown" />
