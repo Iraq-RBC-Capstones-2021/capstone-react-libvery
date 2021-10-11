@@ -3,9 +3,23 @@ import Modal from "react-modal";
 import CloseButton from "../helpers/CloseButton";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
+
+const validationSchema = Yup.object().shape({
+  BookName: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  Author: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  Genre: Yup.string().required("Required"),
+  Price: Yup.number().required("Required"),
+});
 
 const initialValues = {
   BookName: "",
@@ -16,30 +30,16 @@ const initialValues = {
   Image: "",
 };
 
-const validate = (values) => {
-  const errors = {};
-  if (!values.BookName) {
-    errors.BookName = "Book name is required";
-  }
-  if (!values.Author) {
-    errors.Author = "Author name is required";
-  }
-  if (!values.Genre) {
-    errors.Genre = "Genre is required";
-  }
-  if (!values.Price) {
-    errors.Price = "Price is required";
-  }
-  return errors;
-};
-
 function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
   const formik = useFormik({
     initialValues,
-    onSubmit: (values) => {
-      console.log(values);
+    validationSchema,
+    onSubmit: (values, actions) => {
+      setTimeout(() => {
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }, 1000);
     },
-    validate,
   });
 
   console.log(formik.errors);
@@ -98,6 +98,7 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
                   value={formik.values.BookName}
                   name="BookName"
                   onBlur={formik.handleBlur}
+                  autoComplete="off"
                 />
                 <p className="text-xs text-red-400 -mt-2 mb-2">
                   {formik.errors.BookName}
@@ -113,6 +114,7 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
                 value={formik.values.BookName}
                 name="BookName"
                 onBlur={formik.handleBlur}
+                autoComplete="off"
               />
             )}
             {formik.touched.Author && formik.errors.Author ? (
@@ -126,6 +128,7 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
                   value={formik.values.Author}
                   name="Author"
                   onBlur={formik.handleBlur}
+                  autoComplete="off"
                 />
                 <p className="text-xs text-red-400 -mt-2 mb-2">
                   {formik.errors.Author}
@@ -141,6 +144,7 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
                 value={formik.values.Author}
                 name="Author"
                 onBlur={formik.handleBlur}
+                autoComplete="off"
               />
             )}
             {formik.touched.Genre && formik.errors.Genre ? (
@@ -154,6 +158,7 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
                   value={formik.values.Genre}
                   name="Genre"
                   onBlur={formik.handleBlur}
+                  autoComplete="off"
                 />
                 <p className="text-xs text-red-400 -mt-2 mb-2">
                   {formik.errors.Genre}
@@ -169,6 +174,7 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
                 value={formik.values.Genre}
                 name="Genre"
                 onBlur={formik.handleBlur}
+                autoComplete="off"
               />
             )}
             {formik.touched.Price && formik.errors.Price ? (
@@ -182,6 +188,7 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
                   value={formik.values.Price}
                   name="Price"
                   onBlur={formik.handleBlur}
+                  autoComplete="off"
                 />
                 <p className="text-xs text-red-400 -mt-2 mb-2">
                   {formik.errors.Price}
@@ -197,6 +204,7 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
                 value={formik.values.Price}
                 name="Price"
                 onBlur={formik.handleBlur}
+                autoComplete="off"
               />
             )}
 
@@ -211,6 +219,7 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
                   placeholder="Description"
                   onChange={formik.handleChange}
                   value={formik.values.Description}
+                  autoComplete="off"
                 ></textarea>
                 <p className="text-xs text-red-400 -mt-2 mb-2">
                   {formik.errors.Description}
@@ -226,6 +235,7 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
                 placeholder="Description"
                 onChange={formik.handleChange}
                 value={formik.values.Description}
+                autoComplete="off"
               ></textarea>
             )}
             <label className="w-60 text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary justify-center">
