@@ -42,8 +42,6 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
     },
   });
 
-  console.log(formik.errors);
-
   return (
     <>
       <Modal
