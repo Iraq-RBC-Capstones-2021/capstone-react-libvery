@@ -6,31 +6,23 @@ import Email from "../assets/Email.svg";
 import Key from "../assets/Key.svg";
 import User from "../assets/User.svg";
 import Phone from "../assets/Phone.svg";
+import * as Yup from "yup";
 
-const validate = (values) => {
-  const errors = {};
-
-  if (!values.userName) {
-    errors.userName = "Required";
-  }
-  if (!values.email) {
-    errors.email = "Required";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = "Invalid email address";
-  }
-  if (!values.password) {
-    errors.password = "Required";
-  } else if (values.password.length < 8) {
-    errors.password = "Password should be at least 8 characters ";
-  }
-  if (!values.confirmPassword) {
-    errors.confirmPassword = "Required";
-  } else if (values.confirmPassword !== values.password) {
-    errors.confirmPassword = "Password don't match";
-  }
-
-  return errors;
-};
+const validationSchema = Yup.object().shape({
+  userName: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  email: Yup.string().email("invalid email").required("Required"),
+  password: Yup.string()
+    .required("No password provided.")
+    .min(8, "Password is too short - should be 8 chars minimum.")
+    .matches(/(?=.*[0-9])/, "Password must contain a number."),
+  confirmPassword: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "Passwords must match"
+  ),
+});
 
 const SignUp = () => {
   const formik = useFormik({
@@ -40,10 +32,10 @@ const SignUp = () => {
       password: "",
       confirmPassword: "",
     },
-    validate,
-    // onSubmit: values => {
-    //   alert(JSON.stringify(values, null, 2));
-    // },
+    validationSchema,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 10));
+    },
   });
   return (
     <div className="min-h-screen flex  items-center md:space-x-44  justify-center flex-wrap  bg-primary font-sans ">
