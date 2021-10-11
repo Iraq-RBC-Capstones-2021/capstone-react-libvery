@@ -13,7 +13,7 @@ import {
 function Footer() {
   return (
     <footer>
-      <div className="px-10 bg-gray-200 text-black">
+      <div className="px-10 py-1 bg-gray-200 text-black">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 gap-x-40 ">
             <div className="mb-5 flex flex-col justify-around items-center">
