@@ -93,7 +93,7 @@ function BooksDetail() {
             <AnimateButton classStyle="absolute left-56 bg-secondary text-white rounded-full -top-3 cursor-pointer z-10">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="md:h-6 md:w-6  h-8 w-8"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
