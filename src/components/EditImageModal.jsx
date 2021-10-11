@@ -69,7 +69,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 bg-black rounded-full mb-4"
+                  className="h-6 w-6 bg-black rounded-full mb-4 cursor-pointer"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -83,7 +83,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
                 </svg>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 bg-black rounded-full"
+                  className="h-6 w-6 bg-black rounded-full cursor-pointer"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -119,7 +119,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 bg-black rounded-full mb-4"
+                  className="h-6 w-6 bg-black rounded-full mb-4 cursor-pointer"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -133,7 +133,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
                 </svg>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 bg-black rounded-full"
+                  className="h-6 w-6 bg-black rounded-full cursor-pointer"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -169,7 +169,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 bg-black rounded-full mb-4"
+                  className="h-6 w-6 bg-black rounded-full mb-4 cursor-pointer"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -183,7 +183,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
                 </svg>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 bg-black rounded-full"
+                  className="h-6 w-6 bg-black rounded-full cursor-pointer"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
