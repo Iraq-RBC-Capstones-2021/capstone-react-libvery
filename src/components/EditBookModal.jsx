@@ -21,16 +21,27 @@ const validationSchema = Yup.object().shape({
   Price: Yup.number().required("Required"),
 });
 
-const initialValues = {
-  BookName: "",
-  Author: "",
-  Genre: "",
-  Price: "",
-  Description: "",
-  Image: "",
-};
+function EditBookModal({
+  isEditBookOpen,
+  setIsEditBookOpen,
+  id,
+  author,
+  title,
+  genre,
+  price,
+  description,
+  image,
+  rating,
+}) {
+  const initialValues = {
+    BookName: title,
+    Author: author,
+    Genre: genre,
+    Price: price,
+    Description: description,
+    Image: "",
+  };
 
-function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -262,4 +273,4 @@ function ContactModal({ isEditBookOpen, setIsEditBookOpen }) {
   );
 }
 
-export default ContactModal;
+export default EditBookModal;

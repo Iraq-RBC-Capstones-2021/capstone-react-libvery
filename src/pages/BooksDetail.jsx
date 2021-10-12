@@ -6,6 +6,18 @@ import ContactModal from "../components/ContactModal";
 import EditBookModal from "../components/EditBookModal";
 import EditImageModal from "../components/EditImageModal";
 
+const bookInfo = {
+  image: "a URL",
+  id: "1",
+  rating: "4",
+  title: "Book Title",
+  author: "author name",
+  genre: "Action",
+  price: "3.99$",
+  description:
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam esse cupiditate amet dolor quasi eius, itaque fuga, adipisci magnam vel cumque? Ex cupiditate inventore obcaecati doloremque expedita iusto labore ipsam?",
+};
+
 function BooksDetail() {
   const [isBookmarked, setBookmarked] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -122,6 +134,7 @@ function BooksDetail() {
       <EditBookModal
         isEditBookOpen={isEditBookOpen}
         setIsEditBookOpen={setIsEditBookOpen}
+        {...bookInfo}
       />
       <EditImageModal
         isEditImageOpen={isEditImageOpen}
