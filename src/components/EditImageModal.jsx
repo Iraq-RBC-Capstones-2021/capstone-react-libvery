@@ -2,16 +2,24 @@ import React from "react";
 import Modal from "react-modal";
 import CloseButton from "../helpers/CloseButton";
 import { motion } from "framer-motion";
+import { useHistory } from "react-router-dom";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
 
 function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
+  const history = useHistory();
+
+  const handleClose = () => {
+    setIsEditImageOpen(false);
+    history.goBack();
+  };
+
   return (
     <>
       <Modal
         isOpen={isEditImageOpen}
-        onRequestClose={() => setIsEditImageOpen(false)}
+        onRequestClose={() => handleClose()}
         style={{
           overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.5)",

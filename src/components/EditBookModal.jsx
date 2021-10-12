@@ -4,6 +4,7 @@ import CloseButton from "../helpers/CloseButton";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useHistory } from "react-router-dom";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -53,11 +54,18 @@ function EditBookModal({
     },
   });
 
+  const history = useHistory();
+
+  const handleClose = () => {
+    setIsEditBookOpen(false);
+    history.goBack();
+  };
+
   return (
     <>
       <Modal
         isOpen={isEditBookOpen}
-        onRequestClose={() => setIsEditBookOpen(false)}
+        onRequestClose={() => handleClose()}
         style={{
           overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.5)",

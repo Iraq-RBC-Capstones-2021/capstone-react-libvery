@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import defaultImage from "../assets/team.svg";
 import CloseButton from "../helpers/CloseButton";
 import { motion } from "framer-motion";
+import { useHistory } from "react-router-dom";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -14,11 +15,18 @@ function ContactModal({
   email,
   sellerUsername,
 }) {
+  const history = useHistory();
+
+  const handleClose = () => {
+    setIsContactModalOpen(false);
+    history.goBack();
+  };
+
   return (
     <>
       <Modal
         isOpen={isContactModalOpen}
-        onRequestClose={() => setIsContactModalOpen(false)}
+        onRequestClose={() => handleClose()}
         style={{
           overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
