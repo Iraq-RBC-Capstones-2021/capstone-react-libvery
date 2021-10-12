@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 function CloseButton({
   isContactModalOpen,
@@ -8,11 +9,14 @@ function CloseButton({
   isEditImageOpen,
   setIsEditImageOpen,
 }) {
+  const history = useHistory();
+
   function handleClose() {
     if (isEditBookOpen) {
       setIsEditBookOpen(false);
     } else if (isContactModalOpen) {
       setIsContactModalOpen(false);
+      history.goBack();
     } else if (isEditImageOpen) {
       setIsEditImageOpen(false);
     }

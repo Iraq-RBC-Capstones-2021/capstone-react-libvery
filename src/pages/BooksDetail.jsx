@@ -5,6 +5,7 @@ import AnimateButton from "../helpers/AnimateButton";
 import ContactModal from "../components/ContactModal";
 import EditBookModal from "../components/EditBookModal";
 import EditImageModal from "../components/EditImageModal";
+import { Route, Link } from "react-router-dom";
 
 const bookInfo = {
   image: "a URL",
@@ -21,11 +22,13 @@ const bookInfo = {
   phone: "+9647700000000",
 };
 
-function BooksDetail() {
+function BooksDetail({ match }) {
   const [isBookmarked, setBookmarked] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isEditBookOpen, setIsEditBookOpen] = useState(false);
   const [isEditImageOpen, setIsEditImageOpen] = useState(false);
+
+  const matchURL = match.url;
 
   return (
     <div className="bg-primary min-h-screen font-sans">
@@ -65,10 +68,27 @@ function BooksDetail() {
         >
           <div className="flex mb-4">
             <h1 className="font-semibold flex-1 text-xl">Book Title</h1>
-            <AnimateButton
-              OnClickContact={() => setIsContactModalOpen(true)}
-              classStyle="bg-secondary text-white rounded-sm px-2 py-1"
-              text="Contact Seller"
+            <Link
+              to={`${matchURL}/seller-info`}
+              onClick={() => setIsContactModalOpen(true)}
+            >
+              <AnimateButton
+                OnClickContact={() => setIsContactModalOpen(true)}
+                classStyle="bg-secondary text-white rounded-sm px-2 py-1"
+                text="Contact Seller"
+              />
+            </Link>
+            <Route
+              path={`${matchURL}/seller-info`}
+              render={() => (
+                <ContactModal
+                  isContactModalOpen={isContactModalOpen}
+                  setIsContactModalOpen={setIsContactModalOpen}
+                  sellerUsername={bookInfo.sellerUsername}
+                  email={bookInfo.email}
+                  phone={bookInfo.phone}
+                />
+              )}
             />
           </div>
           <div className="flex mb-4">
@@ -130,13 +150,6 @@ function BooksDetail() {
           </div>
         </motion.div>
       </div>
-      <ContactModal
-        isContactModalOpen={isContactModalOpen}
-        setIsContactModalOpen={setIsContactModalOpen}
-        sellerUsername={bookInfo.sellerUsername}
-        email={bookInfo.email}
-        phone={bookInfo.phone}
-      />
       <EditBookModal
         isEditBookOpen={isEditBookOpen}
         setIsEditBookOpen={setIsEditBookOpen}
