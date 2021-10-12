@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Modal from "react-modal";
 import defaultImage from "../assets/team.svg";
 import CloseButton from "../helpers/CloseButton";
@@ -14,23 +14,27 @@ function ContactModal({
   email,
   sellerUsername,
 }) {
-  useEffect(() => {
-    if (isContactModalOpen) {
-      document.body.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("bg-green-400");
-    }
-
-    return () => {
-      document.body.classList.remove("overflow-hidden");
-    };
-  }, [isContactModalOpen]);
-
-  if (!isContactModalOpen) return null;
-
   return (
     <>
-      <div className="absolute inset-0 bg-black bg-opacity-75 w-full h-screen z-10 flex items-center justify-center">
+      <Modal
+        isOpen={isContactModalOpen}
+        onRequestClose={() => setIsContactModalOpen(false)}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          },
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            border: "none",
+            borderRadius: "0",
+            backgroundColor: "transparent",
+          },
+        }}
+      >
         <motion.div
           initial={{ opacity: 0, y: "-100vh" }}
           animate={{
@@ -57,7 +61,7 @@ function ContactModal({
             <a href={`tel:${phone}`}>{phone}</a>
           </p>
         </motion.div>
-      </div>
+      </Modal>
     </>
   );
 }
