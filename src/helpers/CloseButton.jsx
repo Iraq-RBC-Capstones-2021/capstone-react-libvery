@@ -20,6 +20,7 @@ function CloseButton({
       history.goBack();
     } else if (isEditImageOpen) {
       setIsEditImageOpen(false);
+      history.goBack();
     }
   }
 

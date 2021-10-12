@@ -136,36 +136,42 @@ function BooksDetail({ match }) {
             labore ipsam?
           </p>
           <div className="flex relative">
-            <AnimateButton
-              OnClickContact={() => setIsEditImageOpen(true)}
-              classStyle="absolute left-72 bg-secondary text-white rounded-xl -top-3 cursor-pointer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-7 w-7"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+            <Link to={`${matchURL}/edit-image`}>
+              <AnimateButton
+                OnClickContact={() => setIsEditImageOpen(true)}
+                classStyle="absolute left-72 bg-secondary text-white rounded-xl -top-3 cursor-pointer"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-7 w-7"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                  />
+                </svg>
+              </AnimateButton>
+            </Link>
+            <Route
+              path={`${matchURL}/edit-image`}
+              render={() => (
+                <EditImageModal
+                  isEditImageOpen={isEditImageOpen}
+                  setIsEditImageOpen={setIsEditImageOpen}
                 />
-              </svg>
-            </AnimateButton>
-
+              )}
+            />
             <img className="h-24 w-24 rounded-md mr-3" src={book} alt="book" />
             <img className="h-24 w-24 rounded-md mr-3" src={book} alt="book" />
             <img className="h-24 w-24 rounded-md" src={book} alt="book" />
           </div>
         </motion.div>
       </div>
-      <EditImageModal
-        isEditImageOpen={isEditImageOpen}
-        setIsEditImageOpen={setIsEditImageOpen}
-      />
     </div>
   );
 }
