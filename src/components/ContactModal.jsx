@@ -7,7 +7,13 @@ import { motion } from "framer-motion";
 const el = document.getElementById("root");
 Modal.setAppElement(el);
 
-function ContactModal({ isContactModalOpen, setIsContactModalOpen }) {
+function ContactModal({
+  isContactModalOpen,
+  setIsContactModalOpen,
+  phone,
+  email,
+  sellerUsername,
+}) {
   return (
     <>
       <Modal
@@ -46,13 +52,13 @@ function ContactModal({ isContactModalOpen, setIsContactModalOpen }) {
           />
           <img src={defaultImage} alt="default" className="w-32 mx-auto mt-2" />
           <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 rounded-md w-4/5">
-            User name
+            {sellerUsername}
           </p>
           <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 ms:w-1/3 rounded-md w-4/5">
-            <a href="mailto:example@example.com">example@example.com</a>
+            <a href={`mailto:${email}`}>{email}</a>
           </p>
           <p className="bg-gray-300 bg-opacity-25 py-1 px-3 ms:w-1/3 rounded-md w-4/5">
-            <a href="tel:+9647700000000">+964770 000 00 00</a>
+            <a href={`tel:${phone}`}>{phone}</a>
           </p>
         </motion.div>
       </Modal>

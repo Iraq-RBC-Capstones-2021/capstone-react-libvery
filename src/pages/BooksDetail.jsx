@@ -16,6 +16,9 @@ const bookInfo = {
   price: "3.99$",
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam esse cupiditate amet dolor quasi eius, itaque fuga, adipisci magnam vel cumque? Ex cupiditate inventore obcaecati doloremque expedita iusto labore ipsam?",
+  sellerUsername: "Seller Username",
+  email: "example@example.com",
+  phone: "+9647700000000",
 };
 
 function BooksDetail() {
@@ -130,6 +133,9 @@ function BooksDetail() {
       <ContactModal
         isContactModalOpen={isContactModalOpen}
         setIsContactModalOpen={setIsContactModalOpen}
+        sellerUsername={bookInfo.sellerUsername}
+        email={bookInfo.email}
+        phone={bookInfo.phone}
       />
       <EditBookModal
         isEditBookOpen={isEditBookOpen}
