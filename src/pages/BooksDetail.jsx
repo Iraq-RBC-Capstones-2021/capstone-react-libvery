@@ -96,10 +96,22 @@ function BooksDetail({ match }) {
               <span className="opacity-50">Author:</span>{" "}
               <span>author name</span>
             </p>
-            <AnimateButton
-              OnClickContact={() => setIsEditBookOpen(true)}
-              classStyle="bg-secondary text-white rounded-sm px-2 py-1"
-              text="Edit"
+            <Link to={`${matchURL}/edit-book`}>
+              <AnimateButton
+                OnClickContact={() => setIsEditBookOpen(true)}
+                classStyle="bg-secondary text-white rounded-sm px-2 py-1"
+                text="Edit"
+              />
+            </Link>
+            <Route
+              path={`${matchURL}/edit-book`}
+              render={() => (
+                <EditBookModal
+                  isEditBookOpen={isEditBookOpen}
+                  setIsEditBookOpen={setIsEditBookOpen}
+                  {...bookInfo}
+                />
+              )}
             />
           </div>
           <div className="flex">
@@ -150,11 +162,6 @@ function BooksDetail({ match }) {
           </div>
         </motion.div>
       </div>
-      <EditBookModal
-        isEditBookOpen={isEditBookOpen}
-        setIsEditBookOpen={setIsEditBookOpen}
-        {...bookInfo}
-      />
       <EditImageModal
         isEditImageOpen={isEditImageOpen}
         setIsEditImageOpen={setIsEditImageOpen}

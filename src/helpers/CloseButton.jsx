@@ -14,6 +14,7 @@ function CloseButton({
   function handleClose() {
     if (isEditBookOpen) {
       setIsEditBookOpen(false);
+      history.goBack();
     } else if (isContactModalOpen) {
       setIsContactModalOpen(false);
       history.goBack();
