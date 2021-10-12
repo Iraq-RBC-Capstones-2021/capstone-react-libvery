@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import defaultImage from "../assets/team.svg";
-import CloseButton from "../helpers/CloseButton";
+import CloseButton from "../customs/CloseButton";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
 

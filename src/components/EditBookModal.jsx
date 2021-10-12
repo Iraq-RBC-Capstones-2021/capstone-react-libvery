@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-import CloseButton from "../helpers/CloseButton";
+import CloseButton from "../customs/CloseButton";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import * as Yup from "yup";

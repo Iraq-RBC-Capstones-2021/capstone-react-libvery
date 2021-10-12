@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import book from "../assets/team.svg";
 import { motion } from "framer-motion";
-import AnimateButton from "../helpers/AnimateButton";
+import AnimateButton from "../customs/AnimateButton";
 import ContactModal from "../components/ContactModal";
 import EditBookModal from "../components/EditBookModal";
 import EditImageModal from "../components/EditImageModal";
