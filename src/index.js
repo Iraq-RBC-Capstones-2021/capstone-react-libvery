@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { Provider } from "react-redux";
@@ -17,24 +17,28 @@ i18n
   .use(LanguageDetector)
   .use(HttpApi)
   .init({
-    supportedLngs: ["en", "ar", "kurd"],
+    supportedLngs: ["en", "ar", "ku"],
     fallbackLng: "en",
     detection: {
       order: ["cookie", "htmlTag", "localStorage", "path", "subdomain"],
       caches: ["cookie"],
     },
     backend: { loadPath: "assets/locales/{{lng}}/translation.json" },
-    react: { useSuspense: false },
   });
 
+// this is to prevent the default json keys to render when you refresh the app
+const Loading = () => <div>Loading...</div>;
+
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </Router>
-  </React.StrictMode>,
+  <Suspense fallback={Loading}>
+    <React.StrictMode>
+      <Router>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </Router>
+    </React.StrictMode>
+  </Suspense>,
   document.getElementById("root")
 );
 
