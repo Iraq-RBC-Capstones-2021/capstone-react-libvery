@@ -58,19 +58,32 @@ function Footer() {
                 </Link>
               </div>
               <div className="flex flex-col justify-end items-center mt-10 md:mt-16 mb-5">
-                <p className=" pb-1 md:mr-24 ">Never miss an update</p>
-
                 <div className="flex items-center md:mr-2">
-                  <input
-                    type="text"
-                    className="w-52 h-7 pl-1"
-                    name="newsletter"
-                    id="newsletter"
-                    placeholder="Subscribe to our newsletter"
-                  />
-                  <button className="bg-blue-500 w-8 h-7 border-8 border-solid border-blue-500 flex justify-center items-center">
-                    <GiCheckMark color="white" />
-                  </button>
+                  <div className="m-3 relative">
+                    <label className="block text-gray-700 text-sm font-bold">
+                      Never miss an update
+                    </label>
+                    <input
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      id="username"
+                      type="text"
+                      placeholder="Subscribe"
+                    />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="cursor-pointer w-8 h-8 absolute top-2/3 transform -translate-y-1/2 right-0"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
@@ -89,10 +102,10 @@ function Footer() {
                   <FaGithub size="1.7rem" />
                 </a>
               </div>
-              <select className="my-5 lg:mt-16 self-center" id="lang-dropdown">
-                <option value="english">EN</option>
-                <option value="arabic">AR</option>
-                <option value="kurdish">KU</option>
+              <select className="my-5 lg:mt-16 w-32 mx-auto border-gray-300 rounded-md">
+                <option value="english">English</option>
+                <option value="arabic">Arabic</option>
+                <option value="kurdish">Kurdish</option>
               </select>
             </div>
           </div>
