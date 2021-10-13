@@ -1,7 +1,7 @@
 import React from "react";
 import projectLogo from "../assets/projectLogo.svg";
 import { FaFacebook, FaInstagram, FaTwitter, FaGithub } from "react-icons/fa";
-import { GiCheckMark } from "react-icons/gi";
+import checkIcon from "../assets/check.svg";
 import { Link } from "react-router-dom";
 import {
   HOME_ROUTE,
@@ -69,20 +69,11 @@ function Footer() {
                       type="text"
                       placeholder="Subscribe"
                     />
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="cursor-pointer w-8 h-8 absolute top-2/3 transform -translate-y-1/2 right-0"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
+                    <img
+                      src={checkIcon}
+                      alt="checkmark icon"
+                      className="cursor-pointer absolute top-5 right-0 bg-blue-400 h-2/3 w-10 rounded-tl-none rounded-bl-none rounded-md"
+                    />
                   </div>
                 </div>
               </div>

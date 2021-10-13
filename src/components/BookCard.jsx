@@ -41,7 +41,7 @@ function BookCard({ image, genres, title, price, rating }) {
   }
 
   const genreButtons = genres.map((genre, index) => {
-    return createGenreButton(genre, index);
+    return <div key={index}>{createGenreButton(genre, index)}</div>;
   });
 
   return (
