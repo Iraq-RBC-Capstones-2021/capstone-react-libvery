@@ -64,7 +64,7 @@ function Footer() {
                       Never miss an update
                     </label>
                     <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      className="shadow border rounded w-72 text-gray-700 leading-tight focus:outline-none focus:shadow-outline py-1"
                       id="username"
                       type="text"
                       placeholder="Subscribe"
@@ -72,7 +72,7 @@ function Footer() {
                     <img
                       src={checkIcon}
                       alt="checkmark icon"
-                      className="cursor-pointer absolute top-5 right-0 bg-blue-400 h-2/3 w-10 rounded-tl-none rounded-bl-none rounded-md"
+                      className="cursor-pointer absolute top-5 right-0 bg-blue-400 h-3/5 w-8 rounded-tl-none rounded-bl-none rounded-md"
                     />
                   </div>
                 </div>
