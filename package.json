@@ -3,6 +3,7 @@
   "version": "1.22.15",
   "private": true,
   "dependencies": {
+    "3d-react-carousal": "^4.0.2",
     "@craco/craco": "^6.3.0",
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^4.2.4",
