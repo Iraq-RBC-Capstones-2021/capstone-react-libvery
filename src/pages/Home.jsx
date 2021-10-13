@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import HomeSlides from "./HomeSlides";
+import HomeSlides from "../components/HomeSlides";
 import homeIllustration from "../assets/homeIllustration.svg";
 
 import { BOOKS_ROUTE } from "../routes";

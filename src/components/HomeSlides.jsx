@@ -2,6 +2,7 @@ import React from "react";
 import { Carousel } from "3d-react-carousal";
 import "./style.css";
 const HomeSlides = () => {
+  // TODO: get the books images as a prop from the parent (Home)
   let slides = [
     <img
       src="https://static.vecteezy.com/system/resources/thumbnails/000/217/193/small_2x/motivational-book-cover-with-hand-lettering.jpg"
