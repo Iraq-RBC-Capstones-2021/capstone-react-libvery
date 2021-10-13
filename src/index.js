@@ -11,6 +11,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
+import Loader from "./components/Loader";
 
 i18n
   .use(initReactI18next)
@@ -26,11 +27,8 @@ i18n
     backend: { loadPath: "assets/locales/{{lng}}/translation.json" },
   });
 
-// this is to prevent the default json keys to render when you refresh the app
-const Loading = () => <div>Loading...</div>;
-
 ReactDOM.render(
-  <Suspense fallback={Loading}>
+  <Suspense fallback={<Loader />}>
     <React.StrictMode>
       <Router>
         <Provider store={store}>
