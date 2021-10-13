@@ -1,5 +1,6 @@
 import React from "react";
 import i18next from "i18next";
+import cookie from "js-cookie";
 
 const Languages = () => {
   const languages = [
@@ -19,14 +20,19 @@ const Languages = () => {
     },
   ];
 
+  const currentLanguageCode = cookie.get("i18next") || "en";
+  const currentLanguage = languages.find(
+    (lan) => lan.code === currentLanguageCode
+  );
+
   return (
     <select
       className="my-5 outline-none rounded-sm lg:mt-16 self-center"
-      id="lang-dropdown"
       onChange={(e) => i18next.changeLanguage(e.target.value)}
+      value={currentLanguage.code}
     >
-      {languages.map(({ code, name, dir }) => (
-        <option key={code} value={code} dir={dir}>
+      {languages.map(({ code, name }) => (
+        <option key={code} value={code}>
           {name}
         </option>
       ))}
