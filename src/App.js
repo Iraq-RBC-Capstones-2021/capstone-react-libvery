@@ -24,7 +24,7 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <div className="bg-primary">
       <Navbar />
       <Switch>
         <Route exact path={HOME_ROUTE} component={Home} />
@@ -38,7 +38,7 @@ function App() {
         <Route component={Error} />
       </Switch>
       <Footer />
-    </>
+    </div>
   );
 }
 
