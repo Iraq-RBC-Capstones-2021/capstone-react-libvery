@@ -16,7 +16,7 @@ function Profile(props) {
         width="200em"
       />
       <p className="text-center text-xl  font-sans text-gray-500 ">@Username</p>
-      <div className="flex justify-between bg-white rounded-xl items-center">
+      <div className="flex justify-between bg-white rounded-xl items-center sm:max-w-lg mx-auto">
         <NavLink
           to={`${match}/favourites`}
           activeStyle={{
