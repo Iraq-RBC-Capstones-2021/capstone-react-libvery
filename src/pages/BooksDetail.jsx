@@ -7,6 +7,7 @@ import page2 from "../assets/page2.png";
 import page3 from "../assets/page3.png";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
+import { BiEdit } from "react-icons/bi";
 
 function BooksDetail() {
   const [isBookmarked, setBookmarked] = useState(false);
@@ -90,21 +91,8 @@ function BooksDetail() {
             labore ipsam?
           </p>
           <div className="flex relative">
-            <AnimateButton classStyle="absolute left-56 bg-secondary text-white rounded-full -top-3 cursor-pointer z-10">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                />
-              </svg>
+            <AnimateButton classStyle="absolute left-56 bg-secondary text-white rounded-lg -top-3 cursor-pointer z-10">
+              <BiEdit size={20} />
             </AnimateButton>
 
             <Zoom>
