@@ -1,16 +1,39 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import AnimateButton from "../components/AnimateButton";
+import AnimateButton from "../customs/AnimateButton";
+import ContactModal from "../components/ContactModal";
+import EditBookModal from "../components/EditBookModal";
+import EditImageModal from "../components/EditImageModal";
 import coverImg from "../assets/cover.jpg";
 import page1 from "../assets/page1.png";
 import page2 from "../assets/page2.png";
 import page3 from "../assets/page3.png";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import { BiEdit } from "react-icons/bi";
+import { Route, Link } from "react-router-dom";
 
-function BooksDetail() {
+const bookInfo = {
+  image: "a URL",
+  id: "1",
+  rating: "4",
+  title: "Book Title",
+  author: "author name",
+  genre: "Action",
+  price: "3.99$",
+  description:
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam esse cupiditate amet dolor quasi eius, itaque fuga, adipisci magnam vel cumque? Ex cupiditate inventore obcaecati doloremque expedita iusto labore ipsam?",
+  sellerUsername: "Seller Username",
+  email: "example@example.com",
+  phone: "+9647700000000",
+};
+
+function BooksDetail({ match }) {
   const [isBookmarked, setBookmarked] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isEditBookOpen, setIsEditBookOpen] = useState(false);
+  const [isEditImageOpen, setIsEditImageOpen] = useState(false);
+
+  const matchURL = match.url;
 
   return (
     <div className="bg-primary font-sans">
@@ -52,9 +75,27 @@ function BooksDetail() {
         >
           <div className="flex mb-4">
             <h1 className="font-semibold flex-1 text-xl">Book Title</h1>
-            <AnimateButton
-              classStyle="bg-secondary text-white rounded-sm px-2 py-1"
-              text="Contact Seller"
+            <Link
+              to={`${matchURL}/seller-info`}
+              onClick={() => setIsContactModalOpen(true)}
+            >
+              <AnimateButton
+                OnClickContact={() => setIsContactModalOpen(true)}
+                classStyle="bg-secondary text-white rounded-sm px-2 py-1"
+                text="Contact Seller"
+              />
+            </Link>
+            <Route
+              path={`${matchURL}/seller-info`}
+              render={() => (
+                <ContactModal
+                  isContactModalOpen={isContactModalOpen}
+                  setIsContactModalOpen={setIsContactModalOpen}
+                  sellerUsername={bookInfo.sellerUsername}
+                  email={bookInfo.email}
+                  phone={bookInfo.phone}
+                />
+              )}
             />
           </div>
           <div className="flex mb-4">
@@ -62,9 +103,22 @@ function BooksDetail() {
               <span className="opacity-50">Author:</span>{" "}
               <span>author name</span>
             </p>
-            <AnimateButton
-              classStyle="bg-secondary text-white rounded-sm px-2 py-1"
-              text="Edit"
+            <Link to={`${matchURL}/edit-book`}>
+              <AnimateButton
+                OnClickContact={() => setIsEditBookOpen(true)}
+                classStyle="bg-secondary text-white rounded-sm px-2 py-1"
+                text="Edit"
+              />
+            </Link>
+            <Route
+              path={`${matchURL}/edit-book`}
+              render={() => (
+                <EditBookModal
+                  isEditBookOpen={isEditBookOpen}
+                  setIsEditBookOpen={setIsEditBookOpen}
+                  {...bookInfo}
+                />
+              )}
             />
           </div>
           <div className="flex">
@@ -91,10 +145,36 @@ function BooksDetail() {
             labore ipsam?
           </p>
           <div className="flex relative">
-            <AnimateButton classStyle="absolute left-56 bg-secondary text-white rounded-lg -top-3 cursor-pointer z-10">
-              <BiEdit size={20} />
-            </AnimateButton>
-
+            <Link to={`${matchURL}/edit-image`}>
+              <AnimateButton
+                OnClickContact={() => setIsEditImageOpen(true)}
+                classStyle="absolute left-60 bg-secondary text-white rounded-xl -top-3 cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                  />
+                </svg>
+              </AnimateButton>
+            </Link>
+            <Route
+              path={`${matchURL}/edit-image`}
+              render={() => (
+                <EditImageModal
+                  isEditImageOpen={isEditImageOpen}
+                  setIsEditImageOpen={setIsEditImageOpen}
+                />
+              )}
+            />
             <Zoom>
               <img
                 className="h-44 w-28 rounded-md mr-3"
@@ -109,13 +189,11 @@ function BooksDetail() {
                 alt="content preview page 2"
               />
             </Zoom>
-            <Zoom>
-              <img
-                className="h-44 w-28 rounded-md"
-                src={page3}
-                alt="content preview page 3"
-              />
-            </Zoom>
+            <img
+              className="h-44 w-28 rounded-md"
+              src={page3}
+              alt="content preview page 3"
+            />
           </div>
         </motion.div>
       </div>
