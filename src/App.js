@@ -25,7 +25,7 @@ import {
 
 function App() {
   return (
-    <>
+    <div className="bg-primary">
       <Navbar />
       <Switch>
         <Route path={ABOUT_ROUTE} component={About} />
@@ -39,7 +39,7 @@ function App() {
         <Route component={Error} />
       </Switch>
       <Footer />
-    </>
+    </div>
   );
 }
 
