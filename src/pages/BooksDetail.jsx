@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import book from "../assets/team.svg";
 import { motion } from "framer-motion";
 import AnimateButton from "../customs/AnimateButton";
 import ContactModal from "../components/ContactModal";
 import EditBookModal from "../components/EditBookModal";
 import EditImageModal from "../components/EditImageModal";
+import coverImg from "../assets/cover.jpg";
+import page1 from "../assets/page1.png";
+import page2 from "../assets/page2.png";
+import page3 from "../assets/page3.png";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 import { Route, Link } from "react-router-dom";
 
 const bookInfo = {
@@ -31,18 +36,20 @@ function BooksDetail({ match }) {
   const matchURL = match.url;
 
   return (
-    <div className="bg-primary min-h-screen font-sans">
+    <div className="bg-primary font-sans">
       <div className="sm:flex sm:justify-center">
         <motion.div
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
           className="relative m-4 flex"
         >
-          <img
-            className="flex-1 object-cover rounded-md"
-            src={book}
-            alt="book"
-          />
+          <Zoom>
+            <img
+              className="flex-1 object-cover rounded-md"
+              src={coverImg}
+              alt="book"
+            />
+          </Zoom>
           <div className="absolute top-0 right-0 bg-red-50 rounded-bl-2xl rounded-br-2xl">
             <AnimateButton>
               <svg
@@ -117,13 +124,15 @@ function BooksDetail({ match }) {
           <div className="flex">
             <p className="flex-1 mb-4">
               <span className="opacity-50">Genre: </span>
-              <span className="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm">
-                Action
-              </span>{" "}
+              <AnimateButton
+                text="Action"
+                classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm"
+              />{" "}
               -{" "}
-              <span className="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm">
-                Adventure
-              </span>
+              <AnimateButton
+                text="Adventure"
+                classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm"
+              />
             </p>
             <p className="font-semibold">
               Price: <span className="">3.99$</span>
@@ -139,11 +148,11 @@ function BooksDetail({ match }) {
             <Link to={`${matchURL}/edit-image`}>
               <AnimateButton
                 OnClickContact={() => setIsEditImageOpen(true)}
-                classStyle="absolute left-72 bg-secondary text-white rounded-xl -top-3 cursor-pointer"
+                classStyle="absolute left-60 bg-secondary text-white rounded-xl -top-3 cursor-pointer"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-7 w-7"
+                  className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -166,9 +175,25 @@ function BooksDetail({ match }) {
                 />
               )}
             />
-            <img className="h-24 w-24 rounded-md mr-3" src={book} alt="book" />
-            <img className="h-24 w-24 rounded-md mr-3" src={book} alt="book" />
-            <img className="h-24 w-24 rounded-md" src={book} alt="book" />
+            <Zoom>
+              <img
+                className="h-44 w-28 rounded-md mr-3"
+                src={page1}
+                alt="content preview page 1"
+              />
+            </Zoom>
+            <Zoom>
+              <img
+                className="h-44 w-28 rounded-md mr-3"
+                src={page2}
+                alt="content preview page 2"
+              />
+            </Zoom>
+            <img
+              className="h-44 w-28 rounded-md"
+              src={page3}
+              alt="content preview page 3"
+            />
           </div>
         </motion.div>
       </div>

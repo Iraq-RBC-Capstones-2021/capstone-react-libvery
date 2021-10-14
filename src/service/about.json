@@ -4,34 +4,54 @@
     "position": "Trainer",
     "image": "",
     "description": "I'm a web developer and software engineer student. I have 1 year experience and I like Karate.",
-    "reversed": false
+    "reversed": false,
+    "social_links": {
+      "github": "https://github.com/MuhannedNoman",
+      "facebook": "https://www.facebook.com/"
+    }
   },
   {
     "name": "Rawand",
     "position": "Developer",
     "image": "",
     "description": "I'm a web developer and software engineer student. I have 1 year experience and I like Karate.",
-    "reversed": true
+    "reversed": true,
+    "social_links": {
+      "github": "https://github.com/RawandDev",
+      "facebook": "https://www.facebook.com/"
+    }
   },
   {
     "name": "Niyaz",
     "position": "Developer",
     "image": "",
     "description": "I'm a web developer and software engineer student. I have 1 year experience and I like Karate.",
-    "reversed": false
+    "reversed": false,
+    "social_links": {
+      "github": "https://github.com/Niyaz-Dev12",
+      "facebook": "https://www.facebook.com/"
+    }
   },
   {
-    "name": "Zahraa is the best",
+    "name": "Zahraa",
     "position": "Developer",
     "image": "",
     "description": "I'm a web developer and software engineer student. I have 1 year experience and I like Karate.",
-    "reversed": true
+    "reversed": true,
+    "social_links": {
+      "github": "https://github.com/ZhraaBaharAluloom",
+      "facebook": "https://www.facebook.com/"
+    }
   },
   {
     "name": "Ahmed",
     "position": "Developer",
     "image": "",
     "description": "I'm a web developer and software engineer student. I have 1 year experience and I like Karate.",
-    "reversed": false
+    "reversed": false,
+    "social_links": {
+      "github": "https://github.com/AhmedAlrahoo",
+      "facebook": "https://www.facebook.com/"
+    }
   }
 ]
