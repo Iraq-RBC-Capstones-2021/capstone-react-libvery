@@ -59,7 +59,7 @@ const Home = () => {
             <Slider slides={slides} />
           </div>
         </motion.div>
-        <div className="absolute bottom-2 transform translate-y-8 w-full left-0">
+        <div className="absolute bottom-2 transform translate-y-12 w-full left-0">
           <img src={homeIllustration} alt="" width="100%" />
         </div>
       </div>
