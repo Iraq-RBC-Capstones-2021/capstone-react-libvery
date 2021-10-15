@@ -11,6 +11,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar.jsx";
+import BooksDetail from "./pages/BooksDetail.jsx";
 
 import {
   HOME_ROUTE,
@@ -29,6 +30,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route path={ABOUT_ROUTE} component={About} />
+        <Route path={`${BOOKS_ROUTE}/:id`} component={BooksDetail} />
         <Route path={BOOKS_ROUTE} component={Books} />
         <Route path={FAVOURITES_ROUTE} component={Favourites} />
         <Route path={SIGNUP_ROUTE} component={SignUp} />
