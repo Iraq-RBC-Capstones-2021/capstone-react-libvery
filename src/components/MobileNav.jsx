@@ -5,8 +5,6 @@ import {
   ABOUT_ROUTE,
   PROFILE_ROUTE,
   FAVOURITES_ROUTE,
-  SIGNIN_ROUTE,
-  SIGNUP_ROUTE,
   BOOKS_ROUTE,
 } from "../routes";
 import userIcon from "../assets/userPlaceholder.svg";
@@ -16,7 +14,7 @@ function MobileNav({ navbarOpen }) {
 
   const styles = {
     borderBottom: "2px solid #55b8ef",
-    width: "15%",
+    width: "20%",
     color: "#55b8ef",
   };
 
@@ -35,28 +33,31 @@ function MobileNav({ navbarOpen }) {
           <NavLink
             to={HOME_ROUTE}
             activeStyle={isActive(HOME_ROUTE) ? styles : ""}
+            className="text-xl mb-2"
           >
             Home
           </NavLink>
           <NavLink
             to={BOOKS_ROUTE}
             activeStyle={isActive(BOOKS_ROUTE) ? styles : ""}
+            className="text-xl mb-2"
           >
             Books
           </NavLink>
           <NavLink
             to={ABOUT_ROUTE}
             activeStyle={isActive(ABOUT_ROUTE) ? styles : ""}
+            className="text-xl mb-2"
           >
             About
           </NavLink>
           <NavLink
             to={FAVOURITES_ROUTE}
             activeStyle={isActive(FAVOURITES_ROUTE) ? styles : ""}
+            className="text-xl mb-2"
           >
             Favourites
           </NavLink>
-          {/* <Link to={PROFILE_ROUTE}> */}
           <div className="flex items-end">
             <img
               src={userIcon}
@@ -125,7 +126,6 @@ function MobileNav({ navbarOpen }) {
               )}
             </div>
           </div>
-          {/* </Link> */}
         </div>
       </div>
     </>
