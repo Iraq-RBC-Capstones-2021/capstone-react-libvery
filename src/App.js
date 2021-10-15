@@ -28,7 +28,6 @@ function App() {
     <div className="bg-primary">
       <Navbar />
       <Switch>
-        <Route exact path={HOME_ROUTE} component={Home} />
         <Route path={ABOUT_ROUTE} component={About} />
         <Route path={`${BOOKS_ROUTE}/:id`} component={BooksDetail} />
         <Route path={BOOKS_ROUTE} component={Books} />
@@ -37,6 +36,7 @@ function App() {
         <Route path={SIGNIN_ROUTE} component={SignIn} />
         <Route path={ERROR_ROUTE} component={Error} />
         <Route path={PROFILE_ROUTE} component={Profile} />
+        <Route exact path={HOME_ROUTE} component={Home} />
         <Route component={Error} />
       </Switch>
       <Footer />
