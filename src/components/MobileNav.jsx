@@ -94,14 +94,14 @@ function MobileNav({ navbarOpen }) {
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="menu-button"
-                  tabindex="-1"
+                  tabIndex="-1"
                 >
                   <div className="py-1" role="none">
                     <Link
                       to={PROFILE_ROUTE}
                       className="text-gray-700 block px-4 py-2 text-sm"
                       role="menuitem"
-                      tabindex="-1"
+                      tabIndex="-1"
                       id="menu-item-0"
                     >
                       Profile
@@ -111,7 +111,7 @@ function MobileNav({ navbarOpen }) {
                         type="submit"
                         className="text-gray-700 block w-full text-left px-4 py-2 text-sm"
                         role="menuitem"
-                        tabindex="-1"
+                        tabIndex="-1"
                         id="menu-item-3"
                       >
                         Sign out
