@@ -5,60 +5,7 @@ import { Link } from "react-router-dom";
 import { BOOKS_ROUTE } from "../routes";
 
 function BookCard({ image, genres, title, price, rating, id }) {
-  // function createGenreButton(genre, index) {
-  //   switch (index) {
-  //     case 0:
-  //       return (
-  //         <button
-  //           key={index}
-  //           className="text-xs absolute top-2 left-1 bg-cards rounded-2xl px-2.5 py-0.5 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
-  //         >
-  //           {genre}
-  //         </button>
-  //       );
-  //     case 1:
-  //       return (
-  //         <button
-  //           key={index}
-  //           className="text-xs absolute top-2 left-16 ml-2 bg-cards rounded-2xl px-2.5 py-0.5 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
-  //         >
-  //           {genre}
-  //         </button>
-  //       );
-  //     case 2:
-  //       return (
-  //         <button
-  //           key={index}
-  //           className="text-xs absolute top-2 left-36 ml-2 bg-cards rounded-2xl px-2.5 py-0.5 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
-  //         >
-  //           {genre}
-  //         </button>
-  //       );
-  //     case 3:
-  //       return (
-  //         <button
-  //           key={index}
-  //           className="text-xs absolute top-9 left-1 bg-cards rounded-2xl px-2.5 py-0.5 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
-  //         >
-  //           {genre}
-  //         </button>
-  //       );
-  //     case 4:
-  //       return (
-  //         <button
-  //           key={index}
-  //           className="text-xs absolute top-9 left-16 bg-cards rounded-2xl px-2.5 py-0.5 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
-  //         >
-  //           {genre}
-  //         </button>
-  //       );
-  //     default:
-  //       return;
-  //   }
-  // }
-
   const genreButtons = genres.map((genre, index) => {
-    // return createGenreButton(genre, index);
     return (
       <button
         key={index}

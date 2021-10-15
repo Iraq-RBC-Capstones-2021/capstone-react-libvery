@@ -109,23 +109,12 @@ function Books() {
             <option value="Adventure">Adventure</option>
           </select>
         </div>
-        {/* <select
-          className="p-0 px-1 w-32 h-8 mr-1 rounded-md focus:ring-transparent border-0 focus:ring-2 focus:ring-blue-400 shadow appearance-none"
-          name="genres"
-          id="genres"
-        >
-          <option value="">-</option>
-          <option value="Action">Action</option>
-          <option value="Drama">Drama</option>
-          <option value="Novel">Novel</option>
-          <option value="Adventure">Adventure</option>
-        </select> */}
         <FiPlusCircle
           className="transform transition ease-in duration-100 hover:-translate-y-0.5  mx-auto mr-1 md:mx-0 lg:"
           size={27}
         />
       </div>
-      <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:justify-center">
         {booksArr}
       </div>
     </>
