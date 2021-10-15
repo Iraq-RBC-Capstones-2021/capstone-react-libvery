@@ -38,15 +38,6 @@ function App() {
         <Route path={PROFILE_ROUTE} component={Profile} />
         <Route component={Error} />
       </Switch>
-      {/* to showcase the BookCard, Will be removed before merge */}
-      <BookCard
-        image="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Ym9va3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-        genres={["Action", "Drama", "Romance", "Novel", "Thriller"]}
-        title="Book Title"
-        rating="2.5(5)"
-        price="9.99$"
-      />
-      <Footer />
     </>
   );
 }
