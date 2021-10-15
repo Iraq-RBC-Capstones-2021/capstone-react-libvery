@@ -12,6 +12,8 @@ import {
 import logoIcon from "../assets/logo.svg";
 import userIcon from "../assets/userPlaceholder.svg";
 
+// TODO check if user is logged in so it will show signout option else it will show login and sign up
+
 function Navbar() {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [isOptionOpened, setIsOptionOpened] = useState(false);
@@ -34,9 +36,9 @@ function Navbar() {
   return (
     <div className={navbarOpen ? "bg-white" : "bg-primary"}>
       <div className="flex justify-around">
-        <div>
-          <img src={logoIcon} alt="logo" className="" />
-        </div>
+        <NavLink to={HOME_ROUTE}>
+          <img src={logoIcon} alt="logo" />
+        </NavLink>
 
         <div className="hidden sm:flex">
           <div>

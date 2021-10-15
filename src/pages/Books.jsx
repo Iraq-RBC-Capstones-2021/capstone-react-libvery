@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React from "react";
 import BookCard from "../components/BookCard";
 
@@ -70,7 +71,16 @@ function Books() {
   ];
 
   return (
-    <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <motion.div
+      exit={{ opacity: 0, x: 100 }}
+      initial={{ opacity: 0, x: -100 }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 1, type: "spring", stiffness: 100 },
+        x: 0,
+      }}
+      className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+    >
       {books.map((book) => (
         <div key={book.id} className="m-2">
           <BookCard
@@ -83,7 +93,7 @@ function Books() {
           />
         </div>
       ))}
-    </div>
+    </motion.div>
   );
 }
 
