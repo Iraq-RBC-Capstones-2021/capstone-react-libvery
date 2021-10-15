@@ -34,7 +34,7 @@ function Navbar() {
   };
 
   return (
-    <div className={navbarOpen ? "bg-white" : "bg-primary"}>
+    <div className={navbarOpen ? "bg-white sm:bg-primary" : "bg-primary"}>
       <div className="flex justify-around">
         <NavLink to={HOME_ROUTE}>
           <img src={logoIcon} alt="logo" />
