@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 function Menu({ navbarOpen, onShowMenu }) {
-  //   const [navbarOpen, setNavbarOpen] = useState(false);
-
-  //   function handleShowMenu() {
-  //     setNavbarOpen((prev) => !prev);
-  //   }
   return (
     <>
       {navbarOpen ? (

@@ -24,36 +24,34 @@ function MobileNav({ navbarOpen }) {
     return location.pathname === route ? "active" : "";
   };
 
-  console.log(isActive(HOME_ROUTE));
-
   return (
     <>
       <div className={navbarOpen ? "block" : "hidden"}>
         <div className="sm:hidden flex flex-col justify-center text-black uppercase mx-5">
           <NavLink
             to={HOME_ROUTE}
-            activeStyle={isActive(HOME_ROUTE) ? styles : ""}
+            activeStyle={isActive(HOME_ROUTE) ? styles : {}}
             className="text-xl mb-2"
           >
             Home
           </NavLink>
           <NavLink
             to={BOOKS_ROUTE}
-            activeStyle={isActive(BOOKS_ROUTE) ? styles : ""}
+            activeStyle={isActive(BOOKS_ROUTE) ? styles : {}}
             className="text-xl mb-2"
           >
             Books
           </NavLink>
           <NavLink
             to={ABOUT_ROUTE}
-            activeStyle={isActive(ABOUT_ROUTE) ? styles : ""}
+            activeStyle={isActive(ABOUT_ROUTE) ? styles : {}}
             className="text-xl mb-2"
           >
             About
           </NavLink>
           <NavLink
             to={FAVOURITES_ROUTE}
-            activeStyle={isActive(FAVOURITES_ROUTE) ? styles : ""}
+            activeStyle={isActive(FAVOURITES_ROUTE) ? styles : {}}
             className="text-xl mb-2"
           >
             Favourites
@@ -65,43 +63,43 @@ function MobileNav({ navbarOpen }) {
               className="w-10 h-10 border-2 rounded-full"
             />
             <p className="opacity-50">Username</p>
-            <div class="relative inline-block text-left">
+            <div className="relative inline-block text-left">
               <div>
                 <button
                   onClick={() => setIsOptionOpened(!isOptionOpened)}
                   type="button"
-                  class="font-semibold relative"
+                  className="font-semibold relative"
                   id="menu-button"
                   aria-expanded="true"
                   aria-haspopup="true"
                 >
                   <svg
-                    class="w-8 absolute -bottom-3"
+                    className="w-8 absolute -bottom-3"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                     aria-hidden="true"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
                 </button>
               </div>
               {isOptionOpened ? (
                 <div
-                  class="origin-top-right absolute w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+                  className="origin-top-right absolute w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="menu-button"
                   tabindex="-1"
                 >
-                  <div class="py-1" role="none">
+                  <div className="py-1" role="none">
                     <Link
                       to={PROFILE_ROUTE}
-                      class="text-gray-700 block px-4 py-2 text-sm"
+                      className="text-gray-700 block px-4 py-2 text-sm"
                       role="menuitem"
                       tabindex="-1"
                       id="menu-item-0"
@@ -111,7 +109,7 @@ function MobileNav({ navbarOpen }) {
                     <form method="POST" action="#" role="none">
                       <button
                         type="submit"
-                        class="text-gray-700 block w-full text-left px-4 py-2 text-sm"
+                        className="text-gray-700 block w-full text-left px-4 py-2 text-sm"
                         role="menuitem"
                         tabindex="-1"
                         id="menu-item-3"
