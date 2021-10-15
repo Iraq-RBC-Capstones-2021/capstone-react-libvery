@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Navbar from "./components/Navbar.jsx";
+import BooksDetail from "./pages/BooksDetail.jsx";
 import {
   HOME_ROUTE,
   ABOUT_ROUTE,
@@ -24,10 +25,11 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <div className="bg-primary">
       <Navbar />
       <Switch>
         <Route path={ABOUT_ROUTE} component={About} />
+        <Route path={`${BOOKS_ROUTE}/:id`} component={BooksDetail} />
         <Route path={BOOKS_ROUTE} component={Books} />
         <Route path={FAVOURITES_ROUTE} component={Favourites} />
         <Route path={SIGNUP_ROUTE} component={SignUp} />
@@ -37,9 +39,8 @@ function App() {
         <Route exact path={HOME_ROUTE} component={Home} />
         <Route component={Error} />
       </Switch>
-
       <Footer />
-    </>
+    </div>
   );
 }
 

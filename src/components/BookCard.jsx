@@ -1,8 +1,10 @@
 import React from "react";
 import { VscHeart } from "react-icons/vsc";
 import ReactStars from "react-rating-stars-component";
+import { Link } from "react-router-dom";
+import { BOOKS_ROUTE } from "../routes";
 
-function BookCard({ image, genres, title, price, rating }) {
+function BookCard({ image, genres, title, price, rating, id }) {
   function createGenreButton(genre, index) {
     switch (index) {
       case 0:
@@ -41,11 +43,11 @@ function BookCard({ image, genres, title, price, rating }) {
   }
 
   const genreButtons = genres.map((genre, index) => {
-    return createGenreButton(genre, index);
+    return <div key={index}>{createGenreButton(genre, index)}</div>;
   });
 
   return (
-    <div className="bg-Cards rounded font-sans  overflow-hidden shadow-md w-full md:w-72 p-3">
+    <div className="bg-Cards rounded font-sans  overflow-hidden shadow-md w-full md:w-60 p-3">
       <div className="rounded-xl overflow-hidden relative h-60">
         <img className="w-full h-full object-cover" src={image} alt="book" />
         {genreButtons}
@@ -62,9 +64,11 @@ function BookCard({ image, genres, title, price, rating }) {
         <span className="pl-1 mt-1">{rating}</span>
       </div>
       <p className="font-semibold pl-1">{price}</p>
-      <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">
-        Buy
-      </button>
+      <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
+        <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">
+          Buy
+        </button>
+      </Link>
     </div>
   );
 }
