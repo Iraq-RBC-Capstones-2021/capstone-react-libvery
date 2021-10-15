@@ -21,11 +21,10 @@ import {
   PROFILE_ROUTE,
 } from "./routes";
 import Footer from "./components/Footer";
-import BookCard from "./components/BookCard";
 
 function App() {
   return (
-    <>
+    <div className="bg-primary">
       <Navbar />
       <Switch>
         <Route exact path={HOME_ROUTE} component={Home} />
@@ -38,7 +37,8 @@ function App() {
         <Route path={PROFILE_ROUTE} component={Profile} />
         <Route component={Error} />
       </Switch>
-    </>
+      <Footer />
+    </div>
   );
 }
 
