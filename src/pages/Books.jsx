@@ -6,9 +6,9 @@ function Books() {
     {
       id: 1,
       title: "The Lord of the Rings",
-      genres: ["Fantasy", "Adventure", "Drama"],
+      genres: ["Fantasy", "Novel", "Drama", "Adventure", "Action"],
       image:
-        "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX331_BO1,204,203,200_.jpg",
+        "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80",
       rating: 5,
       price: "10.99$",
     },
