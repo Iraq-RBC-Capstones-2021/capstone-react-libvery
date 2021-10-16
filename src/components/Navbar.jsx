@@ -35,7 +35,7 @@ function Navbar() {
 
   return (
     <div className={navbarOpen ? "bg-white sm:bg-primary" : "bg-primary"}>
-      <div className="flex justify-around">
+      <div className="flex sm:justify-around justify-between mx-10 py-5">
         <NavLink to={HOME_ROUTE}>
           <img src={logoIcon} alt="logo" />
         </NavLink>
@@ -78,7 +78,7 @@ function Navbar() {
             </NavLink>
           </div>
         </div>
-        <div className="sm:flex items-end hidden">
+        <div className="sm:flex items-center hidden">
           <img
             src={userIcon}
             alt="user"
@@ -116,29 +116,28 @@ function Navbar() {
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="menu-button"
-                tabIndex="-1"
+                tabindex="-1"
               >
                 <div className="py-1" role="none">
                   <NavLink
-                    to={PROFILE_ROUTE}
-                    className="text-gray-700 block px-4 py-2 text-sm"
+                    to={`${PROFILE_ROUTE}/user`}
+                    className="text-gray-700 block px-4 py-2 text-sm transition hover:bg-blue-600 hover:text-white"
                     role="menuitem"
-                    tabIndex="-1"
+                    tabindex="-1"
                     id="menu-item-0"
+                    onClick={() => setIsOptionOpened(false)}
                   >
                     Profile
                   </NavLink>
-                  <form method="POST" action="#" role="none">
-                    <button
-                      type="submit"
-                      className="text-gray-700 block w-full text-left px-4 py-2 text-sm"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="menu-item-3"
-                    >
-                      Sign out
-                    </button>
-                  </form>
+                  <button
+                    className="text-gray-700 block w-full text-left px-4 py-2 text-sm transition hover:bg-blue-600 hover:text-white"
+                    role="menuitem"
+                    tabindex="-1"
+                    id="menu-item-1"
+                    onClick={() => setIsOptionOpened(false)}
+                  >
+                    Sign out
+                  </button>
                 </div>
               </div>
             ) : (

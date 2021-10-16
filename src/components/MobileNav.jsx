@@ -27,7 +27,7 @@ function MobileNav({ navbarOpen }) {
   return (
     <>
       <div className={navbarOpen ? "block" : "hidden"}>
-        <div className="sm:hidden flex flex-col justify-center text-black uppercase mx-5">
+        <div className="sm:hidden flex flex-col justify-center text-black mx-5">
           <NavLink
             to={HOME_ROUTE}
             activeStyle={isActive(HOME_ROUTE) ? styles : {}}
@@ -56,7 +56,7 @@ function MobileNav({ navbarOpen }) {
           >
             Favourites
           </NavLink>
-          <div className="flex items-end">
+          <div className="flex items-center">
             <img
               src={userIcon}
               alt="user"
@@ -98,8 +98,8 @@ function MobileNav({ navbarOpen }) {
                 >
                   <div className="py-1" role="none">
                     <Link
-                      to={PROFILE_ROUTE}
-                      className="text-gray-700 block px-4 py-2 text-sm"
+                      to={`${PROFILE_ROUTE}/user`}
+                      className="text-gray-700 block px-4 py-2 text-sm capitalize"
                       role="menuitem"
                       tabIndex="-1"
                       id="menu-item-0"
