@@ -27,7 +27,7 @@ function MobileNav({ navbarOpen }) {
   return (
     <>
       <div className={navbarOpen ? "block" : "hidden"}>
-        <div className="sm:hidden flex flex-col justify-center text-black mx-5">
+        <div className="sm:hidden flex flex-col justify-center text-black mx-10">
           <NavLink
             to={HOME_ROUTE}
             activeStyle={isActive(HOME_ROUTE) ? styles : {}}

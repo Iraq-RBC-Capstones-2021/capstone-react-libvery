@@ -35,7 +35,7 @@ function Navbar() {
 
   return (
     <div className={navbarOpen ? "bg-white sm:bg-primary" : "bg-primary"}>
-      <div className="flex sm:justify-around justify-between mx-10 py-5">
+      <div className="flex sm:justify-around justify-between items-center mx-10 py-5">
         <NavLink to={HOME_ROUTE}>
           <img src={logoIcon} alt="logo" />
         </NavLink>
@@ -116,14 +116,14 @@ function Navbar() {
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="menu-button"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 <div className="py-1" role="none">
                   <NavLink
                     to={`${PROFILE_ROUTE}/user`}
                     className="text-gray-700 block px-4 py-2 text-sm transition hover:bg-blue-600 hover:text-white"
                     role="menuitem"
-                    tabindex="-1"
+                    tabIndex="-1"
                     id="menu-item-0"
                     onClick={() => setIsOptionOpened(false)}
                   >
@@ -132,7 +132,7 @@ function Navbar() {
                   <button
                     className="text-gray-700 block w-full text-left px-4 py-2 text-sm transition hover:bg-blue-600 hover:text-white"
                     role="menuitem"
-                    tabindex="-1"
+                    tabIndex="-1"
                     id="menu-item-1"
                     onClick={() => setIsOptionOpened(false)}
                   >

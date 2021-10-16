@@ -20,16 +20,18 @@ function Menu({ navbarOpen, onShowMenu }) {
       ) : (
         <svg
           onClick={onShowMenu}
-          className="w-6 h-6 block sm:hidden cursor-pointer"
-          fill="currentColor"
-          viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
+          className="w-6 h-6 block sm:hidden cursor-pointer"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
         >
           <path
-            fillRule="evenodd"
-            d="M3 7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 13a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clipRule="evenodd"
-          ></path>
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 6h16M4 12h16M4 18h16"
+          />
         </svg>
       )}
     </>
