@@ -31,7 +31,10 @@ function Profile(props) {
             color: "#fff",
             borderRadius: "10px 0 0 10px",
             padding: "0.5em",
+            width: "100px",
+            textAlign: "center",
           }}
+          className="  pl-5"
         >
           Favourites
         </NavLink>
@@ -40,8 +43,10 @@ function Profile(props) {
           activeStyle={{
             backgroundColor: "#BE856A",
             color: "#fff",
-            borderRadius: "10px",
+            borderRadius: "10px 0px 10px 0px",
             padding: "0.5em",
+            width: "120px",
+            textAlign: "center",
           }}
         >
           My Books
@@ -53,7 +58,10 @@ function Profile(props) {
             color: "#fff",
             borderRadius: "0 10px 10px 0",
             padding: "0.5em",
+            width: "100px",
+            textAlign: "center",
           }}
+          className="  pr-5"
         >
           User Info
         </NavLink>
