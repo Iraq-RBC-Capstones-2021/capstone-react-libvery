@@ -5,52 +5,24 @@ import { Link } from "react-router-dom";
 import { BOOKS_ROUTE } from "../routes";
 
 function BookCard({ image, genres, title, price, rating, id }) {
-  function createGenreButton(genre, index) {
-    switch (index) {
-      case 0:
-        return (
-          <button className="text-xs absolute top-2 left-1 bg-Cards rounded-2xl px-2.5 py-0.5 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80">
-            {genre}
-          </button>
-        );
-      case 1:
-        return (
-          <button className="text-xs absolute top-2 left-16 bg-Cards rounded-2xl px-2.5 py-0.5 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80">
-            {genre}
-          </button>
-        );
-      case 2:
-        return (
-          <button className="text-xs absolute top-2 left-32 bg-Cards rounded-2xl px-2.5 py-0.5 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80">
-            {genre}
-          </button>
-        );
-      case 3:
-        return (
-          <button className="text-xs absolute top-9 left-1 bg-Cards rounded-2xl px-2.5 py-0.5 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80">
-            {genre}
-          </button>
-        );
-      case 4:
-        return (
-          <button className="text-xs absolute top-9 left-16 bg-Cards rounded-2xl px-2.5 py-0.5 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80">
-            {genre}
-          </button>
-        );
-      default:
-        return;
-    }
-  }
-
   const genreButtons = genres.map((genre, index) => {
-    return <div key={index}>{createGenreButton(genre, index)}</div>;
+    return (
+      <button
+        key={index}
+        className="text-xs bg-primary rounded-2xl px-2.5 py-0.5 m-0.5 mt-1 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
+      >
+        {genre}
+      </button>
+    );
   });
 
   return (
-    <div className="bg-Cards rounded font-sans  overflow-hidden shadow-md w-full md:w-60 p-3">
+    <div className="bg-cards rounded-xl font-sans  overflow-hidden shadow-md w-full md:w-60 lg:w-72  p-3 transform transition ease-in-out duration-200 hover:-translate-y-0.5 mx-auto md:mt-5 mb-1 sm:mb-2 md:mb-0">
       <div className="rounded-xl overflow-hidden relative h-60">
         <img className="w-full h-full object-cover" src={image} alt="book" />
-        {genreButtons}
+        <div className="absolute flex flex-wrap top-0.5 left-0">
+          {genreButtons}
+        </div>
       </div>
       <div className="flex justify-between items-center px-1 pt-2">
         <h1 className="font-semibold">{title}</h1>

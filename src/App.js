@@ -9,8 +9,10 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar.jsx";
 import BooksDetail from "./pages/BooksDetail.jsx";
+
 import {
   HOME_ROUTE,
   ABOUT_ROUTE,
@@ -21,7 +23,6 @@ import {
   ERROR_ROUTE,
   PROFILE_ROUTE,
 } from "./routes";
-import Footer from "./components/Footer";
 import { AnimatePresence } from "framer-motion";
 
 function App() {
