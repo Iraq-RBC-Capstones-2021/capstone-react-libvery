@@ -2,8 +2,6 @@ import React from "react";
 import BookCard from "../components/BookCard";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FiPlusCircle } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import { BOOKS_ROUTE } from "../routes";
 
 function Books() {
   const books = [
@@ -74,18 +72,16 @@ function Books() {
   ];
 
   const booksArr = books.map((book) => (
-    <Link to={`${BOOKS_ROUTE}/${book.id}`}>
-      <div key={book.id} className="m-2">
-        <BookCard
-          id={book.id}
-          title={book.title}
-          genres={book.genres}
-          image={book.image}
-          rating={book.rating}
-          price={book.price}
-        />
-      </div>
-    </Link>
+    <div key={book.id} className="m-2">
+      <BookCard
+        id={book.id}
+        title={book.title}
+        genres={book.genres}
+        image={book.image}
+        rating={book.rating}
+        price={book.price}
+      />
+    </div>
   ));
 
   return (
