@@ -2,6 +2,8 @@ import React from "react";
 import BookCard from "../components/BookCard";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FiPlusCircle } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import { BOOKS_ROUTE } from "../routes";
 
 function Books() {
   const books = [
@@ -72,16 +74,18 @@ function Books() {
   ];
 
   const booksArr = books.map((book) => (
-    <div key={book.id} className="m-2">
-      <BookCard
-        id={book.id}
-        title={book.title}
-        genres={book.genres}
-        image={book.image}
-        rating={book.rating}
-        price={book.price}
-      />
-    </div>
+    <Link to={`${BOOKS_ROUTE}/${book.id}`}>
+      <div key={book.id} className="m-2">
+        <BookCard
+          id={book.id}
+          title={book.title}
+          genres={book.genres}
+          image={book.image}
+          rating={book.rating}
+          price={book.price}
+        />
+      </div>
+    </Link>
   ));
 
   return (
@@ -102,19 +106,21 @@ function Books() {
             name="genres"
             id="genres"
           >
-            <option value="">-</option>
+            <option value="All">All</option>
+            <option value="Adventure">Adventure</option>
             <option value="Action">Action</option>
             <option value="Drama">Drama</option>
             <option value="Novel">Novel</option>
-            <option value="Adventure">Adventure</option>
+            <option value="Free">Free</option>
           </select>
         </div>
         <FiPlusCircle
           className="transform transition ease-in duration-100 hover:-translate-y-0.5  mx-auto mr-1 md:mx-0 lg:"
-          size={27}
+          size={34}
+          color={"#BE856A"}
         />
       </div>
-      <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:justify-center">
+      <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:justify-center py-5">
         {booksArr}
       </div>
     </>
