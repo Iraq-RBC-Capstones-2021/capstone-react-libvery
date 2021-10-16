@@ -17,7 +17,7 @@ function BookCard({ image, genres, title, price, rating, id }) {
   });
 
   return (
-    <div className="bg-cards rounded-xl font-sans  overflow-hidden shadow-md w-full md:w-60 lg:w-72  p-3 transform transition ease-in-out duration-200 hover:-translate-y-0.5 mx-auto">
+    <div className="bg-cards rounded-xl font-sans  overflow-hidden shadow-md w-full md:w-60 lg:w-72  p-3 transform transition ease-in-out duration-200 hover:-translate-y-0.5 mx-auto mt-5">
       <div className="rounded-xl overflow-hidden relative h-60">
         <img className="w-full h-full object-cover" src={image} alt="book" />
         <div className="absolute flex flex-wrap top-0.5 left-0">
