@@ -52,7 +52,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
           },
         }}
-        className="mx-auto text-sm flex justify-center mt-10"
+        className=" text-sm flex justify-center mt-10"
       >
         <motion.div
           initial={{ opacity: 0, y: "-100vh" }}
@@ -63,7 +63,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
               duration: 0.5,
             },
           }}
-          className="flex flex-col justify-center items-center text-white bg-white rounded-lg relative w-80 sm:w-96"
+          className="flex flex-col justify-center items-center text-white bg-white rounded-lg relative  "
         >
           <CloseButton
             setIsAddBookModalOpen={setIsAddBookModalOpen}
@@ -71,15 +71,15 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
           />
           <form
             onSubmit={formik.handleSubmit}
-            className="w-full max-w-md bg-white rounded mb-4 mt-10 sm:max-w-2xl md:max-w-md font-sans p-4"
+            className="w-full space-y-4 max-w-lg bg-black rounded p-14 sm:max-w-3xl md:max-w-lg font-sans"
           >
-            <h2 className="text-black font-semibold flex justify-center mb-4 text-sm sm:text-xl">
+            <p className="text-primary font-extrabold flex justify-center mb-4 sm:text-3xl text-4xl">
               Add a book
-            </h2>
+            </p>
             {formik.touched.BookName && formik.errors.BookName ? (
               <div>
                 <input
-                  className="shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="shadow bg-transparent appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="BookName"
                   type="text"
                   placeholder="Book Title *"
@@ -95,7 +95,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
               </div>
             ) : (
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                className="shadow bg-transparent border-primary  appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                 id="BookName"
                 type="text"
                 placeholder="Book Title *"
@@ -106,10 +106,11 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                 autoComplete="off"
               />
             )}
+
             {formik.touched.Author && formik.errors.Author ? (
               <div>
                 <input
-                  className="shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="shadow bg-transparent  appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="author"
                   type="text"
                   placeholder="Author *"
@@ -125,7 +126,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
               </div>
             ) : (
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                className="shadow bg-transparent border-primary  appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                 id="author"
                 type="text"
                 placeholder="Author *"
@@ -136,10 +137,27 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                 autoComplete="off"
               />
             )}
-            {formik.touched.Genre && formik.errors.Genre ? (
-              <div>
+            <div className="md:flex md:justify-between space-x-3">
+              {formik.touched.Genre && formik.errors.Genre ? (
+                <div>
+                  <input
+                    className="shadow bg-transparent   appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                    id="category"
+                    type="text"
+                    placeholder="Book Category *"
+                    onChange={formik.handleChange}
+                    value={formik.values.Genre}
+                    name="Genre"
+                    onBlur={formik.handleBlur}
+                    autoComplete="off"
+                  />
+                  <p className="text-xs text-red-400 -mt-2 mb-2">
+                    {formik.errors.Genre}
+                  </p>
+                </div>
+              ) : (
                 <input
-                  className="shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="shadow bg-transparent border-primary  appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="category"
                   type="text"
                   placeholder="Book Category *"
@@ -149,54 +167,40 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   onBlur={formik.handleBlur}
                   autoComplete="off"
                 />
-                <p className="text-xs text-red-400 -mt-2 mb-2">
-                  {formik.errors.Genre}
-                </p>
-              </div>
-            ) : (
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
-                id="category"
-                type="text"
-                placeholder="Book Category *"
-                onChange={formik.handleChange}
-                value={formik.values.Genre}
-                name="Genre"
-                onBlur={formik.handleBlur}
-                autoComplete="off"
-              />
-            )}
-            {formik.touched.Price && formik.errors.Price ? (
-              <div>
+              )}
+              {formik.touched.Price && formik.errors.Price ? (
+                <div>
+                  <input
+                    className="shadow bg-transparent   text-primary appearance-none border border-red-400 rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline mb-2"
+                    id="price"
+                    type="number"
+                    placeholder="Price *"
+                    onChange={formik.handleChange}
+                    value={formik.values.Price}
+                    name="Price"
+                    onBlur={formik.handleBlur}
+                    autoComplete="off"
+                    min="0"
+                  />
+                  <p className="text-xs text-red-400 -mt-2 mb-2">
+                    {formik.errors.Price}
+                  </p>
+                </div>
+              ) : (
                 <input
-                  className="shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="shadow bg-transparent   appearance-none border-primary  rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="price"
-                  type="text"
+                  type="number"
                   placeholder="Price *"
                   onChange={formik.handleChange}
                   value={formik.values.Price}
                   name="Price"
                   onBlur={formik.handleBlur}
                   autoComplete="off"
+                  min="0"
                 />
-                <p className="text-xs text-red-400 -mt-2 mb-2">
-                  {formik.errors.Price}
-                </p>
-              </div>
-            ) : (
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
-                id="price"
-                type="text"
-                placeholder="Price *"
-                onChange={formik.handleChange}
-                value={formik.values.Price}
-                name="Price"
-                onBlur={formik.handleBlur}
-                autoComplete="off"
-              />
-            )}
-
+              )}
+            </div>
             {formik.touched.Description && formik.errors.Description ? (
               <div>
                 <textarea
@@ -204,7 +208,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   id="Description"
                   cols="22"
                   rows="5"
-                  className="shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="shadow bg-transparent   appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   placeholder="Description"
                   onChange={formik.handleChange}
                   value={formik.values.Description}
@@ -220,14 +224,14 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                 id="Description"
                 cols="22"
                 rows="5"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
-                placeholder="Description"
+                className="shadow bg-transparent  appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                placeholder="Short Description"
                 onChange={formik.handleChange}
                 value={formik.values.Description}
                 autoComplete="off"
               ></textarea>
             )}
-            <label className="w-60 text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary justify-center">
+            <label className="w-full text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary justify-center ">
               <span>Upload Book Cover</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -246,11 +250,16 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
               <input type="file" className="hidden" />
             </label>
             <label className="flex text-black items-center">
-              <p className="mr-2">Are you donating this book?</p>
-              <input type="checkbox" name="yes" id="yes" />
+              <p className="mr-2 text-primary">Are you donating this book?</p>
+              <input
+                type="checkbox"
+                name="yes"
+                id="yes"
+                className="rounded-full"
+              />
             </label>
             <button
-              className="bg-secondary text-white font-semibold py-1 px-4 rounded-sm mb-4 container mt-2"
+              className="bg-secondary rounded-md text-white font-semibold py-2 px-4  container "
               type="submit"
             >
               Add Book
