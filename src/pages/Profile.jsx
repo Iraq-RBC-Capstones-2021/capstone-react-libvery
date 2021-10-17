@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
-// Components
 import UserInfo from "./UserInfo";
 import Favourites from "./Favourites";
 import Books from "./Books";
