@@ -35,7 +35,7 @@ function Navbar() {
 
   return (
     <div className={navbarOpen ? "bg-white sm:bg-primary" : "bg-primary"}>
-      <div className="flex sm:justify-around justify-between items-center mx-10 py-5">
+      <div className="flex sm:justify-around justify-between items-center mx-2 py-5">
         <NavLink to={HOME_ROUTE}>
           <img src={logoIcon} alt="logo" />
         </NavLink>

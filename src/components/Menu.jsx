@@ -6,7 +6,7 @@ function Menu({ navbarOpen, onShowMenu }) {
       {navbarOpen ? (
         <svg
           onClick={onShowMenu}
-          className="w-6 h-6 block sm:hidden cursor-pointer"
+          className="w-7 h-7 block sm:hidden cursor-pointer"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,7 @@ function Menu({ navbarOpen, onShowMenu }) {
         <svg
           onClick={onShowMenu}
           xmlns="http://www.w3.org/2000/svg"
-          className="w-6 h-6 block sm:hidden cursor-pointer"
+          className="w-7 h-7 block sm:hidden cursor-pointer"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
