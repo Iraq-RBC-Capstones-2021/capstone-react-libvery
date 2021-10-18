@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import BookCard from "../components/BookCard";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FiPlusCircle } from "react-icons/fi";
 import AddBookModal from "../components/AddBookModal";
 import AnimateButton from "../customs/AnimateButton";
-import { motion } from "framer-motion";
 
 function Books() {
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
@@ -134,7 +134,7 @@ function Books() {
           setIsAddBookModalOpen={setIsAddBookModalOpen}
         />
       </div>
-      <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:justify-center py-5">
         {booksArr}
       </div>
     </motion.div>
