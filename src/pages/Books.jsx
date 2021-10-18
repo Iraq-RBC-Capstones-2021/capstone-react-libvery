@@ -1,10 +1,14 @@
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import React from "react";
 import BookCard from "../components/BookCard";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FiPlusCircle } from "react-icons/fi";
+import AddBookModal from "../components/AddBookModal";
+import AnimateButton from "../customs/AnimateButton";
 
 function Books() {
+  const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
+
   const books = [
     {
       id: 1,
@@ -119,10 +123,15 @@ function Books() {
             <option value="Free">Free</option>
           </select>
         </div>
-        <FiPlusCircle
-          className="transform transition ease-in duration-100 hover:-translate-y-0.5  mx-auto mr-1 md:mx-0 lg:"
-          size={34}
-          color={"#BE856A"}
+        <AnimateButton
+          OnClickContact={() => setIsAddBookModalOpen(true)}
+          classStyle="bg-secondary text-white rounded-full px-1 py-1"
+        >
+          <FiPlusCircle onClick={() => setIsAddBookModalOpen(true)} size={27} />
+        </AnimateButton>
+        <AddBookModal
+          isAddBookModalOpen={isAddBookModalOpen}
+          setIsAddBookModalOpen={setIsAddBookModalOpen}
         />
       </div>
       <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:justify-center py-5">

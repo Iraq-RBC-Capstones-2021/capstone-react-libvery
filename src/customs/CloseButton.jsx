@@ -8,6 +8,8 @@ function CloseButton({
   isEditBookOpen,
   isEditImageOpen,
   setIsEditImageOpen,
+  isAddBookModalOpen,
+  setIsAddBookModalOpen,
 }) {
   const history = useHistory();
 
@@ -21,6 +23,8 @@ function CloseButton({
     } else if (isEditImageOpen) {
       setIsEditImageOpen(false);
       history.goBack();
+    } else if (isAddBookModalOpen) {
+      setIsAddBookModalOpen(false);
     }
   }
 
