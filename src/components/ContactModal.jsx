@@ -52,7 +52,7 @@ function ContactModal({
               duration: 0.5,
             },
           }}
-          className="flex flex-col justify-center items-center text-black bg-white sm:w-96 rounded-lg p-10 mx-auto relative w-80 font-sans text-sm sm:text-lg"
+          className="flex flex-col  items-center    text-primary bg-black rounded-lg p-10  relative font-sans md:w-96 text-sm sm:text-lg"
         >
           <CloseButton
             setIsContactModalOpen={setIsContactModalOpen}
