@@ -32,7 +32,7 @@ function App() {
     <div className="bg-primary overflow-x-hidden">
       <Navbar />
       <AnimatePresence exitBeforeEnter>
-        <Switch location={location} key={location.pathname}>
+        <Switch location={location}>
           <Route path={ABOUT_ROUTE} component={About} />
           <Route path={`${BOOKS_ROUTE}/:id`} component={BooksDetail} />
           <Route path={BOOKS_ROUTE} component={Books} />
