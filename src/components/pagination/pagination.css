@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: rgba(216, 73, 73, 0.2); */
   width: 100%;
   font-weight: 500;
   font-size: 15px;
@@ -13,7 +12,6 @@
   justify-content: center;
   align-items: center;
   color: black;
-  /* padding: 8px 14px; */
   height: 35px;
   width: 40px;
   text-decoration: none;
@@ -24,14 +22,15 @@
 }
 
 .pagination-container span.active {
-  background-color: #007bff;
+  background-color: rgb(49, 47, 47);
   color: white;
-  border: 1px solid #7cbddb;
+  border: 1px solid #262829;
 }
 
 .pagination-container span.disabled {
   opacity: 0.5;
 }
 .pagination-container span:hover:not(.active) {
-  background-color: rgb(238, 238, 238);
+  /* background-color: rgb(238, 238, 238); */
+  background-color: rgb(228, 217, 217);
 }
