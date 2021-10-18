@@ -32,9 +32,9 @@ function CloseButton({
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-8 w-8 bg-red-500 rounded-lg absolute top-0 right-0 cursor-pointer"
+        className="h-8 w-8  rounded-lg absolute top-0 right-0 cursor-pointer  m-2"
         viewBox="0 0 20 20"
-        fill="#fff"
+        fill="#F2E1D9"
         onClick={handleClose}
       >
         <path
