@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import BookCard from "../components/BookCard";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FiPlusCircle } from "react-icons/fi";
@@ -89,7 +90,15 @@ function Books() {
   ));
 
   return (
-    <>
+    <motion.div
+      exit={{ opacity: 0, x: 100 }}
+      initial={{ opacity: 0, x: -100 }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 1, type: "spring", stiffness: 100 },
+        x: 0,
+      }}
+    >
       <div className="flex justify-start items-center md:justify-center">
         <div className="flex relative bg-white rounded m-2 py-0.5 focus focus-within:ring-2 focus-within:ring-black shadow appearance-none">
           <AiOutlineSearch className="absolute left-1 mt-3 " />
@@ -128,7 +137,7 @@ function Books() {
       <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:justify-center py-5">
         {booksArr}
       </div>
-    </>
+    </motion.div>
   );
 }
 
