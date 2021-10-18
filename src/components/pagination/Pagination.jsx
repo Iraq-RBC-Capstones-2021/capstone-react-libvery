@@ -54,10 +54,10 @@ function Pagination({ pages = 10, setCurrentPage }) {
     } else if (currentButton === dotsLeft) {
       setCurrentButton(arrOfCurrButtons[3] - 2);
     }
-
+    setCurrentPage(currentButton);
     setArrOfCurrButtons(tempNumberOfPages);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setCurrentPage(currentButton);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentButton]);
 
