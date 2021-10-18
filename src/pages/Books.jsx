@@ -4,6 +4,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FiPlusCircle } from "react-icons/fi";
 import AddBookModal from "../components/AddBookModal";
 import AnimateButton from "../customs/AnimateButton";
+import { motion } from "framer-motion";
 
 function Books() {
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
@@ -89,29 +90,39 @@ function Books() {
   ));
 
   return (
-    <>
+    <motion.div
+      exit={{ opacity: 0, x: 100 }}
+      initial={{ opacity: 0, x: -100 }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 1, type: "spring", stiffness: 100 },
+        x: 0,
+      }}
+    >
       <div className="flex justify-start items-center md:justify-center">
-        <div className="flex relative bg-white rounded-lg m-2 py-0.5 focus focus-within:ring-2 focus-within:ring-blue-400 shadow appearance-none sm:w-64">
-          <AiOutlineSearch className="absolute left-1 mt-1 " />
+        <div className="flex relative bg-white rounded m-2 py-0.5 focus focus-within:ring-2 focus-within:ring-black shadow appearance-none">
+          <AiOutlineSearch className="absolute left-1 mt-3 " />
           <input
             type="text"
-            className="p-0 pl-1 ml-5 bg-transparent border-none focus:ring-transparent "
+            className="p-0 pl-1 ml-5 bg-transparent border-none focus:ring-transparent sm:w-60 "
             name="searchbar"
             id="searchbar"
             placeholder="Search"
           />
+          <p className="text-gray-400 text-2xl">|</p>
+          <select
+            className="p-0 px-1 w-28 h-10 ml-3 rounded-md focus:ring-transparent border-none"
+            name="genres"
+            id="genres"
+          >
+            <option value="All">All</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Action">Action</option>
+            <option value="Drama">Drama</option>
+            <option value="Novel">Novel</option>
+            <option value="Free">Free</option>
+          </select>
         </div>
-        <select
-          className="p-0 px-1 w-32 h-7 mr-1 rounded-md focus:ring-transparent border-0 focus:ring-2 focus:ring-blue-400 shadow appearance-none"
-          name="genres"
-          id="genres"
-        >
-          <option value="">-</option>
-          <option value="Action">Action</option>
-          <option value="Drama">Drama</option>
-          <option value="Novel">Novel</option>
-          <option value="Adventure">Adventure</option>
-        </select>
         <AnimateButton
           OnClickContact={() => setIsAddBookModalOpen(true)}
           classStyle="bg-secondary text-white rounded-full px-1 py-1"
@@ -126,7 +137,7 @@ function Books() {
       <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {booksArr}
       </div>
-    </>
+    </motion.div>
   );
 }
 
