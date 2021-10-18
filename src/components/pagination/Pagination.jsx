@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./pagination.css";
 
-function Pagination({ pages = 10 }) {
+function Pagination({ pages = 10, setCurrentPage }) {
   const numberOfPages = [];
 
   for (let i = 1; i <= pages; i++) {
@@ -57,6 +57,7 @@ function Pagination({ pages = 10 }) {
 
     setArrOfCurrButtons(tempNumberOfPages);
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setCurrentPage(currentButton);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentButton]);
 

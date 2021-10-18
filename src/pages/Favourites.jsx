@@ -6,7 +6,7 @@ import booksData from "../service/fakeData.json";
 
 function Favourites() {
   const [posts] = useState([...booksData]);
-  const [currentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
 
   //Get current posts
@@ -46,7 +46,7 @@ function Favourites() {
           {booksArr}
         </div>
       </div>
-      <Pagination pages={howManyPages} />
+      <Pagination pages={howManyPages} setCurrentPage={setCurrentPage} />
     </motion.div>
   );
 }

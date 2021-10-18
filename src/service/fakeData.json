@@ -11,7 +11,7 @@
     "id": 2,
     "title": "The Lord of the Rings",
     "genres": ["Fantasy", "Novel", "Drama", "Adventure", "Action"],
-    "image": "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80",
+    "image": "https://media.istockphoto.com/photos/concept-of-an-open-magic-book-open-pages-with-water-and-land-and-picture-id1279460648?b=1&k=20&m=1279460648&s=170667a&w=0&h=uZa830sWo8hlFN0Y7FnQ14giNC0Z2EBNuTMuNJeJhQg=",
     "rating": 5,
     "price": "10.99$"
   },
@@ -67,7 +67,7 @@
     "id": 9,
     "title": "The Lord of the Rings",
     "genres": ["Fantasy", "Novel", "Drama", "Adventure", "Action"],
-    "image": "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80",
+    "image": "https://media.istockphoto.com/photos/concept-of-an-open-magic-book-open-pages-with-water-and-land-and-picture-id1279460648?b=1&k=20&m=1279460648&s=170667a&w=0&h=uZa830sWo8hlFN0Y7FnQ14giNC0Z2EBNuTMuNJeJhQg=",
     "rating": 5,
     "price": "10.99$"
   },
@@ -393,9 +393,9 @@
   },
   {
     "id": 50,
-    "title": "The Lord of the Rings",
+    "title": "The architect",
     "genres": ["Fantasy", "Novel", "Drama", "Adventure", "Action"],
-    "image": "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80",
+    "image": "https://media.istockphoto.com/photos/concept-of-an-open-magic-book-open-pages-with-water-and-land-and-picture-id1279460648?b=1&k=20&m=1279460648&s=170667a&w=0&h=uZa830sWo8hlFN0Y7FnQ14giNC0Z2EBNuTMuNJeJhQg=",
     "rating": 5,
     "price": "10.99$"
   }

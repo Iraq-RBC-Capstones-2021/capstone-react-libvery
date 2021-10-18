@@ -11,7 +11,7 @@ import booksData from "../service/fakeData.json";
 function Books() {
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
   const [posts] = useState([...booksData]);
-  const [currentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
 
   //Get current posts
@@ -85,7 +85,7 @@ function Books() {
         <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:justify-center py-5">
           {booksArr}
         </div>
-        <Pagination pages={howManyPages} />
+        <Pagination pages={howManyPages} setCurrentPage={setCurrentPage} />
       </motion.div>
     </>
   );
