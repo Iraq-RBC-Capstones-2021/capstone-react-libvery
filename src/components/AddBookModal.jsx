@@ -4,6 +4,10 @@ import CloseButton from "../customs/CloseButton";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import { useDispatch } from "react-redux";
+import { addBooks } from "../store/addBooksSlice";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -41,6 +45,26 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       }, 1000);
     },
   });
+
+  const dispatch = useDispatch();
+
+  async function addItemsToList() {
+    // Add a new document with a generated id.
+    await addDoc(collection(db, "books"), {
+      BookName: formik.values.BookName,
+      Author: formik.values.Author,
+      Genre: formik.values.Genre.split(","),
+      Price: formik.values.Price,
+      Description: formik.values.Description,
+      Image: formik.values.Image,
+    });
+    dispatch(addBooks(formik.values));
+  }
+
+  // function handleChange(event) {
+  //   const { name, value } = event.target;
+  //   formik.setFieldValue(name, value);
+  // }
 
   return (
     <>
@@ -261,6 +285,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
             <button
               className="bg-secondary rounded-md text-white font-semibold py-2 px-4  container "
               type="submit"
+              onClick={addItemsToList}
             >
               Add Book
             </button>
