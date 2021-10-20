@@ -98,7 +98,7 @@ function EditBookModal({
             {formik.touched.BookName && formik.errors.BookName ? (
               <div>
                 <input
-                  className="bg-transparent  shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="bg-transparent shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="BookName"
                   type="text"
                   placeholder="Book Title *"
@@ -114,7 +114,7 @@ function EditBookModal({
               </div>
             ) : (
               <input
-                className=" bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                 id="BookName"
                 type="text"
                 placeholder="Book Title *"
@@ -128,7 +128,7 @@ function EditBookModal({
             {formik.touched.Author && formik.errors.Author ? (
               <div>
                 <input
-                  className=" bg-transparent shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="bg-transparent shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="author"
                   type="text"
                   placeholder="Author *"
@@ -144,7 +144,7 @@ function EditBookModal({
               </div>
             ) : (
               <input
-                className=" bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                 id="author"
                 type="text"
                 placeholder="Author *"
@@ -159,7 +159,7 @@ function EditBookModal({
               {formik.touched.Genre && formik.errors.Genre ? (
                 <div>
                   <input
-                    className=" bg-transparent shadow appearance-none border border-red-400 rounded  py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                    className="bg-transparent shadow appearance-none border border-red-400 rounded py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                     id="category"
                     type="text"
                     placeholder="Book Category *"
@@ -175,7 +175,7 @@ function EditBookModal({
                 </div>
               ) : (
                 <input
-                  className=" bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="category"
                   type="text"
                   placeholder="Book Category *"
@@ -189,7 +189,7 @@ function EditBookModal({
               {formik.touched.Price && formik.errors.Price ? (
                 <div>
                   <input
-                    className=" bg-transparent shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                    className="bg-transparent shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                     id="price"
                     type="number"
                     placeholder="Price *"
@@ -206,7 +206,7 @@ function EditBookModal({
                 </div>
               ) : (
                 <input
-                  className=" bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="price"
                   type="number"
                   placeholder="Price *"
@@ -242,14 +242,14 @@ function EditBookModal({
                 id="Description"
                 cols="22"
                 rows="5"
-                className="bg-transparent shadow appearance-none border-primary  rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                 placeholder="Description"
                 onChange={formik.handleChange}
                 value={formik.values.Description}
                 autoComplete="off"
               ></textarea>
             )}
-            <label className="  text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary container justify-center">
+            <label className="text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary container justify-center">
               <span>Upload Book Cover</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

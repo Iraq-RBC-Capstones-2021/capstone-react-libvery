@@ -48,7 +48,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
               duration: 0.5,
             },
           }}
-          className="flex flex-col justify-center items-center  bg-black sm:w-96 rounded-lg p-10 mx-auto relative w-80"
+          className="flex flex-col justify-center items-center bg-black sm:w-96 rounded-lg p-10 mx-auto relative w-80"
         >
           <CloseButton
             setIsEditImageOpen={setIsEditImageOpen}
@@ -59,7 +59,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
               Update Images
             </h2>
             <div className="flex items-center">
-              <label className="w-32 text-black flex items-center py-1 rounded-md cursor-pointer bg-primary  hover:bg-secondary justify-center h-32 mx-auto mb-2">
+              <label className="w-32 text-black flex items-center py-1 rounded-md cursor-pointer bg-primary hover:bg-secondary justify-center h-32 mx-auto mb-2">
                 <img src={plusIcon} alt="plus icon" className="w-10 h-10 " />
                 <input type="file" className="hidden" />
               </label>
@@ -67,13 +67,9 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
                 <img
                   src={editIcon}
                   alt=""
-                  className=" w-6 mb-4 rounded-full cursor-pointer"
+                  className="w-6 mb-4 rounded-full cursor-pointer"
                 />
-                <img
-                  src={trashIcon}
-                  alt=""
-                  // className="bg-primary rounded-full cursor-pointer"
-                />
+                <img src={trashIcon} alt="" />
               </div>
             </div>
             <div className="flex items-center">
@@ -85,13 +81,9 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
                 <img
                   src={editIcon}
                   alt=""
-                  className=" w-6 mb-4 rounded-full cursor-pointer"
+                  className="w-6 mb-4 rounded-full cursor-pointer"
                 />
-                <img
-                  src={trashIcon}
-                  alt=""
-                  // className="bg-primary rounded-full cursor-pointer"
-                />
+                <img src={trashIcon} alt="" />
               </div>
             </div>
             <div className="flex items-center">
@@ -103,13 +95,9 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
                 <img
                   src={editIcon}
                   alt=""
-                  className=" w-6 mb-4 rounded-full cursor-pointer"
+                  className="w-6 mb-4 rounded-full cursor-pointer"
                 />
-                <img
-                  src={trashIcon}
-                  alt=""
-                  // className="bg-primary rounded-full cursor-pointer "
-                />
+                <img src={trashIcon} alt="" />
               </div>
             </div>
             <button
