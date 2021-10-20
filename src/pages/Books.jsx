@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import BookCard from "../components/BookCard";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FiPlusCircle } from "react-icons/fi";
+import AddBookModal from "../components/AddBookModal";
+import AnimateButton from "../customs/AnimateButton";
 
 function Books() {
+  const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
+
   const books = [
     {
       id: 1,
@@ -85,7 +90,15 @@ function Books() {
   ));
 
   return (
-    <>
+    <motion.div
+      exit={{ opacity: 0, x: 100 }}
+      initial={{ opacity: 0, x: -100 }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 1, type: "spring", stiffness: 100 },
+        x: 0,
+      }}
+    >
       <div className="flex justify-start items-center md:justify-center">
         <div className="flex relative bg-white rounded m-2 py-0.5 focus focus-within:ring-2 focus-within:ring-black shadow appearance-none">
           <AiOutlineSearch className="absolute left-1 mt-3 " />
@@ -110,16 +123,21 @@ function Books() {
             <option value="Free">Free</option>
           </select>
         </div>
-        <FiPlusCircle
-          className="transform transition ease-in duration-100 hover:-translate-y-0.5  mx-auto mr-1 md:mx-0 lg:"
-          size={34}
-          color={"#BE856A"}
+        <AnimateButton
+          OnClickContact={() => setIsAddBookModalOpen(true)}
+          classStyle="bg-secondary text-white rounded-full px-1 py-1"
+        >
+          <FiPlusCircle onClick={() => setIsAddBookModalOpen(true)} size={27} />
+        </AnimateButton>
+        <AddBookModal
+          isAddBookModalOpen={isAddBookModalOpen}
+          setIsAddBookModalOpen={setIsAddBookModalOpen}
         />
       </div>
       <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:justify-center py-5">
         {booksArr}
       </div>
-    </>
+    </motion.div>
   );
 }
 
