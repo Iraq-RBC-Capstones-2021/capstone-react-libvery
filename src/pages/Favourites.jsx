@@ -46,7 +46,11 @@ function Favourites() {
           {booksArr}
         </div>
       </div>
-      <Pagination pages={howManyPages} setCurrentPage={setCurrentPage} />
+      <Pagination
+        pages={howManyPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </motion.div>
   );
 }

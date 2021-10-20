@@ -27,7 +27,7 @@
   border: 1px solid #262829;
 }
 
-.pagination-container span.disabled {
+.pagination-container button.disabled {
   opacity: 0.5;
 }
 .pagination-container span:hover:not(.active) {
