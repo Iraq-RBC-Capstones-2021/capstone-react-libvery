@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Switch, Route, useLocation } from "react-router-dom";
 import About from "./pages/About";
@@ -24,9 +24,37 @@ import {
   PROFILE_ROUTE,
 } from "./routes";
 import { AnimatePresence } from "framer-motion";
+import { collection, getDocs, query } from "firebase/firestore";
+import { db } from "./firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { addBooks } from "./store/addBooksSlice";
 
 function App() {
   const location = useLocation();
+
+  const dispatch = useDispatch();
+
+  const books = useSelector((state) => state.addBooks.books);
+
+  useEffect(() => {
+    async function getData() {
+      const q = query(collection(db, "books"));
+
+      const querySnapshot = await getDocs(q);
+      let data = [];
+      let allData = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        docId: doc.id,
+      }));
+
+      // let newData = ...data;
+
+      dispatch(addBooks(allData));
+      console.log("dataaaaaaaaaaaaaa", allData);
+    }
+
+    getData();
+  }, [dispatch, books]);
 
   return (
     <div className="bg-primary overflow-x-hidden">

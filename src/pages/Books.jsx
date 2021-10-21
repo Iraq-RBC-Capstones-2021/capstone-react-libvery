@@ -5,11 +5,12 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FiPlusCircle } from "react-icons/fi";
 import AddBookModal from "../components/AddBookModal";
 import AnimateButton from "../customs/AnimateButton";
+import { useSelector } from "react-redux";
 
 function Books() {
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
 
-  const books = [
+  const bookss = [
     {
       id: 1,
       title: "The Lord of the Rings",
@@ -76,18 +77,22 @@ function Books() {
     },
   ];
 
-  const booksArr = books.map((book) => (
+  const books = useSelector((state) => state.addBooks.books);
+
+  const booksArr = books?.["0"]?.map((book) => (
     <div key={book.id} className="m-2">
       <BookCard
         id={book.id}
-        title={book.title}
-        genres={book.genres}
-        image={book.image}
-        rating={book.rating}
-        price={book.price}
+        title={book.BookTitle}
+        genres={book.Genres}
+        image={book.Image}
+        rating={book.Rating}
+        price={book.Price}
       />
     </div>
   ));
+
+  // console.log(`books array: ${booksArr}`);
 
   return (
     <motion.div
