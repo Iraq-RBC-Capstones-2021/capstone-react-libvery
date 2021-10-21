@@ -32,6 +32,7 @@ const initialValues = {
   price: "",
   description: "",
   image: "",
+  isChecked: false,
 };
 
 function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
@@ -57,6 +58,8 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       price: formik.values.price,
       description: formik.values.description,
       image: formik.values.image,
+      isChecked: formik.values.isChecked,
+      id: Date.now(),
     });
     dispatch(addBooks(formik.values));
   }
@@ -277,9 +280,14 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
               <p className="mr-2 text-primary">Are you donating this book?</p>
               <input
                 type="checkbox"
-                name="yes"
-                id="yes"
+                name="checkbox"
+                id="check"
                 className="rounded-full"
+                value={formik.values.isChecked}
+                checked={formik.values.isChecked}
+                onChange={() => {
+                  formik.setFieldValue("isChecked", !formik.values.isChecked);
+                }}
               />
             </label>
             <button

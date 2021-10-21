@@ -54,7 +54,7 @@ function App() {
     }
 
     getData();
-  }, [dispatch, books]);
+  }, [dispatch]);
 
   return (
     <div className="bg-primary overflow-x-hidden">
