@@ -83,11 +83,11 @@ function Books() {
     <div key={book.id} className="m-2">
       <BookCard
         id={book.id}
-        title={book.BookTitle}
-        genres={book.Genres}
-        image={book.Image}
-        rating={book.Rating}
-        price={book.Price}
+        title={book.bookTitle}
+        genres={book.genres}
+        image={book.image}
+        rating={book.rating}
+        price={book.price}
       />
     </div>
   ));

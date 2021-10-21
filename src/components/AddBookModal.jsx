@@ -13,25 +13,25 @@ const el = document.getElementById("root");
 Modal.setAppElement(el);
 
 const validationSchema = Yup.object().shape({
-  BookName: Yup.string()
+  bookTitle: Yup.string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
-  Author: Yup.string()
+  author: Yup.string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
-  Genre: Yup.string().required("Required"),
-  Price: Yup.number().required("Required"),
+  genres: Yup.string().required("Required"),
+  price: Yup.number().required("Required"),
 });
 
 const initialValues = {
-  BookName: "",
-  Author: "",
-  Genre: "",
-  Price: "",
-  Description: "",
-  Image: "",
+  bookTitle: "",
+  author: "",
+  genres: "",
+  price: "",
+  description: "",
+  image: "",
 };
 
 function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
@@ -39,10 +39,10 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
     initialValues,
     validationSchema,
     onSubmit: (values, actions) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        actions.setSubmitting(false);
-      }, 1000);
+      // setTimeout(() => {
+      //   alert(JSON.stringify(values, null, 2));
+      //   actions.setSubmitting(false);
+      // }, 1000);
     },
   });
 
@@ -51,12 +51,12 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   async function addItemsToList() {
     // Add a new document with a generated id.
     await addDoc(collection(db, "books"), {
-      BookName: formik.values.BookName,
-      Author: formik.values.Author,
-      Genre: formik.values.Genre.split(","),
-      Price: formik.values.Price,
-      Description: formik.values.Description,
-      Image: formik.values.Image,
+      bookTitle: formik.values.bookTitle,
+      author: formik.values.author,
+      genres: formik.values.genres.split(","),
+      price: formik.values.price,
+      description: formik.values.description,
+      image: formik.values.image,
     });
     dispatch(addBooks(formik.values));
   }
@@ -100,52 +100,52 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
             <p className="text-primary font-extrabold flex justify-center mb-4 sm:text-3xl text-4xl">
               Add a book
             </p>
-            {formik.touched.BookName && formik.errors.BookName ? (
+            {formik.touched.bookTitle && formik.errors.bookTitle ? (
               <div>
                 <input
                   className="shadow bg-transparent appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                  id="BookName"
+                  id="bookTitle"
                   type="text"
                   placeholder="Book Title *"
                   onChange={formik.handleChange}
-                  value={formik.values.BookName}
-                  name="BookName"
+                  value={formik.values.bookTitle}
+                  name="bookTitle"
                   onBlur={formik.handleBlur}
                   autoComplete="off"
                 />
                 <p className="text-xs text-red-400 -mt-2 mb-2">
-                  {formik.errors.BookName}
+                  {formik.errors.bookTitle}
                 </p>
               </div>
             ) : (
               <input
                 className="shadow bg-transparent border-primary  appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                id="BookName"
+                id="bookTitle"
                 type="text"
                 placeholder="Book Title *"
                 onChange={formik.handleChange}
-                value={formik.values.BookName}
-                name="BookName"
+                value={formik.values.bookTitle}
+                name="bookTitle"
                 onBlur={formik.handleBlur}
                 autoComplete="off"
               />
             )}
 
-            {formik.touched.Author && formik.errors.Author ? (
+            {formik.touched.author && formik.errors.author ? (
               <div>
                 <input
                   className="shadow bg-transparent  appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="author"
                   type="text"
-                  placeholder="Author *"
+                  placeholder="author *"
                   onChange={formik.handleChange}
-                  value={formik.values.Author}
-                  name="Author"
+                  value={formik.values.author}
+                  name="author"
                   onBlur={formik.handleBlur}
                   autoComplete="off"
                 />
                 <p className="text-xs text-red-400 -mt-2 mb-2">
-                  {formik.errors.Author}
+                  {formik.errors.author}
                 </p>
               </div>
             ) : (
@@ -153,16 +153,16 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                 className="shadow bg-transparent border-primary  appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                 id="author"
                 type="text"
-                placeholder="Author *"
+                placeholder="author *"
                 onChange={formik.handleChange}
-                value={formik.values.Author}
-                name="Author"
+                value={formik.values.author}
+                name="author"
                 onBlur={formik.handleBlur}
                 autoComplete="off"
               />
             )}
             <div className="md:flex md:justify-between space-x-3">
-              {formik.touched.Genre && formik.errors.Genre ? (
+              {formik.touched.genres && formik.errors.genres ? (
                 <div>
                   <input
                     className="shadow bg-transparent   appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
@@ -170,13 +170,13 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                     type="text"
                     placeholder="Book Category *"
                     onChange={formik.handleChange}
-                    value={formik.values.Genre}
-                    name="Genre"
+                    value={formik.values.genres}
+                    name="genres"
                     onBlur={formik.handleBlur}
                     autoComplete="off"
                   />
                   <p className="text-xs text-red-400 -mt-2 mb-2">
-                    {formik.errors.Genre}
+                    {formik.errors.genres}
                   </p>
                 </div>
               ) : (
@@ -186,28 +186,28 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   type="text"
                   placeholder="Book Category *"
                   onChange={formik.handleChange}
-                  value={formik.values.Genre}
-                  name="Genre"
+                  value={formik.values.genres}
+                  name="genres"
                   onBlur={formik.handleBlur}
                   autoComplete="off"
                 />
               )}
-              {formik.touched.Price && formik.errors.Price ? (
+              {formik.touched.price && formik.errors.price ? (
                 <div>
                   <input
                     className="shadow bg-transparent   text-primary appearance-none border border-red-400 rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline mb-2"
                     id="price"
                     type="number"
-                    placeholder="Price *"
+                    placeholder="price *"
                     onChange={formik.handleChange}
-                    value={formik.values.Price}
-                    name="Price"
+                    value={formik.values.price}
+                    name="price"
                     onBlur={formik.handleBlur}
                     autoComplete="off"
                     min="0"
                   />
                   <p className="text-xs text-red-400 -mt-2 mb-2">
-                    {formik.errors.Price}
+                    {formik.errors.price}
                   </p>
                 </div>
               ) : (
@@ -215,43 +215,43 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   className="shadow bg-transparent   appearance-none border-primary  rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="price"
                   type="number"
-                  placeholder="Price *"
+                  placeholder="price *"
                   onChange={formik.handleChange}
-                  value={formik.values.Price}
-                  name="Price"
+                  value={formik.values.price}
+                  name="price"
                   onBlur={formik.handleBlur}
                   autoComplete="off"
                   min="0"
                 />
               )}
             </div>
-            {formik.touched.Description && formik.errors.Description ? (
+            {formik.touched.description && formik.errors.description ? (
               <div>
                 <textarea
-                  name="Description"
-                  id="Description"
+                  name="description"
+                  id="description"
                   cols="22"
                   rows="5"
                   className="shadow bg-transparent   appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                  placeholder="Description"
+                  placeholder="description"
                   onChange={formik.handleChange}
-                  value={formik.values.Description}
+                  value={formik.values.description}
                   autoComplete="off"
                 ></textarea>
                 <p className="text-xs text-red-400 -mt-2 mb-2">
-                  {formik.errors.Description}
+                  {formik.errors.description}
                 </p>
               </div>
             ) : (
               <textarea
-                name="Description"
-                id="Description"
+                name="description"
+                id="description"
                 cols="22"
                 rows="5"
                 className="shadow bg-transparent  appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                placeholder="Short Description"
+                placeholder="Short description"
                 onChange={formik.handleChange}
-                value={formik.values.Description}
+                value={formik.values.description}
                 autoComplete="off"
               ></textarea>
             )}
