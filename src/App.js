@@ -47,9 +47,15 @@ function App() {
         docId: doc.id,
       }));
 
-      // let newData = ...data;
+      // the console gave error due to createdAt being stored in the redux store. so I remove it in this way.
+      // add all data except createdAt to the store. not sure if this is the best way to do it.
+      allData.forEach((book) => {
+        delete book.createdAt;
+        data.push(book);
+      });
 
-      dispatch(addBooks(allData));
+      // dispatch(addBooks(allData));
+      dispatch(addBooks(data));
       console.log("dataaaaaaaaaaaaaa", allData);
     }
 
