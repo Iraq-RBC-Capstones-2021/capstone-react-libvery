@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import CloseButton from "../customs/CloseButton";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
 import { useDispatch } from "react-redux";
 import { addBooks } from "../store/addBooksSlice";
 import { serverTimestamp } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -48,17 +49,20 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
     },
   });
 
+  const [fileUrl, setFileUrl] = useState("");
+
   const dispatch = useDispatch();
 
   async function addItemsToList() {
     // Add a new document with a generated id.
+    console.log("fileUrl: " + fileUrl);
     await addDoc(collection(db, "books"), {
       bookTitle: formik.values.bookTitle,
       author: formik.values.author,
       genres: formik.values.genres.split(","),
       price: formik.values.price,
       description: formik.values.description,
-      image: formik.values.image,
+      image: fileUrl,
       isChecked: formik.values.isChecked,
       id: Date.now(),
       createdAt: serverTimestamp(),
@@ -70,6 +74,15 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   //   const { name, value } = event.target;
   //   formik.setFieldValue(name, value);
   // }
+
+  const onFileChange = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = ref(storage, file.name);
+    await uploadBytes(storageRef, file);
+    setFileUrl(await getDownloadURL(storageRef));
+  };
+
+  console.log(fileUrl);
 
   return (
     <>
@@ -276,7 +289,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
                 />
               </svg>
-              <input type="file" className="hidden" />
+              <input type="file" className="hidden" onChange={onFileChange} />
             </label>
             <label className="flex text-black items-center">
               <p className="mr-2 text-primary">Are you donating this book?</p>

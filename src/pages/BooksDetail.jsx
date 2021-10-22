@@ -83,9 +83,9 @@ function BooksDetail({ match }) {
         >
           <Zoom>
             <img
-              className="flex-1 object-cover rounded-md"
-              src={coverImg}
-              alt="book"
+              className="flex-1 object-cover rounded-md sm:max-w-xs md:max-w-sm lg:max-w-lg"
+              src={book.image}
+              alt={book.title}
             />
           </Zoom>
           <div className="absolute top-0 right-0 bg-red-50 rounded-bl-2xl rounded-br-2xl">
