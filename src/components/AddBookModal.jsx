@@ -8,6 +8,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useDispatch } from "react-redux";
 import { addBooks } from "../store/addBooksSlice";
+import { serverTimestamp } from "firebase/firestore";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -60,6 +61,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       image: formik.values.image,
       isChecked: formik.values.isChecked,
       id: Date.now(),
+      createdAt: serverTimestamp(),
     });
     dispatch(addBooks(formik.values));
   }
