@@ -13,6 +13,7 @@ const initialState = {
   userPhone: localStorage.getItem("userPhone"),
   userPhoto: localStorage.getItem("userPhoto"),
   userBooks: [],
+  uid: null,
 };
 
 export const signUp = createAsyncThunk(
@@ -33,6 +34,7 @@ export const signUp = createAsyncThunk(
           email: userCredential.user.email,
           phone: data.values.userPhone,
           photo: data.fileUrl,
+          uid: userCredential.user.uid,
           books: [],
           favorites: [],
         });
@@ -42,6 +44,7 @@ export const signUp = createAsyncThunk(
             userEmail: data.values.email,
             userPhone: data.values.userPhone,
             userPhoto: data.fileUrl,
+            uid: userCredential.user.uid,
           })
         );
       })
@@ -95,6 +98,8 @@ const userSlice = createSlice({
       state.userEmail = action.payload.userEmail;
       state.userPhone = action.payload.userPhone;
       state.userPhoto = action.payload.userPhoto;
+      state.uid = action.payload.uid;
+      console.log("🚀 ~ file: userSlice.js ~ line 102 ~ state.uid", state.uid);
 
       localStorage.setItem("userName", state.userName);
       localStorage.setItem("userEmail", state.userEmail);
