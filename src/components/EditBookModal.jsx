@@ -82,7 +82,7 @@ function EditBookModal({
               duration: 0.5,
             },
           }}
-          className="flex flex-col justify-center items-center text-white bg-white rounded-lg relative w-80 sm:w-96"
+          className="flex flex-col justify-center items-center text-white bg-black rounded-lg relative  "
         >
           <CloseButton
             setIsEditBookOpen={setIsEditBookOpen}
@@ -90,15 +90,15 @@ function EditBookModal({
           />
           <form
             onSubmit={formik.handleSubmit}
-            className="w-full max-w-md bg-white rounded mb-4 mt-10 sm:max-w-2xl md:max-w-md font-sans p-4"
+            className="w-full max-w-lg bg-black rounded space-y-4  sm:max-w-2xl md:max-w-md font-sans p-8"
           >
-            <h2 className="text-black font-semibold flex justify-center mb-4 text-sm sm:text-xl">
+            <h2 className="text-primary font-semibold flex justify-center mb-4 text-sm sm:text-xl">
               Update Book Details
             </h2>
             {formik.touched.BookName && formik.errors.BookName ? (
               <div>
                 <input
-                  className="shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="bg-transparent shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="BookName"
                   type="text"
                   placeholder="Book Title *"
@@ -114,7 +114,7 @@ function EditBookModal({
               </div>
             ) : (
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                 id="BookName"
                 type="text"
                 placeholder="Book Title *"
@@ -128,7 +128,7 @@ function EditBookModal({
             {formik.touched.Author && formik.errors.Author ? (
               <div>
                 <input
-                  className="shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="bg-transparent shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="author"
                   type="text"
                   placeholder="Author *"
@@ -144,7 +144,7 @@ function EditBookModal({
               </div>
             ) : (
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                 id="author"
                 type="text"
                 placeholder="Author *"
@@ -155,10 +155,27 @@ function EditBookModal({
                 autoComplete="off"
               />
             )}
-            {formik.touched.Genre && formik.errors.Genre ? (
-              <div>
+            <div className="md:flex space-x-3 justify-between">
+              {formik.touched.Genre && formik.errors.Genre ? (
+                <div>
+                  <input
+                    className="bg-transparent shadow appearance-none border border-red-400 rounded py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                    id="category"
+                    type="text"
+                    placeholder="Book Category *"
+                    onChange={formik.handleChange}
+                    value={formik.values.Genre}
+                    name="Genre"
+                    onBlur={formik.handleBlur}
+                    autoComplete="off"
+                  />
+                  <p className="text-xs text-red-400 -mt-2 mb-2">
+                    {formik.errors.Genre}
+                  </p>
+                </div>
+              ) : (
                 <input
-                  className="shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="category"
                   type="text"
                   placeholder="Book Category *"
@@ -168,54 +185,40 @@ function EditBookModal({
                   onBlur={formik.handleBlur}
                   autoComplete="off"
                 />
-                <p className="text-xs text-red-400 -mt-2 mb-2">
-                  {formik.errors.Genre}
-                </p>
-              </div>
-            ) : (
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
-                id="category"
-                type="text"
-                placeholder="Book Category *"
-                onChange={formik.handleChange}
-                value={formik.values.Genre}
-                name="Genre"
-                onBlur={formik.handleBlur}
-                autoComplete="off"
-              />
-            )}
-            {formik.touched.Price && formik.errors.Price ? (
-              <div>
+              )}
+              {formik.touched.Price && formik.errors.Price ? (
+                <div>
+                  <input
+                    className="bg-transparent shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                    id="price"
+                    type="number"
+                    placeholder="Price *"
+                    onChange={formik.handleChange}
+                    value={formik.values.Price}
+                    name="Price"
+                    onBlur={formik.handleBlur}
+                    autoComplete="off"
+                    min="0"
+                  />
+                  <p className="text-xs text-red-400 -mt-2 mb-2">
+                    {formik.errors.Price}
+                  </p>
+                </div>
+              ) : (
                 <input
-                  className="shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="price"
-                  type="text"
+                  type="number"
                   placeholder="Price *"
                   onChange={formik.handleChange}
                   value={formik.values.Price}
                   name="Price"
                   onBlur={formik.handleBlur}
                   autoComplete="off"
+                  min="0"
                 />
-                <p className="text-xs text-red-400 -mt-2 mb-2">
-                  {formik.errors.Price}
-                </p>
-              </div>
-            ) : (
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
-                id="price"
-                type="text"
-                placeholder="Price *"
-                onChange={formik.handleChange}
-                value={formik.values.Price}
-                name="Price"
-                onBlur={formik.handleBlur}
-                autoComplete="off"
-              />
-            )}
-
+              )}
+            </div>
             {formik.touched.Description && formik.errors.Description ? (
               <div>
                 <textarea
@@ -223,7 +226,7 @@ function EditBookModal({
                   id="Description"
                   cols="22"
                   rows="5"
-                  className="shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="bg-transparent shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   placeholder="Description"
                   onChange={formik.handleChange}
                   value={formik.values.Description}
@@ -239,14 +242,14 @@ function EditBookModal({
                 id="Description"
                 cols="22"
                 rows="5"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                 placeholder="Description"
                 onChange={formik.handleChange}
                 value={formik.values.Description}
                 autoComplete="off"
               ></textarea>
             )}
-            <label className="w-60 text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary justify-center">
+            <label className="text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary container justify-center">
               <span>Upload Book Cover</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -264,12 +267,17 @@ function EditBookModal({
               </svg>
               <input type="file" className="hidden" />
             </label>
-            <label className="flex text-black items-center">
+            <label className="flex text-primary items-center">
               <p className="mr-2">Are you donating this book?</p>
-              <input type="checkbox" name="yes" id="yes" />
+              <input
+                type="checkbox"
+                name="yes"
+                id="yes"
+                className="rounded-full"
+              />
             </label>
             <button
-              className="bg-secondary text-white font-semibold py-1 px-4 rounded-sm mb-4 container mt-2"
+              className="bg-secondary text-white font-semibold py-2 px-4 rounded-lg mb-4 container mt-2"
               type="submit"
             >
               Update Book
