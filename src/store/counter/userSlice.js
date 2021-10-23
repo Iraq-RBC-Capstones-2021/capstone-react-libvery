@@ -13,7 +13,7 @@ const initialState = {
   userPhone: localStorage.getItem("userPhone"),
   userPhoto: localStorage.getItem("userPhoto"),
   userBooks: [],
-  uid: null,
+  uid: localStorage.getItem("userId"),
 };
 
 export const signUp = createAsyncThunk(
@@ -72,6 +72,7 @@ export const signIn = createAsyncThunk(
           setActiveUser({
             userName: userCredential.user.displayName,
             userEmail: userCredential.user.email,
+            uid: userCredential.user.email,
             userPhone:
               docSnap._document.data.value.mapValue.fields.phone.stringValue,
             userPhoto:
@@ -104,6 +105,7 @@ const userSlice = createSlice({
       localStorage.setItem("userEmail", state.userEmail);
       localStorage.setItem("userPhone", state.userPhone);
       localStorage.setItem("userPhoto", state.userPhoto);
+      localStorage.setItem("userId", state.uid);
     },
     setLogOut: (state) => {
       state.userName = null;
@@ -114,6 +116,7 @@ const userSlice = createSlice({
       localStorage.removeItem("userEmail", state.userEmail);
       localStorage.removeItem("userPhone", state.userPhone);
       localStorage.removeItem("userPhoto", state.userPhoto);
+      localStorage.removeItem("userId", state.uid);
     },
   },
 });
@@ -123,4 +126,5 @@ export const selectorUserName = (state) => state.user.userName;
 export const selectorUserEmail = (state) => state.user.userEmail;
 export const selectorUserPhone = (state) => state.user.userPhone;
 export const selectorUserPhoto = (state) => state.user.userPhoto;
+export const selectorUserId = (state) => state.user.uid;
 export default userSlice.reducer;
