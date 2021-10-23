@@ -24,10 +24,10 @@ import {
   PROFILE_ROUTE,
 } from "./routes";
 import { AnimatePresence } from "framer-motion";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query, onSnapshot } from "firebase/firestore";
 import { db } from "./firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { addBooks } from "./store/addBooksSlice";
+import { addBooks, emptyBooks } from "./store/addBooksSlice";
 
 function App() {
   const location = useLocation();
@@ -36,31 +36,43 @@ function App() {
 
   const books = useSelector((state) => state.addBooks.books);
 
+  // async function getData() {
+  //   const q = query(collection(db, "books"));
+
+  //   const querySnapshot = await getDocs(q);
+  //   let data = [];
+  //   querySnapshot.forEach((doc) => {
+  //     // doc.data() is never undefined for query doc snapshots
+  //     console.log(doc.id, " => ", doc.data());
+  //     data.push(doc.data());
+  //   });
+
+  //   console.log("dataaaaaaaaaaaaaa", data);
+  //   dispatch(addBooks(data));
+  //   // dispatch(addBookmark(bookmarks.bookmarks));
+  //   // setLocalState(data);
+  // }
+
   useEffect(() => {
-    async function getData() {
-      const q = query(collection(db, "books"));
-
-      const querySnapshot = await getDocs(q);
-      let data = [];
-      let allData = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        docId: doc.id,
-      }));
-
-      // the console gave error due to createdAt being stored in the redux store. so I remove it in this way.
-      // add all data except createdAt to the store. not sure if this is the best way to do it.
-      allData.forEach((book) => {
-        delete book.createdAt;
-        data.push(book);
+    // getData();
+    const q = query(collection(db, "books"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const cities = [];
+      querySnapshot.forEach((doc) => {
+        cities.push(doc.data());
+        // this is to delete createdAt from redux store since it logs error in console.
+        cities.forEach((book) => {
+          delete book.createdAt;
+        });
       });
+      console.log("Current cities in CA: ", cities);
+      dispatch(addBooks(cities));
+    });
 
-      // dispatch(addBooks(allData));
-      dispatch(addBooks(data));
-      console.log("dataaaaaaaaaaaaaa", allData);
-    }
-
-    getData();
-  }, [dispatch]);
+    // dispatch(emptyBooks());
+    return unsubscribe;
+    //eslint-disable-next-line
+  }, []);
 
   return (
     <div className="bg-primary overflow-x-hidden">

@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { collection, addDoc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { addBooks } from "../store/addBooksSlice";
+import { addBooks, emptyBooks } from "../store/addBooksSlice";
 import { serverTimestamp } from "firebase/firestore";
 import {
   getDownloadURL,
@@ -91,6 +91,8 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
     dispatch(addBooks({ ...formik.values, id: uniqueID }));
     if (uniqueID !== 0 || uniqueID !== "") {
       history.push(`/books/${uniqueID}`);
+      // this is to empty the books array after adding a book to render realtime data.
+      dispatch(emptyBooks());
     } else {
       return;
     }
