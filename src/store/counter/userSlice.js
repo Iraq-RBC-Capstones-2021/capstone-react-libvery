@@ -99,7 +99,6 @@ const userSlice = createSlice({
       state.userPhone = action.payload.userPhone;
       state.userPhoto = action.payload.userPhoto;
       state.uid = action.payload.uid;
-      console.log("🚀 ~ file: userSlice.js ~ line 102 ~ state.uid", state.uid);
 
       localStorage.setItem("userName", state.userName);
       localStorage.setItem("userEmail", state.userEmail);
