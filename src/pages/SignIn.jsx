@@ -1,30 +1,48 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { SIGNUP_ROUTE } from "../routes";
+import React, { useRef, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { SIGNUP_ROUTE } from "../routes";
 
-import Google from "../assets/Google.svg";
 import Email from "../assets/Email.svg";
 import Key from "../assets/Key.svg";
 import SigninIllustration from "../assets/SigninIllustration.svg";
 
+import GoogleAuth from "../components/GoogleAuth";
+import { signIn } from "../store/counter/userSlice";
+
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState("");
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const history = useHistory();
   const { t } = useTranslation();
+
+  const dispatch = useDispatch();
 
   const handleShowPassword = (e) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
 
+  const handleSignin = async (e) => {
+    e.preventDefault();
+    dispatch(signIn({ emailRef, passwordRef, setErrors }));
+    setLoading(false);
+    history.goBack();
+  };
+
+  if (loading) return <p>Loading ...</p>;
   return (
     <div className="min-h-screen flex  items-center justify-around flex-wrap  bg-primary font-sans ">
       <div className="bg-white m-2 p-10 md:p-16 rounded-xl md:w-6/12 lg:w-5/12 ">
         <h1 className="text-4xl font-bold font-sans	 mb-10 text-black">
           {t("sign_in")} 📚
         </h1>
-
-        <form className="space-y-5">
+        {errors}
+        <form className="space-y-5" onSubmit={handleSignin}>
           <div className="relative">
             <img
               src={Email}
@@ -34,6 +52,7 @@ const SignIn = () => {
 
             <input
               type="email"
+              ref={emailRef}
               className="w-full border-1 
                         border-gray-200 p-3 rounded outline-none  focus:border-black placeholder-gray-400
                         form-input border  py-3 px-4  appearance-none  block pl-14 focus:outline-none
@@ -50,6 +69,7 @@ const SignIn = () => {
             />
             <input
               type={!showPassword ? "password" : "text"}
+              ref={passwordRef}
               className="w-full border-1 
                         border-gray-200 p-3 rounded outline-none focus:border-black placeholder-gray-400
                         form-input border  py-3 px-4 bg-white   appearance-none  block pl-14 focus:outline-none
@@ -64,7 +84,10 @@ const SignIn = () => {
             </button>
           </div>
 
-          <button className="block w-full bg-secondary p-4 rounded text-white font-bold	 hover:text-black transition duration-300">
+          <button
+            type="submit"
+            className="block w-full bg-secondary p-4 rounded text-white font-bold	 hover:text-black transition duration-300"
+          >
             {t("sign_in_button")}
           </button>
 
@@ -78,7 +101,7 @@ const SignIn = () => {
           <p className="text-center text-gray-500 font-light">- {t("or")} -</p>
 
           <div className="flex items-center justify-center space-x-4 text-gray-800  ">
-            <img src={Google} alt="" />
+            <GoogleAuth />
           </div>
         </form>
       </div>
