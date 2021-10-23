@@ -9,7 +9,14 @@ import { db, storage } from "../firebase";
 import { useDispatch } from "react-redux";
 import { addBooks } from "../store/addBooksSlice";
 import { serverTimestamp } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { Redirect, useHistory } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -50,12 +57,15 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   });
 
   const [fileUrl, setFileUrl] = useState("");
+  const [progress, setProgress] = useState(0);
+
+  const history = useHistory();
 
   const dispatch = useDispatch();
 
   async function addItemsToList() {
     // Add a new document with a generated id.
-    console.log("fileUrl: " + fileUrl);
+    console.log(`fileUrl: ${fileUrl}`);
     await addDoc(collection(db, "books"), {
       bookTitle: formik.values.bookTitle,
       author: formik.values.author,
@@ -68,6 +78,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       createdAt: serverTimestamp(),
     });
     dispatch(addBooks(formik.values));
+    // history.push(`/books/${}`);
   }
 
   // function handleChange(event) {
@@ -75,14 +86,22 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   //   formik.setFieldValue(name, value);
   // }
 
+  const notify = () => toast("Wow so easy!");
+
   const onFileChange = async (e) => {
     const file = e.target.files[0];
     const storageRef = ref(storage, file.name);
-    await uploadBytes(storageRef, file);
+    // console.log(`storageRef: ${storageRef}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on("state_changed", (snapshot) => {
+      const progress = Math.round(
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      );
+      setProgress(progress);
+    });
     setFileUrl(await getDownloadURL(storageRef));
   };
-
-  console.log(fileUrl);
 
   return (
     <>
@@ -291,6 +310,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
               </svg>
               <input type="file" className="hidden" onChange={onFileChange} />
             </label>
+            {progress > 0 ? <p>Upload is {progress}% done</p> : null}
             <label className="flex text-black items-center">
               <p className="mr-2 text-primary">Are you donating this book?</p>
               <input
@@ -308,13 +328,17 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
             <button
               className="bg-secondary rounded-md text-white font-semibold py-2 px-4  container "
               type="submit"
-              onClick={addItemsToList}
+              onClick={() => {
+                addItemsToList();
+                toast.success("Book added successfully");
+              }}
             >
               Add Book
             </button>
           </form>
         </motion.div>
       </Modal>
+      <ToastContainer />
     </>
   );
 }
