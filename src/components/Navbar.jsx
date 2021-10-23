@@ -1,22 +1,33 @@
 import React, { useState } from "react";
 import Menu from "./Menu";
 import MobileNav from "./MobileNav";
-import { NavLink, useLocation } from "react-router-dom";
+
+import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   HOME_ROUTE,
   ABOUT_ROUTE,
   PROFILE_ROUTE,
   FAVOURITES_ROUTE,
   BOOKS_ROUTE,
+  SIGNIN_ROUTE,
 } from "../routes";
+
 import logoIcon from "../assets/logo.svg";
 import userIcon from "../assets/userPlaceholder.svg";
 
-// TODO check if user is logged in so it will show signout option else it will show login and sign up
+import SignoutButton from "./SignoutButton";
+
+import { useSelector } from "react-redux";
+import {
+  selectorUserName,
+  selectorUserPhoto,
+} from "../store/counter/userSlice";
 
 function Navbar() {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [isOptionOpened, setIsOptionOpened] = useState(false);
+  const userName = useSelector(selectorUserName);
+  const userPhoto = useSelector(selectorUserPhoto);
 
   function handleShowMenu() {
     setNavbarOpen((prev) => !prev);
@@ -68,48 +79,58 @@ function Navbar() {
               About
             </NavLink>
           </div>
-          <div>
-            <NavLink
-              to={FAVOURITES_ROUTE}
-              activeStyle={isActive(FAVOURITES_ROUTE) ? styles : {}}
-              className="text-xl"
-            >
-              Favourites
-            </NavLink>
-          </div>
+          {userName && (
+            <div>
+              <NavLink
+                to={FAVOURITES_ROUTE}
+                activeStyle={isActive(FAVOURITES_ROUTE) ? styles : {}}
+                className="text-xl"
+              >
+                Favourites
+              </NavLink>
+            </div>
+          )}
         </div>
         <div className="sm:flex items-center hidden">
           <img
-            src={userIcon}
+            src={userPhoto ? userPhoto : userIcon}
             alt="user"
             className="w-10 h-10 border-2 rounded-full"
           />
-          <p className="opacity-50">Username</p>
+          <p className="opacity-50 pl-3">
+            {userName ? (
+              <>Hello, {userName}</>
+            ) : (
+              <Link to={SIGNIN_ROUTE}> Sign In </Link>
+            )}
+          </p>
           <div className="relative inline-block text-left">
-            <div>
-              <button
-                onClick={() => setIsOptionOpened(!isOptionOpened)}
-                type="button"
-                className="font-semibold relative"
-                id="menu-button"
-                aria-expanded="true"
-                aria-haspopup="true"
-              >
-                <svg
-                  className="w-8 absolute -bottom-3"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
+            {userName && (
+              <div>
+                <button
+                  onClick={() => setIsOptionOpened(!isOptionOpened)}
+                  type="button"
+                  className="font-semibold relative"
+                  id="menu-button"
+                  aria-expanded="true"
+                  aria-haspopup="true"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
+                  <svg
+                    className="w-8 absolute -bottom-3"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            )}
             {isOptionOpened ? (
               <div
                 className="origin-top-right absolute -right-8 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
@@ -129,15 +150,13 @@ function Navbar() {
                   >
                     Profile
                   </NavLink>
-                  <button
+                  <SignoutButton
                     className="text-gray-700 block w-full text-left px-4 py-2 text-sm transition hover:bg-blue-600 hover:text-white"
+                    setIsOptionOpened={setIsOptionOpened}
                     role="menuitem"
                     tabIndex="-1"
                     id="menu-item-1"
-                    onClick={() => setIsOptionOpened(false)}
-                  >
-                    Sign out
-                  </button>
+                  />
                 </div>
               </div>
             ) : (
