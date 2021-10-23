@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import BookCard from "../components/BookCard";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -6,20 +6,24 @@ import { FiPlusCircle } from "react-icons/fi";
 import AddBookModal from "../components/AddBookModal";
 import AnimateButton from "../customs/AnimateButton";
 import Pagination from "../components/pagination/Pagination";
-import booksData from "../service/fakeData.json";
 
+import { fetchBooks } from "../store/books/bookSlice";
+import { useSelector, useDispatch } from "react-redux";
 function Books() {
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
-  const [posts] = useState([...booksData]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
+  const dispatch = useDispatch();
+  const books = useSelector((state) => state.books);
+  useEffect(() => {
+    dispatch(fetchBooks());
+  }, [dispatch]);
 
   //Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const howManyPages = Math.ceil(posts.length / postsPerPage);
-
+  const currentPosts = books.entities.slice(indexOfFirstPost, indexOfLastPost);
+  const howManyPages = Math.ceil(books.entities.length / postsPerPage);
   const booksArr = currentPosts.map((book) => (
     <div key={book.id} className="m-2">
       <BookCard
