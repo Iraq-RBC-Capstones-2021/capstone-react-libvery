@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import CloseButton from "../customs/CloseButton";
 import { motion } from "framer-motion";
@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { collection, addDoc } from "firebase/firestore";
 import { db, storage } from "../firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addBooks } from "../store/addBooksSlice";
 import { serverTimestamp } from "firebase/firestore";
 import {
@@ -15,7 +15,7 @@ import {
   uploadBytes,
   uploadBytesResumable,
 } from "firebase/storage";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 const el = document.getElementById("root");
@@ -32,6 +32,7 @@ const validationSchema = Yup.object().shape({
     .required("Required"),
   genres: Yup.string().required("Required"),
   price: Yup.number().required("Required"),
+  id: Yup.string().required("Required"),
 });
 
 const initialValues = {
@@ -42,6 +43,7 @@ const initialValues = {
   description: "",
   image: "",
   isChecked: false,
+  id: "",
 };
 
 function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
@@ -58,10 +60,15 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
 
   const [fileUrl, setFileUrl] = useState("");
   const [progress, setProgress] = useState(0);
+  const [uniqueID, setUniqueID] = useState("");
 
   const history = useHistory();
 
   const dispatch = useDispatch();
+
+  const books = useSelector((state) => state.addBooks);
+
+  // console.log(`books: ${JSON.stringify(books, null, 2)}`);
 
   async function addItemsToList() {
     // Add a new document with a generated id.
@@ -74,24 +81,35 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       description: formik.values.description,
       image: fileUrl,
       isChecked: formik.values.isChecked,
-      id: Date.now(),
+      id: uniqueID,
       createdAt: serverTimestamp(),
     });
-    dispatch(addBooks(formik.values));
-    // history.push(`/books/${}`);
+
+    // const id = Date.now();
+    // setUniqueID(Date.now());
+
+    dispatch(addBooks({ ...formik.values, id: uniqueID }));
+    if (uniqueID !== 0 || uniqueID !== "") {
+      history.push(`/books/${uniqueID}`);
+    } else {
+      return;
+    }
   }
 
-  // function handleChange(event) {
-  //   const { name, value } = event.target;
-  //   formik.setFieldValue(name, value);
-  // }
+  useEffect(() => {
+    if (formik.values.id === "" && isAddBookModalOpen) {
+      const newID = Date.now();
+      setUniqueID(newID);
+    }
 
-  const notify = () => toast("Wow so easy!");
+    // add dependency when the form is submitted
+  }, [formik.values.id, isAddBookModalOpen]);
+
+  console.log(`uniqueID: ${uniqueID}`);
 
   const onFileChange = async (e) => {
     const file = e.target.files[0];
     const storageRef = ref(storage, file.name);
-    // console.log(`storageRef: ${storageRef}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on("state_changed", (snapshot) => {
@@ -102,6 +120,11 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
     });
     setFileUrl(await getDownloadURL(storageRef));
   };
+
+  function handleGenerateUniqueId() {
+    // const id = Date.now();
+    // setUniqueID(id);
+  }
 
   return (
     <>
@@ -137,6 +160,25 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
             <p className="text-primary font-extrabold flex justify-center mb-4 sm:text-3xl text-4xl">
               Add a book
             </p>
+            <div className="relative">
+              <input
+                type="text"
+                name="id"
+                value={uniqueID}
+                // onChange={formik.handleChange}
+                disabled
+                className="shadow bg-transparent border-primary appearance-none border rounded py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                placeholder="Book id *"
+                required
+              />
+              <button
+                type="button"
+                onClick={handleGenerateUniqueId}
+                className="absolute left-40 text-white hover:bg-primary hover:bg-opacity-30 p-2 rounded-md font-semibold"
+              >
+                Auto-ID
+              </button>
+            </div>
             {formik.touched.bookTitle && formik.errors.bookTitle ? (
               <div>
                 <input
@@ -331,7 +373,9 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
               onClick={() => {
                 addItemsToList();
                 toast.success("Book added successfully");
+                // setUniqueID(Date.now());
               }}
+              disabled={uniqueID === ""}
             >
               Add Book
             </button>
