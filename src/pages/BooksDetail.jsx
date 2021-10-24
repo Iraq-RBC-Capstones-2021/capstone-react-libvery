@@ -20,6 +20,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import Loader from "../components/Loader";
 
 const bookInfo = {
   image: "a URL",
@@ -42,6 +43,7 @@ function BooksDetail({ match }) {
   const [isEditBookOpen, setIsEditBookOpen] = useState(false);
   const [isEditImageOpen, setIsEditImageOpen] = useState(false);
   const [book, setBook] = useState([]);
+  const [isImageLoading, setIsImageLoading] = useState(false);
 
   const matchURL = match.url;
   const paramID = match.params.id;
@@ -50,6 +52,7 @@ function BooksDetail({ match }) {
 
   useEffect(() => {
     async function getBook() {
+      setIsImageLoading(true);
       const q = query(
         collection(db, "books"),
         where("id", "==", Number(paramID))
@@ -63,6 +66,7 @@ function BooksDetail({ match }) {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
         setBook(doc.data());
+        setIsImageLoading(false);
       });
     }
 
@@ -73,20 +77,26 @@ function BooksDetail({ match }) {
 
   console.log(book.genres);
 
+  // console.log(`book image in BooksDetail: ${book.image}`);
+
   return (
     <div className="bg-primary font-sans">
       <div className="sm:flex sm:justify-center">
         <motion.div
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
-          className="relative m-4 flex"
+          className="relative m-4 flex justify-center"
         >
           <Zoom>
-            <img
-              className="flex-1 object-cover rounded-md sm:max-w-xs md:max-w-sm lg:max-w-lg"
-              src={book.image}
-              alt={book.title}
-            />
+            {isImageLoading ? (
+              <Loader className="flex items-center h-full md:mr-44" />
+            ) : (
+              <img
+                className="flex-1 object-cover rounded-md sm:max-w-xs md:max-w-sm lg:max-w-lg"
+                src={book.image}
+                alt={book.title}
+              />
+            )}
           </Zoom>
           <div className="absolute top-0 right-0 bg-red-50 rounded-bl-2xl rounded-br-2xl">
             <AnimateButton>
