@@ -29,7 +29,14 @@ i18n
   });
 
 ReactDOM.render(
-  <Suspense fallback={<Loader />}>
+  <Suspense
+    fallback={
+      <Loader
+        className="flex w-screen h-screen justify-center items-center bg-white"
+        color="#F2E1D9"
+      />
+    }
+  >
     <React.StrictMode>
       <Router>
         <Provider store={store}>
