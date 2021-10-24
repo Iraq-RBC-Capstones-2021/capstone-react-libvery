@@ -180,8 +180,9 @@ function BooksDetail({ match }) {
                 />
               ))}
             </p>
-            <p className="font-semibold">
-              Price: <span className="">{book.price}$</span>
+            <p className="font-semibold relative">
+              Price: <small className="absolute left-12">$</small>
+              <span className="ml-2">{book.price}</span>
             </p>
           </div>
           <p className="mb-4">{book.description}</p>

@@ -48,7 +48,10 @@ function BookCard({ image, genres, title, price, rating, id }) {
           <ReactStars className="" size={20} isHalf={true} />
           <span className="pl-1 mt-1">{rating}</span>
         </div>
-        <p className="font-semibold pl-1">{price}</p>
+        <p className="font-semibold pl-1 relative">
+          <small className="absolute left-1">$</small>
+          <span className="ml-2">{price}</span>
+        </p>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
           <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">
             Buy
