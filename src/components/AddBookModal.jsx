@@ -219,7 +219,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   className="shadow bg-transparent  appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="author"
                   type="text"
-                  placeholder="author *"
+                  placeholder="Author *"
                   onChange={formik.handleChange}
                   value={formik.values.author}
                   name="author"
@@ -235,7 +235,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                 className="shadow bg-transparent border-primary  appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                 id="author"
                 type="text"
-                placeholder="author *"
+                placeholder="Author *"
                 onChange={formik.handleChange}
                 value={formik.values.author}
                 name="author"
@@ -280,7 +280,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                     className="shadow bg-transparent   text-primary appearance-none border border-red-400 rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline mb-2"
                     id="price"
                     type="number"
-                    placeholder="price *"
+                    placeholder="Price *"
                     onChange={formik.handleChange}
                     value={formik.values.price}
                     name="price"
@@ -297,7 +297,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   className="shadow bg-transparent   appearance-none border-primary  rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="price"
                   type="number"
-                  placeholder="price *"
+                  placeholder="Price *"
                   onChange={formik.handleChange}
                   value={formik.values.price}
                   name="price"
@@ -315,7 +315,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   cols="22"
                   rows="5"
                   className="shadow bg-transparent   appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                  placeholder="description"
+                  placeholder="Description"
                   onChange={formik.handleChange}
                   value={formik.values.description}
                   autoComplete="off"
@@ -331,7 +331,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                 cols="22"
                 rows="5"
                 className="shadow bg-transparent  appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                placeholder="Short description"
+                placeholder="Description"
                 onChange={formik.handleChange}
                 value={formik.values.description}
                 autoComplete="off"

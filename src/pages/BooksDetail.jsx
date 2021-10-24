@@ -164,7 +164,14 @@ function BooksDetail({ match }) {
                 <EditBookModal
                   isEditBookOpen={isEditBookOpen}
                   setIsEditBookOpen={setIsEditBookOpen}
-                  {...bookInfo}
+                  // {...bookInfo}
+                  bookTitle={book.bookTitle}
+                  author={book.author}
+                  genres={book.genres}
+                  price={book.price}
+                  description={book.description}
+                  image={book.image}
+                  isChecked={book.isChecked}
                 />
               )}
             />
