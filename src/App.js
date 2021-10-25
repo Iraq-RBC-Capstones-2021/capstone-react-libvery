@@ -60,6 +60,8 @@ function App() {
       }
     });
   }, [dispatch]);
+
+  if (isLoading) return <Loader />;
   return (
     <div className="bg-primary overflow-x-hidden">
       <Navbar />
@@ -72,11 +74,7 @@ function App() {
           <Route path={SIGNUP_ROUTE} component={SignUp} />
           <Route path={SIGNIN_ROUTE} component={SignIn} />
           <Route path={ERROR_ROUTE} component={Error} />
-          {isLoading ? (
-            <Loader />
-          ) : (
-            <Route path={PROFILE_ROUTE} component={Profile} />
-          )}
+          <Route path={PROFILE_ROUTE} component={Profile} />
           <Route exact path={HOME_ROUTE} component={Home} />
           <Route component={Error} />
         </Switch>
