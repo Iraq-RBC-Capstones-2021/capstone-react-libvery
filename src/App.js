@@ -1,6 +1,16 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
 import { Switch, Route, useLocation } from "react-router-dom";
+import {
+  HOME_ROUTE,
+  ABOUT_ROUTE,
+  BOOKS_ROUTE,
+  FAVOURITES_ROUTE,
+  SIGNIN_ROUTE,
+  SIGNUP_ROUTE,
+  ERROR_ROUTE,
+  PROFILE_ROUTE,
+} from "./routes";
+
 import About from "./pages/About";
 import Books from "./pages/Books";
 import Error from "./pages/Error";
@@ -12,27 +22,45 @@ import SignUp from "./pages/SignUp";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar.jsx";
 import BooksDetail from "./pages/BooksDetail.jsx";
+import Loader from "./components/Loader";
 
-import {
-  HOME_ROUTE,
-  ABOUT_ROUTE,
-  BOOKS_ROUTE,
-  FAVOURITES_ROUTE,
-  SIGNIN_ROUTE,
-  SIGNUP_ROUTE,
-  ERROR_ROUTE,
-  PROFILE_ROUTE,
-} from "./routes";
 import { AnimatePresence } from "framer-motion";
 import { collection, getDocs, query, onSnapshot } from "firebase/firestore";
-import { db } from "./firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addBooks, emptyBooks } from "./store/addBooksSlice";
 
+import { onAuthStateChanged } from "@firebase/auth";
+import { doc, getDoc } from "@firebase/firestore";
+import { auth, db } from "./firebase";
+import { setActiveUser, setLogOut } from "./store/counter/userSlice";
 function App() {
   const location = useLocation();
-
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setIsLoading(true);
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        dispatch(
+          setActiveUser({
+            userName: user.displayName,
+            userEmail: user.email,
+            uid: user.uid,
+            userPhone:
+              docSnap._document.data.value.mapValue.fields.phone.stringValue,
+            userPhoto:
+              docSnap._document.data.value.mapValue.fields.photo.stringValue,
+          })
+        );
+        setIsLoading(false);
+      } else {
+        dispatch(setLogOut());
+      }
+    });
+  }, [dispatch]);
 
   const books = useSelector((state) => state.addBooks.books);
 
@@ -74,6 +102,7 @@ function App() {
     //eslint-disable-next-line
   }, []);
 
+  if (isLoading) return <Loader />;
   return (
     <div className="bg-primary overflow-x-hidden">
       <Navbar />
