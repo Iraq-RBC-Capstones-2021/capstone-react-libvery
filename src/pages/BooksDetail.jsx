@@ -13,6 +13,7 @@ import { Route, Link } from "react-router-dom";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import Loader from "../components/Loader";
+// import { useSelector } from "react-redux";
 
 const bookInfo = {
   image: "a URL",
@@ -40,6 +41,9 @@ function BooksDetail({ match }) {
   const matchURL = match.url;
   const paramID = match.params.id;
 
+  // console.log("matchURL BooksDetail: ", matchURL);
+  // console.log("paramID BooksDetail: ", paramID);
+
   useEffect(() => {
     async function getBook() {
       setIsImageLoading(true);
@@ -58,6 +62,11 @@ function BooksDetail({ match }) {
 
     getBook();
   }, [paramID]);
+
+  // const books = useSelector((state) => state.addBooks.books);
+
+  // console.log(`books: ${JSON.stringify(books.flat(), null, 2)}`);
+  // console.log(books.flat().map((book) => book.uid));
 
   return (
     <div className="bg-primary font-sans">
@@ -122,6 +131,8 @@ function BooksDetail({ match }) {
                   sellerUsername={bookInfo.sellerUsername}
                   email={bookInfo.email}
                   phone={bookInfo.phone}
+                  matchURL={matchURL}
+                  paramID={paramID}
                 />
               )}
             />
