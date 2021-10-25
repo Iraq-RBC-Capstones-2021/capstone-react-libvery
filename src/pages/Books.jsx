@@ -17,8 +17,6 @@ function Books() {
 
   const books = useSelector((state) => state.addBooks.books);
 
-  // const booksArr = books?.["0"]?.map((book) => (
-
   //Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -37,8 +35,6 @@ function Books() {
       />
     </div>
   ));
-
-  // console.log(`books array: ${booksArr}`);
 
   return (
     <>

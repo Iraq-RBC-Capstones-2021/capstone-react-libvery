@@ -4,21 +4,13 @@ import AnimateButton from "../customs/AnimateButton";
 import ContactModal from "../components/ContactModal";
 import EditBookModal from "../components/EditBookModal";
 import EditImageModal from "../components/EditImageModal";
-import coverImg from "../assets/cover.jpg";
 import page1 from "../assets/page1.png";
 import page2 from "../assets/page2.png";
 import page3 from "../assets/page3.png";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { Route, Link } from "react-router-dom";
-import {
-  collection,
-  getDocs,
-  query,
-  doc,
-  getDoc,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import Loader from "../components/Loader";
 
@@ -48,8 +40,6 @@ function BooksDetail({ match }) {
   const matchURL = match.url;
   const paramID = match.params.id;
 
-  console.log(paramID);
-
   useEffect(() => {
     async function getBook() {
       setIsImageLoading(true);
@@ -60,24 +50,14 @@ function BooksDetail({ match }) {
 
       const querySnapshot = await getDocs(q);
 
-      console.log(querySnapshot);
-
       querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
         setBook(doc.data());
         setIsImageLoading(false);
       });
     }
 
-    console.log("BooksDetail useEffect");
-
     getBook();
   }, [paramID]);
-
-  console.log(book.genres);
-
-  // console.log(`book image in BooksDetail: ${book.image}`);
 
   return (
     <div className="bg-primary font-sans">
@@ -164,7 +144,6 @@ function BooksDetail({ match }) {
                 <EditBookModal
                   isEditBookOpen={isEditBookOpen}
                   setIsEditBookOpen={setIsEditBookOpen}
-                  // {...bookInfo}
                   bookTitle={book.bookTitle}
                   author={book.author}
                   genres={book.genres}

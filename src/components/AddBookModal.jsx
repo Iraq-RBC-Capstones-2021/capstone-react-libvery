@@ -9,12 +9,7 @@ import { db, storage } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addBooks, emptyBooks } from "../store/addBooksSlice";
 import { serverTimestamp } from "firebase/firestore";
-import {
-  getDownloadURL,
-  ref,
-  uploadBytes,
-  uploadBytesResumable,
-} from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Link, useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -63,19 +58,11 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   const [uniqueID, setUniqueID] = useState("");
 
   const history = useHistory();
-
   const dispatch = useDispatch();
 
-  const books = useSelector((state) => state.addBooks);
   const auth = useSelector((state) => state.user.uid);
 
-  console.log(`user: ${JSON.stringify(auth, null, 2)}`);
-
-  // console.log(`books: ${JSON.stringify(books, null, 2)}`);
-
   async function addItemsToList() {
-    // Add a new document with a generated id.
-    console.log(`fileUrl: ${fileUrl}`);
     await addDoc(collection(db, "books"), {
       bookTitle: formik.values.bookTitle,
       author: formik.values.author,
@@ -88,9 +75,6 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       createdAt: serverTimestamp(),
       rating: 0,
     });
-
-    // const id = Date.now();
-    // setUniqueID(Date.now());
 
     dispatch(addBooks({ ...formik.values, id: uniqueID }));
     if (uniqueID !== 0 || uniqueID !== "") {
@@ -111,8 +95,6 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
     // add dependency when the form is submitted
   }, [formik.values.id, isAddBookModalOpen]);
 
-  console.log(`uniqueID: ${uniqueID}`);
-
   const onFileChange = async (e) => {
     const file = e.target.files[0];
     const storageRef = ref(storage, file.name);
@@ -126,11 +108,6 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
     });
     setFileUrl(await getDownloadURL(storageRef));
   };
-
-  function handleGenerateUniqueId() {
-    // const id = Date.now();
-    // setUniqueID(id);
-  }
 
   return (
     <>
@@ -172,19 +149,11 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   type="text"
                   name="id"
                   value={uniqueID}
-                  // onChange={formik.handleChange}
                   disabled
                   className="shadow bg-transparent border-primary appearance-none border rounded py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   placeholder="Book id *"
                   required
                 />
-                <button
-                  type="button"
-                  onClick={handleGenerateUniqueId}
-                  className="absolute left-40 text-white hover:bg-primary hover:bg-opacity-30 p-2 rounded-md font-semibold"
-                >
-                  Auto-ID
-                </button>
               </div>
               {formik.touched.bookTitle && formik.errors.bookTitle ? (
                 <div>
@@ -380,7 +349,6 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                 onClick={() => {
                   addItemsToList();
                   toast.success("Book added successfully");
-                  // setUniqueID(Date.now());
                 }}
                 disabled={uniqueID === ""}
               >

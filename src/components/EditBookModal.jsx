@@ -31,8 +31,6 @@ function EditBookModal({
   genres,
   price,
   description,
-  image,
-  rating,
 }) {
   const initialValues = {
     bookTitle: bookTitle,
@@ -60,9 +58,6 @@ function EditBookModal({
     setIsEditBookOpen(false);
     history.goBack();
   };
-
-  console.log("book title: " + bookTitle);
-  console.log("book author: " + author);
 
   return (
     <>

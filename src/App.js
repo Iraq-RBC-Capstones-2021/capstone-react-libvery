@@ -25,9 +25,9 @@ import BooksDetail from "./pages/BooksDetail.jsx";
 import Loader from "./components/Loader";
 
 import { AnimatePresence } from "framer-motion";
-import { collection, getDocs, query, onSnapshot } from "firebase/firestore";
-import { useDispatch, useSelector } from "react-redux";
-import { addBooks, emptyBooks } from "./store/addBooksSlice";
+import { collection, query, onSnapshot } from "firebase/firestore";
+import { useDispatch } from "react-redux";
+import { addBooks } from "./store/addBooksSlice";
 
 import { onAuthStateChanged } from "@firebase/auth";
 import { doc, getDoc } from "@firebase/firestore";
@@ -62,27 +62,7 @@ function App() {
     });
   }, [dispatch]);
 
-  const books = useSelector((state) => state.addBooks.books);
-
-  // async function getData() {
-  //   const q = query(collection(db, "books"));
-
-  //   const querySnapshot = await getDocs(q);
-  //   let data = [];
-  //   querySnapshot.forEach((doc) => {
-  //     // doc.data() is never undefined for query doc snapshots
-  //     console.log(doc.id, " => ", doc.data());
-  //     data.push(doc.data());
-  //   });
-
-  //   console.log("dataaaaaaaaaaaaaa", data);
-  //   dispatch(addBooks(data));
-  //   // dispatch(addBookmark(bookmarks.bookmarks));
-  //   // setLocalState(data);
-  // }
-
   useEffect(() => {
-    // getData();
     const q = query(collection(db, "books"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const cities = [];
@@ -93,14 +73,11 @@ function App() {
           delete book.createdAt;
         });
       });
-      console.log("Current cities in CA: ", cities);
       dispatch(addBooks(cities));
     });
 
-    // dispatch(emptyBooks());
     return unsubscribe;
-    //eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) return <Loader />;
   return (
