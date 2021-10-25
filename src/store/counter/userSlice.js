@@ -72,7 +72,7 @@ export const signIn = createAsyncThunk(
           setActiveUser({
             userName: userCredential.user.displayName,
             userEmail: userCredential.user.email,
-            uid: userCredential.user.email,
+            uid: userCredential.user.uid,
             userPhone:
               docSnap._document.data.value.mapValue.fields.phone.stringValue,
             userPhoto:
