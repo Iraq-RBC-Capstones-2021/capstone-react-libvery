@@ -14,7 +14,7 @@ import {
 
 import logoIcon from "../assets/logo.svg";
 import userIcon from "../assets/userPlaceholder.svg";
-
+import dropdownMenu from "../assets/dorpdownMenu.svg";
 import SignoutButton from "./SignoutButton";
 
 import { useSelector } from "react-redux";
@@ -115,19 +115,11 @@ function Navbar() {
                   aria-expanded="true"
                   aria-haspopup="true"
                 >
-                  <svg
-                    className="w-8 absolute -bottom-3"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <img
+                    src={dropdownMenu}
+                    className="h-6 w-6 ml-3 relative top-1"
+                    alt="menu"
+                  />
                 </button>
               </div>
             )}
