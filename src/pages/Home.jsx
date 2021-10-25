@@ -24,7 +24,7 @@ const Home = () => {
       limit(3)
     );
     const unsub = onSnapshot(q, (snapshot) =>
-      setSlides(snapshot.docs.map((doc) => doc.data().image))
+      setSlides(snapshot.docs.map((doc) => doc.data()))
     );
 
     return unsub;
@@ -32,11 +32,16 @@ const Home = () => {
 
   const slidesArr = slides.map((slide, index) => {
     return (
-      <img
-        className="w-64 h-72 sm:w-72 sm:h-80 md:w-80 md:h-84 lg:w-84 lg:h-96"
-        src={slide}
-        alt={index + 1}
-      />
+      <Link
+        to={`${BOOKS_ROUTE}/${slide.id}`}
+        className="text-white font-semibold"
+      >
+        <img
+          className="w-64 h-72 sm:w-72 sm:h-80 md:w-80 md:h-84 lg:w-84 lg:h-96"
+          src={slide.image}
+          alt={index + 1}
+        />
+      </Link>
     );
   });
 
