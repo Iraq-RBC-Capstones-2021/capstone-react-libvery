@@ -8,12 +8,12 @@ import {
 import { auth, db } from "../../firebase";
 
 const initialState = {
-  userName: localStorage.getItem("userName"),
-  userEmail: localStorage.getItem("userEmail"),
-  userPhone: localStorage.getItem("userPhone"),
-  userPhoto: localStorage.getItem("userPhoto"),
+  userName: "",
+  userEmail: "",
+  userPhone: "",
+  userPhoto: "",
   userBooks: [],
-  uid: localStorage.getItem("userId"),
+  uid: "",
 };
 
 export const signUp = createAsyncThunk(
@@ -100,23 +100,12 @@ const userSlice = createSlice({
       state.userPhone = action.payload.userPhone;
       state.userPhoto = action.payload.userPhoto;
       state.uid = action.payload.uid;
-
-      localStorage.setItem("userName", state.userName);
-      localStorage.setItem("userEmail", state.userEmail);
-      localStorage.setItem("userPhone", state.userPhone);
-      localStorage.setItem("userPhoto", state.userPhoto);
-      localStorage.setItem("userId", state.uid);
     },
     setLogOut: (state) => {
       state.userName = null;
       state.userEmail = null;
       state.userPhone = null;
       state.userPhoto = null;
-      localStorage.removeItem("userName", state.userName);
-      localStorage.removeItem("userEmail", state.userEmail);
-      localStorage.removeItem("userPhone", state.userPhone);
-      localStorage.removeItem("userPhoto", state.userPhoto);
-      localStorage.removeItem("userId", state.uid);
     },
   },
 });
