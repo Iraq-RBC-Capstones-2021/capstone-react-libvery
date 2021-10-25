@@ -19,7 +19,6 @@ const GoogleAuth = () => {
         setDoc(doc(db, "users", result.user.uid), {
           username: result.user.displayName,
           email: result.user.email,
-          // phone: values.userPhone,
           photo: result.user.photoURL,
           books: [],
           favorites: [],
