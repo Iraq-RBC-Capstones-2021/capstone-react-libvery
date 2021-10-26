@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { selectorUserName } from "../store/counter/userSlice";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
+import Loader from "../components/Loader";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -38,22 +39,16 @@ function ContactModal({
       image: "",
     },
   ]);
-
-  const books = useSelector((state) => state.addBooks.books);
-  const auth = useSelector((state) => state.user);
-
-  const booksUID = books.flat().map((book) => book.uid);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClose = () => {
     setIsContactModalOpen(false);
     history.goBack();
   };
 
-  console.log("paramID: ", paramID);
-  console.log("matchURL: ", matchURL);
-
-  console.log("bookUID: ", booksUID);
   useEffect(() => {
+    let unsubscribe;
+
     async function getBook() {
       const qb = query(
         collection(db, "books"),
@@ -62,6 +57,7 @@ function ContactModal({
       const querySnapshotb = await getDocs(qb);
       querySnapshotb.forEach((doc) => {
         console.log("book doc: ", doc.data());
+        setIsLoading(true);
         setSellerUID(doc.data().uid);
       });
 
@@ -69,8 +65,8 @@ function ContactModal({
 
       const querySnapshot = await getDocs(q);
 
-      querySnapshot.forEach((doc) => {
-        console.log(`doc: ${JSON.stringify(doc.data(), null, 2)}`);
+      unsubscribe = querySnapshot.forEach((doc) => {
+        // setIsLoading(true);
         setSellerInfo([
           {
             username: doc.data().username,
@@ -79,11 +75,15 @@ function ContactModal({
             image: doc.data().photo,
           },
         ]);
+        setIsLoading(false);
         // setSellerUID(doc.data().uid);
       });
+      // setIsLoading(false);
     }
 
     getBook();
+
+    return unsubscribe;
   }, [paramID, sellerUID]);
 
   console.log("seller uid: ", sellerUID);
@@ -136,20 +136,26 @@ function ContactModal({
           />
           {userName ? (
             <>
-              <img
-                src={sellerImage}
-                alt="seller profile"
-                className="w-32 mx-auto mt-2"
-              />
-              <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 rounded-md w-4/5">
-                {sellerUserName}
-              </p>
-              <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 ms:w-1/3 rounded-md w-4/5">
-                <a href={`mailto:${sellerEmail}`}>{sellerEmail}</a>
-              </p>
-              <p className="bg-gray-300 bg-opacity-25 py-1 px-3 ms:w-1/3 rounded-md w-4/5">
-                <a href={`tel:${sellerPhone}`}>{sellerPhone}</a>
-              </p>
+              {isLoading ? (
+                <Loader color="#fff" />
+              ) : (
+                <>
+                  <img
+                    src={sellerImage}
+                    alt="seller profile"
+                    className="w-32 mx-auto mt-2"
+                  />
+                  <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 rounded-md w-4/5">
+                    {sellerUserName}
+                  </p>
+                  <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 ms:w-1/3 rounded-md w-4/5">
+                    <a href={`mailto:${sellerEmail}`}>{sellerEmail}</a>
+                  </p>
+                  <p className="bg-gray-300 bg-opacity-25 py-1 px-3 ms:w-1/3 rounded-md w-4/5">
+                    <a href={`tel:${sellerPhone}`}>{sellerPhone}</a>
+                  </p>
+                </>
+              )}
             </>
           ) : (
             <>
