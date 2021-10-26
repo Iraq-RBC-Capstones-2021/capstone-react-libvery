@@ -10,9 +10,6 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { signUp } from "../store/counter/userSlice";
 
-import { storage } from "../firebase";
-import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
-
 import Email from "../assets/Email.svg";
 import Key from "../assets/Key.svg";
 import User from "../assets/User.svg";
@@ -21,6 +18,7 @@ import Phone from "../assets/Phone.svg";
 import uploadPhoto from "../assets/uploadPhoto.svg";
 
 import Loader from "../components/Loader";
+import { imgStorage } from "../service/utls";
 
 const validationSchema = Yup.object().shape({
   userName: Yup.string()
@@ -51,10 +49,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const onFileChange = async (e) => {
     setIsLoading(true);
-    const file = e.target.files[0];
-    const storageRef = ref(storage, file.name);
-    await uploadBytes(storageRef, file);
-    setFileUrl(await getDownloadURL(storageRef));
+    imgStorage(e, { setFileUrl });
     setIsLoading(false);
   };
 
