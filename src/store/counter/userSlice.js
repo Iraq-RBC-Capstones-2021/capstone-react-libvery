@@ -115,9 +115,5 @@ const userSlice = createSlice({
 
 export const { setActiveUser, setLogOut, setUpdateUserInfo } =
   userSlice.actions;
-export const selectorUserName = (state) => state.user.userName;
-export const selectorUserEmail = (state) => state.user.userEmail;
-export const selectorUserPhone = (state) => state.user.userPhone;
-export const selectorUserPhoto = (state) => state.user.userPhoto;
-export const selectorUserId = (state) => state.user.uid;
+export const selectorUser = (state) => state.user;
 export default userSlice.reducer;

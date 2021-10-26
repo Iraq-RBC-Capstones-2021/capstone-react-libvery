@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import { setActiveUser } from "../store/counter/userSlice";
+import { selectorUser, setActiveUser } from "../store/counter/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 import SignoutButton from "../components/SignoutButton";
@@ -13,7 +13,7 @@ const UserInfo = () => {
   const phoneRef = useRef();
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector(selectorUser);
 
   const handleShowForm = () => {
     setShowEditForm(true);

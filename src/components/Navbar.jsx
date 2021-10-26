@@ -18,16 +18,14 @@ import dropdownMenu from "../assets/dorpdownMenu.svg";
 import SignoutButton from "./SignoutButton";
 
 import { useSelector } from "react-redux";
-import {
-  selectorUserName,
-  selectorUserPhoto,
-} from "../store/counter/userSlice";
+import { selectorUser } from "../store/counter/userSlice";
 
 function Navbar() {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [isOptionOpened, setIsOptionOpened] = useState(false);
-  const userName = useSelector(selectorUserName);
-  const userPhoto = useSelector(selectorUserPhoto);
+
+  const user = useSelector(selectorUser);
+  const { userName, userPhoto } = user;
 
   function handleShowMenu() {
     setNavbarOpen((prev) => !prev);
