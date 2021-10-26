@@ -12,6 +12,7 @@ import { serverTimestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Link, useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { selectorUser } from "../store/counter/userSlice";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -39,6 +40,7 @@ const initialValues = {
   image: "",
   isChecked: false,
   id: "",
+  uid: "",
 };
 
 function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
@@ -60,7 +62,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const auth = useSelector((state) => state.user.uid);
+  const userUID = useSelector(selectorUser).uid;
 
   async function addItemsToList() {
     await addDoc(collection(db, "books"), {
@@ -74,9 +76,10 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       id: uniqueID,
       createdAt: serverTimestamp(),
       rating: 0,
+      uid: userUID,
     });
 
-    dispatch(addBooks({ ...formik.values, id: uniqueID }));
+    dispatch(addBooks({ ...formik.values, id: uniqueID, uid: userUID }));
     if (uniqueID !== 0 || uniqueID !== "") {
       history.push(`/books/${uniqueID}`);
       // this is to empty the books array after adding a book to render realtime data.
@@ -111,7 +114,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
 
   return (
     <>
-      {auth ? (
+      {userUID ? (
         <Modal
           isOpen={isAddBookModalOpen}
           onRequestClose={() => setIsAddBookModalOpen(false)}
