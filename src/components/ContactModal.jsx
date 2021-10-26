@@ -115,7 +115,7 @@ function ContactModal({ isContactModalOpen, setIsContactModalOpen, paramID }) {
                   <img
                     src={sellerImage}
                     alt="seller profile"
-                    className="w-32 mx-auto mt-2"
+                    className="w-32 h-32 object-cover mx-auto mt-2 rounded-full mb-4"
                   />
                   <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 rounded-md w-4/5">
                     {sellerUserName}
