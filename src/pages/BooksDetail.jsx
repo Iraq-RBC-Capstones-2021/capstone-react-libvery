@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import AnimateButton from "../customs/AnimateButton";
 import ContactModal from "../components/ContactModal";
 import EditBookModal from "../components/EditBookModal";
 import EditImageModal from "../components/EditImageModal";
-import coverImg from "../assets/cover.jpg";
 import page1 from "../assets/page1.png";
 import page2 from "../assets/page2.png";
 import page3 from "../assets/page3.png";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { Route, Link } from "react-router-dom";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../firebase";
+import Loader from "../components/Loader";
 
 const bookInfo = {
   image: "a URL",
@@ -32,8 +34,30 @@ function BooksDetail({ match }) {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isEditBookOpen, setIsEditBookOpen] = useState(false);
   const [isEditImageOpen, setIsEditImageOpen] = useState(false);
+  const [book, setBook] = useState([]);
+  const [isImageLoading, setIsImageLoading] = useState(false);
 
   const matchURL = match.url;
+  const paramID = match.params.id;
+
+  useEffect(() => {
+    async function getBook() {
+      setIsImageLoading(true);
+      const q = query(
+        collection(db, "books"),
+        where("id", "==", Number(paramID))
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        setBook(doc.data());
+        setIsImageLoading(false);
+      });
+    }
+
+    getBook();
+  }, [paramID]);
 
   return (
     <div className="bg-primary font-sans">
@@ -41,14 +65,18 @@ function BooksDetail({ match }) {
         <motion.div
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
-          className="relative m-4 flex"
+          className="relative m-4 flex justify-center"
         >
           <Zoom>
-            <img
-              className="flex-1 object-cover rounded-md"
-              src={coverImg}
-              alt="book"
-            />
+            {isImageLoading ? (
+              <Loader className="flex items-center h-full md:mr-44" />
+            ) : (
+              <img
+                className="flex-1 object-cover rounded-md sm:max-w-xs md:max-w-sm lg:max-w-lg"
+                src={book.image}
+                alt={book.title}
+              />
+            )}
           </Zoom>
           <div className="absolute top-0 right-0 bg-red-50 rounded-bl-2xl rounded-br-2xl">
             <AnimateButton>
@@ -74,7 +102,7 @@ function BooksDetail({ match }) {
           className="m-4 sm:max-w-sm lg:max-w-2xl"
         >
           <div className="flex mb-4">
-            <h1 className="font-semibold flex-1 text-xl">Book Title</h1>
+            <h1 className="font-semibold flex-1 text-xl">{book.bookTitle}</h1>
             <Link
               to={`${matchURL}/seller-info`}
               onClick={() => setIsContactModalOpen(true)}
@@ -101,7 +129,7 @@ function BooksDetail({ match }) {
           <div className="flex mb-4">
             <p className="flex-1">
               <span className="opacity-50">Author:</span>{" "}
-              <span>author name</span>
+              <span>{book.author}</span>
             </p>
             <Link to={`${matchURL}/edit-book`}>
               <AnimateButton
@@ -116,7 +144,13 @@ function BooksDetail({ match }) {
                 <EditBookModal
                   isEditBookOpen={isEditBookOpen}
                   setIsEditBookOpen={setIsEditBookOpen}
-                  {...bookInfo}
+                  bookTitle={book.bookTitle}
+                  author={book.author}
+                  genres={book.genres}
+                  price={book.price}
+                  description={book.description}
+                  image={book.image}
+                  isChecked={book.isChecked}
                 />
               )}
             />
@@ -124,26 +158,20 @@ function BooksDetail({ match }) {
           <div className="flex">
             <p className="flex-1 mb-4">
               <span className="opacity-50">Genre: </span>
-              <AnimateButton
-                text="Action"
-                classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm"
-              />{" "}
-              -{" "}
-              <AnimateButton
-                text="Adventure"
-                classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm"
-              />
+              {book.genres?.map((genre, index) => (
+                <AnimateButton
+                  key={index}
+                  text={genre}
+                  classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm mr-1"
+                />
+              ))}
             </p>
-            <p className="font-semibold">
-              Price: <span className="">3.99$</span>
+            <p className="font-semibold relative">
+              Price: <small className="absolute left-12">$</small>
+              <span className="ml-2">{book.price}</span>
             </p>
           </div>
-          <p className="mb-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam esse
-            cupiditate amet dolor quasi eius, itaque fuga, adipisci magnam vel
-            cumque? Ex cupiditate inventore obcaecati doloremque expedita iusto
-            labore ipsam?
-          </p>
+          <p className="mb-4">{book.description}</p>
           <div className="flex relative">
             <Link to={`${matchURL}/edit-image`}>
               <AnimateButton

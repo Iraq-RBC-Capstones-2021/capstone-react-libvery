@@ -25,12 +25,13 @@ import BooksDetail from "./pages/BooksDetail.jsx";
 import Loader from "./components/Loader";
 
 import { AnimatePresence } from "framer-motion";
+import { collection, query, onSnapshot } from "firebase/firestore";
+import { useDispatch } from "react-redux";
+import { addBooks } from "./store/addBooksSlice";
 
 import { onAuthStateChanged } from "@firebase/auth";
 import { doc, getDoc } from "@firebase/firestore";
 import { auth, db } from "./firebase";
-
-import { useDispatch } from "react-redux";
 import { setActiveUser, setLogOut } from "./store/counter/userSlice";
 function App() {
   const location = useLocation();
@@ -60,6 +61,23 @@ function App() {
         dispatch(setLogOut());
       }
     });
+  }, [dispatch]);
+
+  useEffect(() => {
+    const q = query(collection(db, "books"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const cities = [];
+      querySnapshot.forEach((doc) => {
+        cities.push(doc.data());
+        // this is to delete createdAt from redux store since it logs error in console.
+        cities.forEach((book) => {
+          delete book.createdAt;
+        });
+      });
+      dispatch(addBooks(cities));
+    });
+
+    return unsubscribe;
   }, [dispatch]);
 
   if (isLoading) return <Loader />;
