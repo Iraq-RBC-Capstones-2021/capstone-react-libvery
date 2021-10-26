@@ -68,9 +68,11 @@ export const signIn = createAsyncThunk(
         data.setErrors("");
         const docRef = doc(db, "users", userCredential.user.uid);
         const docSnap = await getDoc(docRef);
+
         dispatch(
           setActiveUser({
-            userName: userCredential.user.displayName,
+            userName:
+              docSnap._document.data.value.mapValue.fields.username.stringValue,
             userEmail: userCredential.user.email,
             uid: userCredential.user.uid,
             userPhone:
@@ -101,6 +103,7 @@ const userSlice = createSlice({
       state.userPhoto = action.payload.userPhoto;
       state.uid = action.payload.uid;
     },
+
     setLogOut: (state) => {
       state.userName = null;
       state.userEmail = null;
@@ -110,10 +113,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setActiveUser, setLogOut } = userSlice.actions;
-export const selectorUserName = (state) => state.user.userName;
-export const selectorUserEmail = (state) => state.user.userEmail;
-export const selectorUserPhone = (state) => state.user.userPhone;
-export const selectorUserPhoto = (state) => state.user.userPhoto;
-export const selectorUserId = (state) => state.user.uid;
+export const { setActiveUser, setLogOut, setUpdateUserInfo } =
+  userSlice.actions;
+export const selectorUser = (state) => state.user;
 export default userSlice.reducer;

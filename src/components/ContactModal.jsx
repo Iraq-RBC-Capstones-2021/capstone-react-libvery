@@ -10,7 +10,7 @@ import CloseButton from "../customs/CloseButton";
 import defaultImage from "../assets/team.svg";
 
 import { useSelector } from "react-redux";
-import { selectorUserName } from "../store/counter/userSlice";
+import { selectorUser } from "../store/counter/userSlice";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -23,7 +23,7 @@ function ContactModal({
   sellerUsername,
 }) {
   const history = useHistory();
-  const userName = useSelector(selectorUserName);
+  const user = useSelector(selectorUser);
 
   const handleClose = () => {
     setIsContactModalOpen(false);
@@ -66,7 +66,7 @@ function ContactModal({
             setIsContactModalOpen={setIsContactModalOpen}
             isContactModalOpen={isContactModalOpen}
           />
-          {userName ? (
+          {user.userName ? (
             <>
               <img
                 src={defaultImage}

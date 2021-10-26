@@ -46,7 +46,8 @@ function App() {
         const docSnap = await getDoc(docRef);
         dispatch(
           setActiveUser({
-            userName: user.displayName,
+            userName:
+              docSnap._document.data.value.mapValue.fields.username.stringValue,
             userEmail: user.email,
             uid: user.uid,
             userPhone:
