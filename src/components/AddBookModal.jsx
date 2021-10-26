@@ -39,7 +39,6 @@ const initialValues = {
   image: "",
   isChecked: false,
   id: "",
-  uid: "",
 };
 
 function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
@@ -62,9 +61,6 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   const dispatch = useDispatch();
 
   const auth = useSelector((state) => state.user.uid);
-  // const books = useSelector((state) => state.addBooks.books);
-
-  // console.log("books: " + books);
 
   async function addItemsToList() {
     await addDoc(collection(db, "books"), {
@@ -78,10 +74,9 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       id: uniqueID,
       createdAt: serverTimestamp(),
       rating: 0,
-      uid: auth,
     });
 
-    dispatch(addBooks({ ...formik.values, id: uniqueID, uid: auth }));
+    dispatch(addBooks({ ...formik.values, id: uniqueID }));
     if (uniqueID !== 0 || uniqueID !== "") {
       history.push(`/books/${uniqueID}`);
       // this is to empty the books array after adding a book to render realtime data.
@@ -113,8 +108,6 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
     });
     setFileUrl(await getDownloadURL(storageRef));
   };
-
-  console.log(JSON.stringify(formik.values, null, 2));
 
   return (
     <>

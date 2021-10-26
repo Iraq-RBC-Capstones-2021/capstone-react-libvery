@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { SIGNIN_ROUTE } from "../routes";
 import { Link, useHistory } from "react-router-dom";
@@ -11,9 +11,6 @@ import defaultImage from "../assets/team.svg";
 
 import { useSelector } from "react-redux";
 import { selectorUserName } from "../store/counter/userSlice";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../firebase";
-import Loader from "../components/Loader";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -24,79 +21,14 @@ function ContactModal({
   phone,
   email,
   sellerUsername,
-  matchURL,
-  paramID,
 }) {
   const history = useHistory();
   const userName = useSelector(selectorUserName);
-
-  const [sellerUID, setSellerUID] = useState([]);
-  const [sellerInfo, setSellerInfo] = useState([
-    {
-      username: "",
-      email: "",
-      phone: "",
-      image: "",
-    },
-  ]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleClose = () => {
     setIsContactModalOpen(false);
     history.goBack();
   };
-
-  useEffect(() => {
-    let unsubscribe;
-
-    async function getBook() {
-      const qb = query(
-        collection(db, "books"),
-        where("id", "==", Number(paramID))
-      );
-      const querySnapshotb = await getDocs(qb);
-      querySnapshotb.forEach((doc) => {
-        console.log("book doc: ", doc.data());
-        setIsLoading(true);
-        setSellerUID(doc.data().uid);
-      });
-
-      const q = query(collection(db, "users"), where("uid", "==", sellerUID));
-
-      const querySnapshot = await getDocs(q);
-
-      unsubscribe = querySnapshot.forEach((doc) => {
-        // setIsLoading(true);
-        setSellerInfo([
-          {
-            username: doc.data().username,
-            email: doc.data().email,
-            phone: doc.data().phone,
-            image: doc.data().photo,
-          },
-        ]);
-        setIsLoading(false);
-        // setSellerUID(doc.data().uid);
-      });
-      // setIsLoading(false);
-    }
-
-    getBook();
-
-    return unsubscribe;
-  }, [paramID, sellerUID]);
-
-  console.log("seller uid: ", sellerUID);
-
-  // const books = useSelector((state) => state.addBooks.books);
-
-  // console.log(`books: ${JSON.stringify(books.flat(), null, 2)}`);
-  // console.log(books.flat().map((book) => book.uid));
-
-  const sellerUserName = sellerInfo.map((info) => info.username);
-  const sellerEmail = sellerInfo.map((info) => info.email);
-  const sellerPhone = sellerInfo.map((info) => info.phone);
-  const sellerImage = sellerInfo.map((info) => info.image);
 
   return (
     <>
@@ -136,26 +68,20 @@ function ContactModal({
           />
           {userName ? (
             <>
-              {isLoading ? (
-                <Loader color="#fff" />
-              ) : (
-                <>
-                  <img
-                    src={sellerImage}
-                    alt="seller profile"
-                    className="w-32 mx-auto mt-2"
-                  />
-                  <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 rounded-md w-4/5">
-                    {sellerUserName}
-                  </p>
-                  <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 ms:w-1/3 rounded-md w-4/5">
-                    <a href={`mailto:${sellerEmail}`}>{sellerEmail}</a>
-                  </p>
-                  <p className="bg-gray-300 bg-opacity-25 py-1 px-3 ms:w-1/3 rounded-md w-4/5">
-                    <a href={`tel:${sellerPhone}`}>{sellerPhone}</a>
-                  </p>
-                </>
-              )}
+              <img
+                src={defaultImage}
+                alt="default"
+                className="w-32 mx-auto mt-2"
+              />
+              <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 rounded-md w-4/5">
+                {sellerUsername}
+              </p>
+              <p className="bg-gray-300 bg-opacity-25 py-1 px-3 mb-2 ms:w-1/3 rounded-md w-4/5">
+                <a href={`mailto:${email}`}>{email}</a>
+              </p>
+              <p className="bg-gray-300 bg-opacity-25 py-1 px-3 ms:w-1/3 rounded-md w-4/5">
+                <a href={`tel:${phone}`}>{phone}</a>
+              </p>
             </>
           ) : (
             <>
