@@ -48,36 +48,32 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
               duration: 0.5,
             },
           }}
-          className="flex flex-col justify-center items-center text-white bg-white sm:w-96 rounded-lg p-10 mx-auto relative w-80"
+          className="flex flex-col justify-center items-center bg-black sm:w-96 rounded-lg p-10 mx-auto relative w-80"
         >
           <CloseButton
             setIsEditImageOpen={setIsEditImageOpen}
             isEditImageOpen={isEditImageOpen}
           />
           <form className="font-sans">
-            <h2 className="text-black font-semibold flex justify-center mb-4 text-2xl">
+            <h2 className="text-primary font-semibold flex justify-center mb-4 text-2xl">
               Update Images
             </h2>
             <div className="flex items-center">
-              <label className="w-32 text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary justify-center h-32 mx-auto mb-2">
-                <img src={plusIcon} alt="plus icon" className="w-10 h-10" />
+              <label className="w-32 text-black flex items-center py-1 rounded-md cursor-pointer bg-primary hover:bg-secondary justify-center h-32 mx-auto mb-2">
+                <img src={plusIcon} alt="plus icon" className="w-10 h-10 " />
                 <input type="file" className="hidden" />
               </label>
               <div>
                 <img
                   src={editIcon}
                   alt=""
-                  className="bg-black w-6 mb-4 rounded-full cursor-pointer"
+                  className="w-6 mb-4 rounded-full cursor-pointer"
                 />
-                <img
-                  src={trashIcon}
-                  alt=""
-                  className="bg-black rounded-full cursor-pointer"
-                />
+                <img src={trashIcon} alt="" />
               </div>
             </div>
             <div className="flex items-center">
-              <label className="w-32 text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary justify-center h-32 mx-auto mb-2">
+              <label className="w-32 text-black flex items-center py-1 rounded-md cursor-pointer bg-primary  hover:bg-secondary justify-center h-32 mx-auto mb-2">
                 <img src={plusIcon} alt="plus icon" className="w-10 h-10" />
                 <input type="file" className="hidden" />
               </label>
@@ -85,17 +81,13 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
                 <img
                   src={editIcon}
                   alt=""
-                  className="bg-black w-6 mb-4 rounded-full cursor-pointer"
+                  className="w-6 mb-4 rounded-full cursor-pointer"
                 />
-                <img
-                  src={trashIcon}
-                  alt=""
-                  className="bg-black rounded-full cursor-pointer"
-                />
+                <img src={trashIcon} alt="" />
               </div>
             </div>
             <div className="flex items-center">
-              <label className="w-32 text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary justify-center h-32 mx-auto mb-2">
+              <label className="w-32 text-black flex items-center py-1 rounded-md cursor-pointer bg-primary  hover:bg-secondary justify-center h-32 mx-auto mb-2">
                 <img src={plusIcon} alt="plus icon" className="w-10 h-10" />
                 <input type="file" className="hidden" />
               </label>
@@ -103,17 +95,13 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
                 <img
                   src={editIcon}
                   alt=""
-                  className="bg-black w-6 mb-4 rounded-full cursor-pointer"
+                  className="w-6 mb-4 rounded-full cursor-pointer"
                 />
-                <img
-                  src={trashIcon}
-                  alt=""
-                  className="bg-black rounded-full cursor-pointer"
-                />
+                <img src={trashIcon} alt="" />
               </div>
             </div>
             <button
-              className="bg-secondary text-white font-semibold py-1 px-4 rounded-sm mb-4 container mt-2"
+              className="bg-secondary text-white font-semibold py-2 px-10 rounded-lg mb-4 container mt-2"
               type="submit"
             >
               Update Images
