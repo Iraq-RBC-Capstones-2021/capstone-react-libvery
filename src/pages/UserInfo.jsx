@@ -1,14 +1,41 @@
-import React, { useState } from "react";
-import SignoutButton from "../components/SignoutButton";
+import React, { useRef, useState } from "react";
 
-const UserInfo = ({ userName, userEmail, userPhone }) => {
+import { setActiveUser } from "../store/counter/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+
+import SignoutButton from "../components/SignoutButton";
+import { updateUserProfile } from "../service/user";
+
+const UserInfo = () => {
   const [showEditForm, setShowEditForm] = useState(false);
+
+  const usernameRef = useRef();
+  const phoneRef = useRef();
+
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
   const handleShowForm = () => {
-    setShowEditForm(!showEditForm);
+    setShowEditForm(true);
   };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    updateUserProfile({ usernameRef, phoneRef, ...user });
+    dispatch(
+      setActiveUser({
+        ...user,
+        userName: usernameRef.current.value || user.userName,
+        userPhone: phoneRef.current.value || user.userPhone,
+      })
+    );
+
+    setShowEditForm(false);
+  };
+
   return (
     <div className=" w-full max-w-sm md:max-w-sm m-auto">
-      <form className="rounded px-0 pt-6 pb-8 ">
+      <form className="rounded px-0 pt-6 pb-8 " onSubmit={handleUpdate}>
         {showEditForm ? (
           <>
             <div className="mb-4">
@@ -16,10 +43,10 @@ const UserInfo = ({ userName, userEmail, userPhone }) => {
                 Username
               </label>
               <input
-                className=" shadow appearance-none border-none rounded-lg  focus:outline-none outline-none w-full py-3 px-3 text-gray-500 font leading-tight  focus:shadow-outline font-extralight text-sm"
-                id="username"
+                className="shadow appearance-none border-none rounded-lg  focus:outline-none outline-none w-full py-3 px-3 text-gray-500 font leading-tight  focus:shadow-outline font-extralight text-sm"
                 type="text"
-                placeholder="EX: Jack"
+                placeholder={user.userName}
+                ref={usernameRef}
               />
             </div>
             <div className="mb-6">
@@ -27,20 +54,20 @@ const UserInfo = ({ userName, userEmail, userPhone }) => {
                 Phone Number
               </label>
               <input
-                className="border-none w-full 	 shadow appearance-none border  rounded-lg  py-3 px-3 text-gray-500 font mb-3 leading-tight focus:outline-none focus:shadow-outline font-extralight text-sm"
-                id="tel"
-                type="tel"
-                placeholder="EX: 078012345678"
+                className="  border-none w-full 	 shadow appearance-none border  rounded-lg  py-3 px-3 text-gray-500 font mb-3 leading-tight focus:outline-none focus:shadow-outline font-extralight text-sm"
+                type="text"
+                placeholder={user.userPhone}
+                ref={phoneRef}
               />
             </div>
           </>
         ) : (
           <div className="space-y-3 mb-10 font-bold text-lg">
-            <p>Name: {userName} </p>
-            <p>Email: {userEmail} </p>
+            <p>Name: {user.userName} </p>
+            <p>Email: {user.userEmail} </p>
             <p>
               Phone Number:{" "}
-              {userPhone ? userPhone : `"🎃 👇 Add a phone number"`}{" "}
+              {user.userPhone ? user.userPhone : `"🎃 👇 Add a phone number"`}{" "}
             </p>
           </div>
         )}
@@ -49,7 +76,7 @@ const UserInfo = ({ userName, userEmail, userPhone }) => {
           <button
             className="bg-black hover:bg-blue-700 text-white py-2 px-4 w-44 rounded-lg focus:outline-none focus:shadow-outline font-light"
             type="button"
-            onClick={handleShowForm}
+            onClick={showEditForm ? handleUpdate : handleShowForm}
           >
             {showEditForm ? "Save Changes" : "Edit"}
           </button>

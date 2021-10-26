@@ -3,8 +3,6 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   selectorUserName,
-  selectorUserEmail,
-  selectorUserPhone,
   selectorUserPhoto,
 } from "../store/counter/userSlice.js";
 
@@ -18,9 +16,8 @@ function Profile(props) {
   const location = useLocation();
 
   const userName = useSelector(selectorUserName);
-  const userEmail = useSelector(selectorUserEmail);
-  const userPhone = useSelector(selectorUserPhone);
   const userPhoto = useSelector(selectorUserPhoto);
+
   // TODO: get the books list from the store, filter them to get the books that belong to this user only, and pass the list to the books component to display them
   // TODO: get the books from the store and filter them to get the books that their "isBookmarked" === true and pass it to the favorites component to display them
 
@@ -84,11 +81,7 @@ function Profile(props) {
       </div>
 
       {location.pathname === "/profile/user" ? (
-        <UserInfo
-          userName={userName}
-          userEmail={userEmail}
-          userPhone={userPhone}
-        />
+        <UserInfo />
       ) : location.pathname === "/profile/favourites" ? (
         <Favourites />
       ) : (
