@@ -18,7 +18,7 @@ import Phone from "../assets/Phone.svg";
 import uploadPhoto from "../assets/uploadPhoto.svg";
 
 import Loader from "../components/Loader";
-import { imgStorage } from "../service/utls";
+import { storeImage } from "../service/utls";
 
 const validationSchema = Yup.object().shape({
   userName: Yup.string()
@@ -49,7 +49,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const onFileChange = async (e) => {
     setIsLoading(true);
-    imgStorage(e, { setFileUrl });
+    storeImage(e, { setFileUrl });
     setIsLoading(false);
   };
 
