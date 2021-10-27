@@ -38,7 +38,12 @@ const Home = () => {
       >
         <img
           className="w-64 h-72 sm:w-72 sm:h-80 md:w-80 md:h-84 lg:w-84 lg:h-96"
-          src={slide.image}
+          src={
+            slide.image
+              ? slide.image
+              : // default image if no image uploaded
+                "https://images.unsplash.com/photo-1513001900722-370f803f498d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGJvb2tzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          }
           alt={index + 1}
         />
       </Link>
