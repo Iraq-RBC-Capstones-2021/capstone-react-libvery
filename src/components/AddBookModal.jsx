@@ -28,7 +28,6 @@ const validationSchema = Yup.object().shape({
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
-  price: Yup.number().required("Required"),
   id: Yup.string().required("Required"),
 });
 
@@ -65,18 +64,14 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   const userUID = useSelector(selectorUser).uid;
 
   async function addItemsToList() {
-    if (
-      formik.values.bookTitle === "" &&
-      formik.values.author === "" &&
-      formik.values.price === ""
-    ) {
+    if (formik.values.bookTitle === "" && formik.values.author === "") {
       toast.error("Please fill the form");
     } else {
       await setDoc(doc(db, "books", `${uniqueID}`), {
         bookTitle: formik.values.bookTitle,
         author: formik.values.author,
         genres: formik.values?.genres?.map((book) => book.value),
-        price: formik.values.price || 0,
+        price: !formik.values.isChecked ? formik.values.price : 0,
         description: formik.values.description,
         image: fileUrl,
         isChecked: formik.values.isChecked,
@@ -280,38 +275,18 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   })}
                 />
               )}
-              {formik.touched.price && formik.errors.price ? (
-                <div>
-                  <input
-                    className="shadow bg-transparent   text-primary appearance-none border border-red-400 rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline mb-2"
-                    id="price"
-                    type="number"
-                    placeholder="Price *"
-                    onChange={formik.handleChange}
-                    value={formik.values.price}
-                    name="price"
-                    onBlur={formik.handleBlur}
-                    autoComplete="off"
-                    min="0"
-                  />
-                  <p className="text-xs text-red-400 -mt-2 mb-2">
-                    {formik.errors.price}
-                  </p>
-                </div>
-              ) : (
-                <input
-                  className="shadow bg-transparent   appearance-none border-primary  rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                  id="price"
-                  type="number"
-                  placeholder="Price *"
-                  onChange={formik.handleChange}
-                  value={formik.values.price}
-                  name="price"
-                  onBlur={formik.handleBlur}
-                  autoComplete="off"
-                  min="0"
-                />
-              )}
+              <input
+                className="shadow bg-transparent   appearance-none border-primary  rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                id="price"
+                type="number"
+                placeholder="Price"
+                onChange={formik.handleChange}
+                value={!formik.values.isChecked ? formik.values.price : 0}
+                name="price"
+                onBlur={formik.handleBlur}
+                autoComplete="off"
+                min="0"
+              />
               {formik.touched.description && formik.errors.description ? (
                 <div>
                   <textarea
