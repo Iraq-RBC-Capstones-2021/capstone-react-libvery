@@ -13,6 +13,7 @@ const initialState = {
   userPhone: "",
   userPhoto: "",
   userBooks: [],
+  favorites: [],
   uid: "",
 };
 
@@ -45,6 +46,8 @@ export const signUp = createAsyncThunk(
             userPhone: data.values.userPhone,
             userPhoto: data.fileUrl,
             uid: userCredential.user.uid,
+            books: [],
+            favorites: [],
           })
         );
       })
@@ -103,17 +106,34 @@ const userSlice = createSlice({
       state.userPhoto = action.payload.userPhoto;
       state.uid = action.payload.uid;
     },
-
     setLogOut: (state) => {
       state.userName = null;
       state.userEmail = null;
       state.userPhone = null;
       state.userPhoto = null;
     },
+    setFavorites: (state, action) => {
+      const findFavBook = state.favorites.find(
+        (book) => book.book.id === action.payload.book.id
+      );
+      if (!findFavBook) {
+        state.favorites = [...state.favorites, action.payload];
+      }
+    },
+    setRemoveFavorites: (state, action) => {
+      state.favorites = state.favorites.filter(
+        (book) => book.book.id !== action.payload
+      );
+    },
   },
 });
 
-export const { setActiveUser, setLogOut, setUpdateUserInfo } =
-  userSlice.actions;
+export const {
+  setActiveUser,
+  setLogOut,
+  setUpdateUserInfo,
+  setFavorites,
+  setRemoveFavorites,
+} = userSlice.actions;
 export const selectorUser = (state) => state.user;
 export default userSlice.reducer;
