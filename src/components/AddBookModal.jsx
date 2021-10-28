@@ -4,7 +4,7 @@ import CloseButton from "../customs/CloseButton";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { collection, addDoc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addBooks, emptyBooks } from "../store/addBooksSlice";
@@ -63,7 +63,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   const auth = useSelector((state) => state.user.uid);
 
   async function addItemsToList() {
-    await addDoc(collection(db, "books"), {
+    await setDoc(doc(db, "books", `${uniqueID}`), {
       bookTitle: formik.values.bookTitle,
       author: formik.values.author,
       genres: formik.values.genres.split(","),
@@ -75,6 +75,19 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       createdAt: serverTimestamp(),
       rating: 0,
     });
+
+    // await addDoc(collection(db, "books"), {
+    //   bookTitle: formik.values.bookTitle,
+    //   author: formik.values.author,
+    //   genres: formik.values.genres.split(","),
+    //   price: formik.values.price,
+    //   description: formik.values.description,
+    //   image: fileUrl,
+    //   isChecked: formik.values.isChecked,
+    //   id: uniqueID,
+    //   createdAt: serverTimestamp(),
+    //   rating: 0,
+    // });
 
     dispatch(addBooks({ ...formik.values, id: uniqueID }));
     if (uniqueID !== 0 || uniqueID !== "") {
