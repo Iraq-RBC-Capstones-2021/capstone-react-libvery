@@ -29,17 +29,25 @@ const validationSchema = Yup.object().shape({
     .max(50, "Too Long!")
     .required("Required"),
   id: Yup.string().required("Required"),
+  genres: Yup.array()
+    .of(
+      Yup.object().shape({
+        label: Yup.string().required("Required"),
+        value: Yup.string().required("Required"),
+      })
+    )
+    .required("Required"),
 });
 
 const initialValues = {
   bookTitle: "",
   author: "",
-  genres: "",
   price: "",
   description: "",
   image: "",
   isChecked: false,
   id: "",
+  genres: [],
 };
 
 function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
@@ -64,7 +72,11 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   const userUID = useSelector(selectorUser).uid;
 
   async function addItemsToList() {
-    if (formik.values.bookTitle === "" && formik.values.author === "") {
+    if (
+      formik.values.bookTitle === "" ||
+      formik.values.author === "" ||
+      formik.values.genres.length === 0
+    ) {
       toast.error("Please fill the form");
     } else {
       await setDoc(doc(db, "books", `${uniqueID}`), {
@@ -237,6 +249,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                         primary: "black",
                       },
                     })}
+                    value={formik.values.genres}
                   />
                   <p className="text-xs text-red-400 -mt-2 mb-2">
                     {formik.errors.genres}
@@ -267,6 +280,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                       neutral80: "white",
                     },
                   })}
+                  value={formik.values.genres}
                 />
               )}
               <input
