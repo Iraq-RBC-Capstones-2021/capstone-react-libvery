@@ -4,8 +4,8 @@ const initialState = {
   books: [],
 };
 
-const addBooksSlice = createSlice({
-  name: "addBooks",
+const booksSlice = createSlice({
+  name: "booksSlice",
   initialState,
   reducers: {
     addBooks: (state, action) => {
@@ -14,11 +14,8 @@ const addBooksSlice = createSlice({
     emptyBooks: (state) => {
       state.books = [];
     },
-    searchBooks: (state, action) => {
-      state.books.push(action.payload);
-    },
   },
 });
 
-export const { addBooks, emptyBooks, searchBooks } = addBooksSlice.actions;
-export default addBooksSlice.reducer;
+export const { addBooks, emptyBooks, searchBooks } = booksSlice.actions;
+export default booksSlice.reducer;

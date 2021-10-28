@@ -40,7 +40,7 @@ function BooksDetail({ match }) {
   const matchURL = match.url;
   const paramID = match.params.id;
 
-  const booksSlice = useSelector((state) => state.addBooks.books);
+  const booksSlice = useSelector((state) => state.books.books);
 
   useEffect(() => {
     async function getBook() {

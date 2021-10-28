@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { setDoc, doc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { addBooks, emptyBooks } from "../store/addBooksSlice";
+import { addBooks, emptyBooks } from "../store/booksSlice";
 import { serverTimestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Link, useHistory } from "react-router-dom";

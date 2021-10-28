@@ -15,7 +15,7 @@ function Books() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
 
-  const books = useSelector((state) => state.addBooks.books);
+  const books = useSelector((state) => state.books.books);
 
   //Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
