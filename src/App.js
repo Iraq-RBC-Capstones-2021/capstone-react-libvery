@@ -27,7 +27,7 @@ import Loader from "./components/Loader";
 import { AnimatePresence } from "framer-motion";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { useDispatch } from "react-redux";
-import { addBooks } from "./store/addBooksSlice";
+import { addBooks } from "./store/booksSlice";
 
 import { onAuthStateChanged } from "@firebase/auth";
 import { doc, getDoc } from "@firebase/firestore";

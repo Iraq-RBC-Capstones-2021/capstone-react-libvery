@@ -7,12 +7,14 @@ import * as Yup from "yup";
 import { setDoc, doc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { addBooks, emptyBooks } from "../store/addBooksSlice";
+import { addBooks, emptyBooks } from "../store/booksSlice";
 import { serverTimestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Link, useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { selectorUser } from "../store/counter/userSlice";
+import Select from "react-select";
+import { Genres } from "../service/genres";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -26,21 +28,27 @@ const validationSchema = Yup.object().shape({
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
-  genres: Yup.string().required("Required"),
-  price: Yup.number().required("Required"),
   id: Yup.string().required("Required"),
+  genres: Yup.array()
+    .of(
+      Yup.object().shape({
+        label: Yup.string().required("Required"),
+        value: Yup.string().required("Required"),
+      })
+    )
+    .required("Required"),
 });
 
 const initialValues = {
   bookTitle: "",
   author: "",
-  genres: "",
   price: "",
   description: "",
   image: "",
   isChecked: false,
   id: "",
   uid: "",
+  genres: [],
 };
 
 function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
@@ -65,27 +73,37 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   const userUID = useSelector(selectorUser).uid;
 
   async function addItemsToList() {
-    await setDoc(doc(db, "books", `${uniqueID}`), {
-      bookTitle: formik.values.bookTitle,
-      author: formik.values.author,
-      genres: formik.values.genres.split(","),
-      price: formik.values.price,
-      description: formik.values.description,
-      image: fileUrl,
-      isChecked: formik.values.isChecked,
-      id: uniqueID,
-      createdAt: serverTimestamp(),
-      rating: 0,
-      uid: userUID,
-    });
+    if (
+      formik.values.bookTitle === "" ||
+      formik.values.author === "" ||
+      formik.values.genres.length === 0
+    ) {
+      toast.error("Please fill the form");
+    } else {
+      await setDoc(doc(db, "books", `${uniqueID}`), {
+        bookTitle: formik.values.bookTitle,
+        author: formik.values.author,
+        genres: formik.values?.genres?.map((book) => book.value),
+        price: !formik.values.isChecked ? formik.values.price : 0,
+        description: formik.values.description,
+        image: fileUrl,
+        isChecked: formik.values.isChecked,
+        id: uniqueID,
+        createdAt: serverTimestamp(),
+        rating: 0,
+        uid: userUID,
+      });
 
-    dispatch(addBooks({ ...formik.values, id: uniqueID, uid: userUID }));
-    if (uniqueID !== 0 || uniqueID !== "") {
+      dispatch(addBooks({ ...formik.values, id: uniqueID, uid: userUID }));
       history.push(`/books/${uniqueID}`);
       // this is to empty the books array after adding a book to render realtime data.
       dispatch(emptyBooks());
-    } else {
-      return;
+      // this will add the toast message to the books detail when it is submitted and redirected to the book detail page.
+      if (history.location.pathname === `/books/${uniqueID}`) {
+        setTimeout(() => {
+          toast.success("Book added successfully");
+        }, 500);
+      }
     }
   }
 
@@ -208,70 +226,76 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   autoComplete="off"
                 />
               )}
-              <div className="md:flex md:justify-between space-x-3">
-                {formik.touched.genres && formik.errors.genres ? (
-                  <div>
-                    <input
-                      className="shadow bg-transparent   appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                      id="category"
-                      type="text"
-                      placeholder="Book Category *"
-                      onChange={formik.handleChange}
-                      value={formik.values.genres}
-                      name="genres"
-                      onBlur={formik.handleBlur}
-                      autoComplete="off"
-                    />
-                    <p className="text-xs text-red-400 -mt-2 mb-2">
-                      {formik.errors.genres}
-                    </p>
-                  </div>
-                ) : (
-                  <input
-                    className="shadow bg-transparent border-primary  appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                    id="category"
-                    type="text"
-                    placeholder="Book Category *"
-                    onChange={formik.handleChange}
-                    value={formik.values.genres}
+              {formik.touched.genres && formik.errors.genres ? (
+                <div>
+                  <Select
+                    isMulti
+                    id="genres"
                     name="genres"
+                    options={Genres}
+                    className="basic-multi-select bg-green-300"
+                    classNamePrefix="select"
+                    placeholder="Select genre(s) *"
+                    onChange={(e) => {
+                      formik.setFieldValue("genres", e);
+                    }}
                     onBlur={formik.handleBlur}
-                    autoComplete="off"
+                    theme={(theme) => ({
+                      ...theme,
+                      borderRadius: 0,
+                      colors: {
+                        ...theme.colors,
+                        text: "orangered",
+                        primary25: "hotpink",
+                        primary: "black",
+                      },
+                    })}
+                    value={formik.values.genres}
                   />
-                )}
-                {formik.touched.price && formik.errors.price ? (
-                  <div>
-                    <input
-                      className="shadow bg-transparent   text-primary appearance-none border border-red-400 rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline mb-2"
-                      id="price"
-                      type="number"
-                      placeholder="Price *"
-                      onChange={formik.handleChange}
-                      value={formik.values.price}
-                      name="price"
-                      onBlur={formik.handleBlur}
-                      autoComplete="off"
-                      min="0"
-                    />
-                    <p className="text-xs text-red-400 -mt-2 mb-2">
-                      {formik.errors.price}
-                    </p>
-                  </div>
-                ) : (
-                  <input
-                    className="shadow bg-transparent   appearance-none border-primary  rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                    id="price"
-                    type="number"
-                    placeholder="Price *"
-                    onChange={formik.handleChange}
-                    value={formik.values.price}
-                    name="price"
-                    onBlur={formik.handleBlur}
-                    autoComplete="off"
-                    min="0"
-                  />
-                )}
-              </div>
+                  <p className="text-xs text-red-400 -mt-2 mb-2">
+                    {formik.errors.genres}
+                  </p>
+                </div>
+              ) : (
+                <Select
+                  isMulti
+                  id="genres"
+                  name="genres"
+                  options={Genres}
+                  className="basic-multi-select bg-green-300"
+                  classNamePrefix="select"
+                  placeholder="Select genre(s) *"
+                  onChange={(e) => {
+                    formik.setFieldValue("genres", e);
+                  }}
+                  onBlur={formik.handleBlur}
+                  theme={(theme) => ({
+                    ...theme,
+                    borderRadius: 0,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "black",
+                      danger: "black",
+                      neutral10: "#e07a5f",
+                      neutral0: "#3F3B3B",
+                      neutral80: "white",
+                    },
+                  })}
+                  value={formik.values.genres}
+                />
+              )}
+              <input
+                className="shadow bg-transparent   appearance-none border-primary  rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                id="price"
+                type="number"
+                placeholder="Price"
+                onChange={formik.handleChange}
+                value={!formik.values.isChecked ? formik.values.price : 0}
+                name="price"
+                onBlur={formik.handleBlur}
+                autoComplete="off"
+                min="0"
+              />
               {formik.touched.description && formik.errors.description ? (
                 <div>
                   <textarea
@@ -340,7 +364,6 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                 type="submit"
                 onClick={() => {
                   addItemsToList();
-                  toast.success("Book added successfully");
                 }}
                 disabled={uniqueID === ""}
               >

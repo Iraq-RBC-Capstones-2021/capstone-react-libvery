@@ -12,6 +12,7 @@ import "react-medium-image-zoom/dist/styles.css";
 import { Route, Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 const bookInfo = {
   image: "a URL",
@@ -39,7 +40,7 @@ function BooksDetail({ match }) {
   const matchURL = match.url;
   const paramID = match.params.id;
 
-  const booksSlice = useSelector((state) => state.addBooks.books);
+  const booksSlice = useSelector((state) => state.books.books);
 
   useEffect(() => {
     async function getBook() {
@@ -228,6 +229,7 @@ function BooksDetail({ match }) {
           </div>
         </motion.div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
