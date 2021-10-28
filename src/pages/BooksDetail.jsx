@@ -59,8 +59,6 @@ function BooksDetail({ match }) {
     getBook();
   }, [paramID, booksSlice]);
 
-  console.log(paramID);
-
   return (
     <div className="bg-primary font-sans">
       <div className="sm:flex sm:justify-center">
