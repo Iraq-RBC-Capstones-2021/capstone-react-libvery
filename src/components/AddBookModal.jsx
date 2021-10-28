@@ -82,10 +82,15 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       });
 
       dispatch(addBooks({ ...formik.values, id: uniqueID, uid: userUID }));
-      toast.success("Book added successfully");
       history.push(`/books/${uniqueID}`);
       // this is to empty the books array after adding a book to render realtime data.
       dispatch(emptyBooks());
+      // this will add the toast message to the books detail when it is submitted and redirected to the book detail page.
+      if (history.location.pathname === `/books/${uniqueID}`) {
+        setTimeout(() => {
+          toast.success("Book added successfully");
+        }, 500);
+      }
     }
   }
 
@@ -238,17 +243,6 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   </p>
                 </div>
               ) : (
-                // <input
-                //   className="shadow bg-transparent border-primary  appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                //   id="category"
-                //   type="text"
-                //   placeholder="Book Category *"
-                //   onChange={formik.handleChange}
-                //   value={formik.values.genres}
-                //   name="genres"
-                //   onBlur={formik.handleBlur}
-                //   autoComplete="off"
-                // />
                 <Select
                   isMulti
                   id="genres"

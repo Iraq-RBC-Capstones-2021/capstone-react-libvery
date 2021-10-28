@@ -12,6 +12,7 @@ import "react-medium-image-zoom/dist/styles.css";
 import { Route, Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 const bookInfo = {
   image: "a URL",
@@ -224,6 +225,7 @@ function BooksDetail({ match }) {
           </div>
         </motion.div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
