@@ -13,6 +13,7 @@ import { Route, Link } from "react-router-dom";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import Loader from "../components/Loader";
+import { useSelector } from "react-redux";
 
 const bookInfo = {
   image: "a URL",
@@ -40,24 +41,24 @@ function BooksDetail({ match }) {
   const matchURL = match.url;
   const paramID = match.params.id;
 
+  const booksSlice = useSelector((state) => state.addBooks.books);
+
   useEffect(() => {
     async function getBook() {
       setIsImageLoading(true);
-      const q = query(
-        collection(db, "books"),
-        where("id", "==", Number(paramID))
-      );
-
-      const querySnapshot = await getDocs(q);
-
-      querySnapshot.forEach((doc) => {
-        setBook(doc.data());
+      if (
+        booksSlice
+          .flat()
+          .map((book) => book.id)
+          .includes(Number(paramID))
+      ) {
+        setBook(booksSlice.flat().find((book) => book.id === Number(paramID)));
         setIsImageLoading(false);
-      });
+      }
     }
 
     getBook();
-  }, [paramID]);
+  }, [paramID, booksSlice]);
 
   return (
     <div className="bg-primary font-sans">
