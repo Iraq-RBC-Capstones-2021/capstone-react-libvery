@@ -12,6 +12,7 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
 import Loader from "./components/Loader";
+import "react-toastify/dist/ReactToastify.css";
 
 i18n
   .use(initReactI18next)
@@ -28,7 +29,14 @@ i18n
   });
 
 ReactDOM.render(
-  <Suspense fallback={<Loader />}>
+  <Suspense
+    fallback={
+      <Loader
+        className="flex w-screen h-screen justify-center items-center bg-white"
+        color="#F2E1D9"
+      />
+    }
+  >
     <React.StrictMode>
       <Router>
         <Provider store={store}>
