@@ -4,7 +4,7 @@ import CloseButton from "../customs/CloseButton";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { collection, addDoc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addBooks, emptyBooks } from "../store/addBooksSlice";
@@ -65,7 +65,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   const userUID = useSelector(selectorUser).uid;
 
   async function addItemsToList() {
-    await addDoc(collection(db, "books"), {
+    await setDoc(doc(db, "books", `${uniqueID}`), {
       bookTitle: formik.values.bookTitle,
       author: formik.values.author,
       genres: formik.values.genres.split(","),
@@ -147,17 +147,6 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
               <p className="text-primary font-extrabold flex justify-center mb-4 sm:text-3xl text-4xl">
                 Add a book
               </p>
-              <div className="relative">
-                <input
-                  type="text"
-                  name="id"
-                  value={uniqueID}
-                  disabled
-                  className="shadow bg-transparent border-primary appearance-none border rounded py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                  placeholder="Book id *"
-                  required
-                />
-              </div>
               {formik.touched.bookTitle && formik.errors.bookTitle ? (
                 <div>
                   <input

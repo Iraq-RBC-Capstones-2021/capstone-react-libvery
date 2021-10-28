@@ -10,9 +10,8 @@ import page3 from "../assets/page3.png";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { Route, Link } from "react-router-dom";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../firebase";
 import Loader from "../components/Loader";
+import { useSelector } from "react-redux";
 
 const bookInfo = {
   image: "a URL",
@@ -40,32 +39,26 @@ function BooksDetail({ match }) {
   const matchURL = match.url;
   const paramID = match.params.id;
 
-  // console.log("matchURL BooksDetail: ", matchURL);
-  // console.log("paramID BooksDetail: ", paramID);
+  const booksSlice = useSelector((state) => state.addBooks.books);
 
   useEffect(() => {
     async function getBook() {
       setIsImageLoading(true);
-      const q = query(
-        collection(db, "books"),
-        where("id", "==", Number(paramID))
-      );
-
-      const querySnapshot = await getDocs(q);
-
-      querySnapshot.forEach((doc) => {
-        setBook(doc.data());
+      if (
+        booksSlice
+          .flat()
+          .map((book) => book.id)
+          .includes(Number(paramID))
+      ) {
+        setBook(booksSlice.flat().find((book) => book.id === Number(paramID)));
         setIsImageLoading(false);
-      });
+      }
     }
 
     getBook();
-  }, [paramID]);
+  }, [paramID, booksSlice]);
 
-  // const books = useSelector((state) => state.addBooks.books);
-
-  // console.log(`books: ${JSON.stringify(books.flat(), null, 2)}`);
-  // console.log(books.flat().map((book) => book.uid));
+  console.log(paramID);
 
   return (
     <div className="bg-primary font-sans">

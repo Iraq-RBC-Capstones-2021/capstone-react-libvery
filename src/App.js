@@ -61,20 +61,18 @@ function App() {
         dispatch(setLogOut());
       }
     });
-  }, [dispatch]);
 
-  useEffect(() => {
     const q = query(collection(db, "books"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const cities = [];
+      const books = [];
       querySnapshot.forEach((doc) => {
-        cities.push(doc.data());
+        books.push(doc.data());
         // this is to delete createdAt from redux store since it logs error in console.
-        cities.forEach((book) => {
+        books.forEach((book) => {
           delete book.createdAt;
         });
       });
-      dispatch(addBooks(cities));
+      dispatch(addBooks(books));
     });
 
     return unsubscribe;
