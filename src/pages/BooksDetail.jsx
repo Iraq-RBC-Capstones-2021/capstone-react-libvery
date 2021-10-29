@@ -61,10 +61,6 @@ function BooksDetail({ match }) {
     getBook();
   }, [paramID, booksSlice]);
 
-  console.log("books detail genres: ", book.genres);
-
-  console.log(`userUID: ${typeof userUID} book.sellerUID: ${typeof book.uid}`);
-
   return (
     <div className="bg-primary font-sans">
       <div className="sm:flex sm:justify-center">

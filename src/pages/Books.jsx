@@ -7,11 +7,9 @@ import AddBookModal from "../components/AddBookModal";
 import AnimateButton from "../customs/AnimateButton";
 import { useSelector } from "react-redux";
 import Pagination from "../components/pagination/Pagination";
-import booksData from "../service/fakeData.json";
 
 function Books() {
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
-  // const [posts] = useState([...booksData]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
 
@@ -22,16 +20,6 @@ function Books() {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = books?.slice(indexOfFirstPost, indexOfLastPost);
   const howManyPages = Math.ceil(books.length / postsPerPage);
-
-  // const arrPop = currentPosts.pop();
-
-  // console.log(
-  //   "currentPostssssssssssss: ",
-  //   currentPosts[currentPosts.length - 1] >= 2
-  // );
-
-  // const tryThis =
-  //   currentPosts[currentPosts.length - 1] >= 2 ? null : currentPosts;
 
   const booksArr = currentPosts?.map((book) => (
     <div key={book.id} className="m-2">

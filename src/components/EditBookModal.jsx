@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import CloseButton from "../customs/CloseButton";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
-import { addBooks, emptyBooks } from "../store/booksSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { updateDoc, doc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -78,11 +76,6 @@ function EditBookModal({
     history.goBack();
   };
 
-  const dispatch = useDispatch();
-  const books = useSelector((state) => state.books);
-
-  console.log(books.books.flat().find((book) => book.id === Number(paramID)));
-
   async function updateBook() {
     if (
       formik.values.bookTitle === "" ||
@@ -92,7 +85,6 @@ function EditBookModal({
       toast.error("Please fill the form");
     } else {
       const bookRef = doc(db, "books", `${paramID}`);
-      console.log(bookRef);
       await updateDoc(bookRef, {
         bookTitle: formik.values.bookTitle,
         author: formik.values.author,
@@ -102,12 +94,6 @@ function EditBookModal({
         image: fileUrl,
         isChecked: formik.values.isChecked,
       });
-      // dispatch(emptyBooks());
-      // dispatch(
-      //   addBooks(
-      //     books.books.flat().filter((book) => book.id !== Number(paramID))
-      //   )
-      // );
     }
   }
 
@@ -124,8 +110,6 @@ function EditBookModal({
     });
     setFileUrl(await getDownloadURL(storageRef));
   };
-
-  console.log("edit book modal genres: ", formik.values.genres);
 
   return (
     <>

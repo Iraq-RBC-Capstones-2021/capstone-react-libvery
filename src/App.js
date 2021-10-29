@@ -38,10 +38,6 @@ function App() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
-  const booksSelector = useSelector((state) => state.books);
-
-  console.log(booksSelector.books.flat());
-
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -82,9 +78,8 @@ function App() {
     return unsubscribe;
   }, [dispatch]);
 
-  console.log(booksSlice.books);
-
   if (isLoading) return <Loader />;
+
   return (
     <div className="bg-primary overflow-x-hidden">
       <Navbar />

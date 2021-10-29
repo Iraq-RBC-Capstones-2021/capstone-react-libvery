@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { setDoc, doc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { addBooks, emptyBooks } from "../store/booksSlice";
+import { addBooks } from "../store/booksSlice";
 import { serverTimestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Link, useHistory } from "react-router-dom";
@@ -96,8 +96,6 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
 
       dispatch(addBooks({ ...formik.values, id: uniqueID, uid: userUID }));
       history.push(`/books/${uniqueID}`);
-      // this is to empty the books array after adding a book to render realtime data.
-      // dispatch(emptyBooks());
       // this will add the toast message to the books detail when it is submitted and redirected to the book detail page.
       if (history.location.pathname === `/books/${uniqueID}`) {
         setTimeout(() => {
