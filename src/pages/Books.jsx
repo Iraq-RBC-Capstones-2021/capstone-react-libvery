@@ -23,12 +23,22 @@ function Books() {
   const currentPosts = books?.slice(indexOfFirstPost, indexOfLastPost);
   const howManyPages = Math.ceil(books.length / postsPerPage);
 
+  // const arrPop = currentPosts.pop();
+
+  // console.log(
+  //   "currentPostssssssssssss: ",
+  //   currentPosts[currentPosts.length - 1] >= 2
+  // );
+
+  // const tryThis =
+  //   currentPosts[currentPosts.length - 1] >= 2 ? null : currentPosts;
+
   const booksArr = currentPosts?.map((book) => (
     <div key={book.id} className="m-2">
       <BookCard
         id={book.id}
         title={book.bookTitle}
-        genres={book.genres.map((genre) => genre.value)}
+        genres={book.genres?.map((genre) => genre.value)}
         image={book.image}
         rating={book.rating}
         price={book.price}

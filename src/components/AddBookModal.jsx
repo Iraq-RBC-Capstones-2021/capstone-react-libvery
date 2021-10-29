@@ -97,7 +97,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       dispatch(addBooks({ ...formik.values, id: uniqueID, uid: userUID }));
       history.push(`/books/${uniqueID}`);
       // this is to empty the books array after adding a book to render realtime data.
-      dispatch(emptyBooks());
+      // dispatch(emptyBooks());
       // this will add the toast message to the books detail when it is submitted and redirected to the book detail page.
       if (history.location.pathname === `/books/${uniqueID}`) {
         setTimeout(() => {

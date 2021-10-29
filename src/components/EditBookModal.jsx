@@ -103,11 +103,11 @@ function EditBookModal({
         isChecked: formik.values.isChecked,
       });
       // dispatch(emptyBooks());
-      dispatch(
-        addBooks(
-          books.books.flat().filter((book) => book.id !== Number(paramID))
-        )
-      );
+      // dispatch(
+      //   addBooks(
+      //     books.books.flat().filter((book) => book.id !== Number(paramID))
+      //   )
+      // );
     }
   }
 
