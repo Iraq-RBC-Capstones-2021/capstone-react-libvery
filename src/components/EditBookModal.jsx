@@ -12,6 +12,7 @@ import { db, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Genres } from "../service/genres";
 import Select from "react-select";
+import { toast } from "react-toastify";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -25,21 +26,26 @@ const validationSchema = Yup.object().shape({
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
-  genres: Yup.string().required("Required"),
+  genres: Yup.array()
+    .of(
+      Yup.object().shape({
+        label: Yup.string().required(),
+        value: Yup.string().required(),
+      })
+    )
+    .required("Required"),
   price: Yup.number().required("Required"),
 });
 
 function EditBookModal({
   isEditBookOpen,
   setIsEditBookOpen,
-  id,
   author,
   bookTitle,
   genres,
   price,
   description,
   paramID,
-  matchURL,
 }) {
   const [progress, setProgress] = useState(0);
   const [fileUrl, setFileUrl] = useState("");
@@ -50,7 +56,8 @@ function EditBookModal({
     genres: genres,
     price: price,
     description: description,
-    image: fileUrl,
+    image: "",
+    isChecked: false,
   };
 
   const formik = useFormik({
@@ -77,20 +84,31 @@ function EditBookModal({
   console.log(books.books.flat().find((book) => book.id === Number(paramID)));
 
   async function updateBook() {
-    const bookRef = doc(db, "books", `${paramID}`);
-    console.log(bookRef);
-    await updateDoc(bookRef, {
-      bookTitle: formik.values.bookTitle,
-      author: formik.values.author,
-      genres: formik.values.genres,
-      price: formik.values.price,
-      description: formik.values.description,
-      image: fileUrl,
-    });
-    // dispatch(emptyBooks());
-    dispatch(
-      addBooks(books.books.flat().filter((book) => book.id !== Number(paramID)))
-    );
+    if (
+      formik.values.bookTitle === "" ||
+      formik.values.author === "" ||
+      formik.values.genres.length === 0
+    ) {
+      toast.error("Please fill the form");
+    } else {
+      const bookRef = doc(db, "books", `${paramID}`);
+      console.log(bookRef);
+      await updateDoc(bookRef, {
+        bookTitle: formik.values.bookTitle,
+        author: formik.values.author,
+        genres: formik.values.genres,
+        price: !formik.values.isChecked ? formik.values.price : 0,
+        description: formik.values.description,
+        image: fileUrl,
+        isChecked: formik.values.isChecked,
+      });
+      // dispatch(emptyBooks());
+      dispatch(
+        addBooks(
+          books.books.flat().filter((book) => book.id !== Number(paramID))
+        )
+      );
+    }
   }
 
   const onFileChange = async (e) => {
@@ -229,38 +247,18 @@ function EditBookModal({
               })}
               value={formik.values.genres.map((genre) => genre)}
             />
-            {formik.touched.price && formik.errors.price ? (
-              <div>
-                <input
-                  className="bg-transparent shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                  id="price"
-                  type="number"
-                  placeholder="Price *"
-                  onChange={formik.handleChange}
-                  value={formik.values.price}
-                  name="price"
-                  onBlur={formik.handleBlur}
-                  autoComplete="off"
-                  min="0"
-                />
-                <p className="text-xs text-red-400 -mt-2 mb-2">
-                  {formik.errors.price}
-                </p>
-              </div>
-            ) : (
-              <input
-                className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                id="price"
-                type="number"
-                placeholder="Price *"
-                onChange={formik.handleChange}
-                value={formik.values.price}
-                name="price"
-                onBlur={formik.handleBlur}
-                autoComplete="off"
-                min="0"
-              />
-            )}
+            <input
+              className="bg-transparent shadow appearance-none border border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+              id="price"
+              type="number"
+              placeholder="Price *"
+              onChange={formik.handleChange}
+              value={!formik.values.isChecked ? formik.values.price : 0}
+              name="price"
+              onBlur={formik.handleBlur}
+              autoComplete="off"
+              min="0"
+            />
             {formik.touched.description && formik.errors.description ? (
               <div>
                 <textarea
@@ -309,6 +307,7 @@ function EditBookModal({
               </svg>
               <input type="file" className="hidden" onChange={onFileChange} />
             </label>
+            {progress > 0 ? <p>Upload is {progress}% done</p> : null}
             <label className="flex text-primary items-center">
               <p className="mr-2">Are you donating this book?</p>
               <input
@@ -316,6 +315,11 @@ function EditBookModal({
                 name="yes"
                 id="yes"
                 className="rounded-full"
+                value={formik.values.isChecked}
+                checked={formik.values.isChecked}
+                onChange={() => {
+                  formik.setFieldValue("isChecked", !formik.values.isChecked);
+                }}
               />
             </label>
             <button
