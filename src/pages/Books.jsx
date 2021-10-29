@@ -7,11 +7,9 @@ import AddBookModal from "../components/AddBookModal";
 import AnimateButton from "../customs/AnimateButton";
 import { useSelector } from "react-redux";
 import Pagination from "../components/pagination/Pagination";
-import booksData from "../service/fakeData.json";
 
 function Books() {
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
-  const [posts] = useState([...booksData]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
 
@@ -20,15 +18,15 @@ function Books() {
   //Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = books?.["0"]?.slice(indexOfFirstPost, indexOfLastPost);
-  const howManyPages = Math.ceil(posts.length / postsPerPage);
+  const currentPosts = books?.slice(indexOfFirstPost, indexOfLastPost);
+  const howManyPages = Math.ceil(books.length / postsPerPage);
 
   const booksArr = currentPosts?.map((book) => (
     <div key={book.id} className="m-2">
       <BookCard
         id={book.id}
         title={book.bookTitle}
-        genres={book.genres}
+        genres={book.genres?.map((genre) => genre.value)}
         image={book.image}
         rating={book.rating}
         price={book.price}
