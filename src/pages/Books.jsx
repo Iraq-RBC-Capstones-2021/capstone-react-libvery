@@ -5,10 +5,11 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FiPlusCircle } from "react-icons/fi";
 import AddBookModal from "../components/AddBookModal";
 import AnimateButton from "../customs/AnimateButton";
+import { useSelector } from "react-redux";
 import Pagination from "../components/pagination/Pagination";
 
 import { fetchBooks } from "../store/books/bookSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 function Books() {
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,7 +29,7 @@ function Books() {
     <div key={book.id} className="m-2">
       <BookCard
         id={book.id}
-        title={book.title}
+        title={book.bookTitle}
         genres={book.genres}
         image={book.image}
         rating={book.rating}
