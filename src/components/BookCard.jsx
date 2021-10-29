@@ -3,7 +3,13 @@ import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import { BOOKS_ROUTE } from "../routes";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 import { db } from "../firebase";
 import {
   selectorUser,
@@ -11,8 +17,10 @@ import {
   setRemoveFavorites,
 } from "../store/counter/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+
 function BookCard({ image, genres, title, price, rating, id }) {
   const user = useSelector(selectorUser);
+  const dispatch = useDispatch();
 
   const genreButtons = genres.map((genre, index) => {
     return (
@@ -25,25 +33,36 @@ function BookCard({ image, genres, title, price, rating, id }) {
     );
   });
 
-  const dispatch = useDispatch();
   const handleFav = async (id) => {
-    if (!user.favorites.map((book) => book.book.id).includes(Number(id))) {
+    if (!user.favorites.map((book) => book.id).includes(Number(id))) {
       const docRef = doc(db, "books", `${id}`);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        dispatch(setFavorites({ book: docSnap.data() }));
+        const favBookRef = doc(db, "users", user.uid);
+        await updateDoc(favBookRef, {
+          favorites: arrayUnion(docSnap.data()),
+        });
+        const favBooksRef = doc(db, "users", user.uid);
+        const favDocSnap = await getDoc(favBooksRef);
+        if (favDocSnap.exists()) {
+          dispatch(setFavorites(favDocSnap.data().favorites));
+        }
       } else {
-        console.log("No such document!");
+        console.log("No such a doc");
       }
     } else {
       const docRef = doc(db, "books", `${id}`);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        dispatch(setRemoveFavorites(docSnap.data().id));
+        const favBookRef = doc(db, "users", user.uid);
+        await updateDoc(favBookRef, {
+          favorites: arrayRemove(docSnap.data()),
+        });
+        dispatch(setRemoveFavorites(id));
       }
     }
   };
+
   return (
     <div className="bg-cards rounded-xl font-sans  overflow-hidden shadow-md w-full md:w-60 lg:w-72  p-3 transform transition ease-in-out duration-200 hover:-translate-y-0.5 mx-auto md:mt-5 mb-1 sm:mb-2 md:mb-0">
       <div className="rounded-xl overflow-hidden relative h-60">
@@ -54,7 +73,7 @@ function BookCard({ image, genres, title, price, rating, id }) {
       </div>
       <div className="flex justify-between items-center px-1 pt-2">
         <h1 className="font-semibold">{title}</h1>
-        {user.favorites.map((book) => book.book.id).includes(Number(id)) ? (
+        {user.favorites?.map((book) => book.id).includes(Number(id)) ? (
           <AiFillHeart
             onClick={() => handleFav(id)}
             size={29}
