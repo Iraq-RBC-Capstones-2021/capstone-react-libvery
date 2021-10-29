@@ -36,7 +36,6 @@ const GoogleAuth = () => {
         const { code } = error;
         const { message } = error;
         const { email } = error;
-        console.log(code, message, email);
       });
   };
 

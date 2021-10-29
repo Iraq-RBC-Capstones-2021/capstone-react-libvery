@@ -52,7 +52,6 @@ export const signUp = createAsyncThunk(
         const { code } = error;
         const { message } = error;
         const { email } = error;
-        console.log(code, message, email);
       });
   }
 );
@@ -87,7 +86,6 @@ export const signIn = createAsyncThunk(
         const { code } = error;
         const { message } = error;
         const { email } = error;
-        console.log(code, message, email);
       });
   }
 );
