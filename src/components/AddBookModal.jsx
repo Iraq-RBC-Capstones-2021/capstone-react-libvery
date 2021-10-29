@@ -47,6 +47,7 @@ const initialValues = {
   image: "",
   isChecked: false,
   id: "",
+  uid: "",
   genres: [],
 };
 
