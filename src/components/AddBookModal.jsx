@@ -91,6 +91,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
         createdAt: serverTimestamp(),
         rating: 0,
         uid: userUID,
+        images: [],
       });
 
       dispatch(addBooks({ ...formik.values, id: uniqueID, uid: userUID }));

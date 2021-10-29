@@ -27,7 +27,7 @@ import Loader from "./components/Loader";
 import { AnimatePresence } from "framer-motion";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
-import booksSlice, { addBooks } from "./store/booksSlice";
+import booksSlice, { addBooks, fetchBooks } from "./store/booksSlice";
 
 import { onAuthStateChanged } from "@firebase/auth";
 import { doc, getDoc } from "@firebase/firestore";
@@ -76,7 +76,7 @@ function App() {
           delete book.createdAt;
         });
       });
-      dispatch(addBooks(books));
+      dispatch(fetchBooks(books));
     });
 
     return unsubscribe;

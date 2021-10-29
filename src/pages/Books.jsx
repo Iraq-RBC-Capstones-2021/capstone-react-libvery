@@ -11,7 +11,7 @@ import booksData from "../service/fakeData.json";
 
 function Books() {
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
-  const [posts] = useState([...booksData]);
+  // const [posts] = useState([...booksData]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
 
@@ -20,12 +20,11 @@ function Books() {
   //Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = books?.["0"]?.slice(indexOfFirstPost, indexOfLastPost);
-  const howManyPages = Math.ceil(posts.length / postsPerPage);
+  const currentPosts = books?.slice(indexOfFirstPost, indexOfLastPost);
+  const howManyPages = Math.ceil(books.length / postsPerPage);
 
   const booksArr = currentPosts?.map((book) => (
     <div key={book.id} className="m-2">
-      {console.log(book.genres.map((genre) => genre.value))}
       <BookCard
         id={book.id}
         title={book.bookTitle}
