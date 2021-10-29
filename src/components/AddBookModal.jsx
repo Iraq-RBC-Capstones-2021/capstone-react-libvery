@@ -82,7 +82,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       await setDoc(doc(db, "books", `${uniqueID}`), {
         bookTitle: formik.values.bookTitle,
         author: formik.values.author,
-        genres: formik.values?.genres?.map((book) => book.value),
+        genres: formik.values.genres,
         price: !formik.values.isChecked ? formik.values.price : 0,
         description: formik.values.description,
         image: fileUrl,
@@ -265,6 +265,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   classNamePrefix="select"
                   placeholder="Select genre(s) *"
                   onChange={(e) => {
+                    console.log("eeee: ", e);
                     formik.setFieldValue("genres", e);
                   }}
                   onBlur={formik.handleBlur}

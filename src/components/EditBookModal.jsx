@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import CloseButton from "../customs/CloseButton";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
+import { addBooks, emptyBooks } from "../store/booksSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { updateDoc, doc } from "firebase/firestore";
+import { db, storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { Genres } from "../service/genres";
+import Select from "react-select";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -31,14 +38,19 @@ function EditBookModal({
   genres,
   price,
   description,
+  paramID,
+  matchURL,
 }) {
+  const [progress, setProgress] = useState(0);
+  const [fileUrl, setFileUrl] = useState("");
+
   const initialValues = {
     bookTitle: bookTitle,
     author: author,
-    genres: genres.join(","),
+    genres: genres,
     price: price,
     description: description,
-    image: "",
+    image: fileUrl,
   };
 
   const formik = useFormik({
@@ -58,6 +70,44 @@ function EditBookModal({
     setIsEditBookOpen(false);
     history.goBack();
   };
+
+  const dispatch = useDispatch();
+  const books = useSelector((state) => state.books);
+
+  console.log(books.books.flat().find((book) => book.id === Number(paramID)));
+
+  async function updateBook() {
+    const bookRef = doc(db, "books", `${paramID}`);
+    console.log(bookRef);
+    await updateDoc(bookRef, {
+      bookTitle: formik.values.bookTitle,
+      author: formik.values.author,
+      genres: formik.values.genres,
+      price: formik.values.price,
+      description: formik.values.description,
+      image: fileUrl,
+    });
+    // dispatch(emptyBooks());
+    dispatch(
+      addBooks(books.books.flat().filter((book) => book.id !== Number(paramID)))
+    );
+  }
+
+  const onFileChange = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = ref(storage, file.name);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on("state_changed", (snapshot) => {
+      const progress = Math.round(
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      );
+      setProgress(progress);
+    });
+    setFileUrl(await getDownloadURL(storageRef));
+  };
+
+  console.log("edit book modal genres: ", formik.values.genres);
 
   return (
     <>
@@ -153,58 +203,36 @@ function EditBookModal({
                 autoComplete="off"
               />
             )}
-            <div className="md:flex space-x-3 justify-between">
-              {formik.touched.genres && formik.errors.genres ? (
-                <div>
-                  <input
-                    className="bg-transparent shadow appearance-none border border-red-400 rounded py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                    id="category"
-                    type="text"
-                    placeholder="Book Category *"
-                    onChange={formik.handleChange}
-                    value={formik.values.genres}
-                    name="genres"
-                    onBlur={formik.handleBlur}
-                    autoComplete="off"
-                  />
-                  <p className="text-xs text-red-400 -mt-2 mb-2">
-                    {formik.errors.genres}
-                  </p>
-                </div>
-              ) : (
+            <Select
+              isMulti
+              id="genres"
+              name="genres"
+              options={Genres}
+              className="basic-multi-select bg-green-300"
+              classNamePrefix="select"
+              placeholder="Select genre(s) *"
+              onChange={(e) => {
+                formik.setFieldValue("genres", e);
+              }}
+              onBlur={formik.handleBlur}
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 0,
+                colors: {
+                  ...theme.colors,
+                  primary25: "black",
+                  danger: "black",
+                  neutral10: "#e07a5f",
+                  neutral0: "#3F3B3B",
+                  neutral80: "white",
+                },
+              })}
+              value={formik.values.genres.map((genre) => genre)}
+            />
+            {formik.touched.price && formik.errors.price ? (
+              <div>
                 <input
-                  className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                  id="category"
-                  type="text"
-                  placeholder="Book Category *"
-                  onChange={formik.handleChange}
-                  value={formik.values.genres}
-                  name="genres"
-                  onBlur={formik.handleBlur}
-                  autoComplete="off"
-                />
-              )}
-              {formik.touched.price && formik.errors.price ? (
-                <div>
-                  <input
-                    className="bg-transparent shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                    id="price"
-                    type="number"
-                    placeholder="Price *"
-                    onChange={formik.handleChange}
-                    value={formik.values.price}
-                    name="price"
-                    onBlur={formik.handleBlur}
-                    autoComplete="off"
-                    min="0"
-                  />
-                  <p className="text-xs text-red-400 -mt-2 mb-2">
-                    {formik.errors.price}
-                  </p>
-                </div>
-              ) : (
-                <input
-                  className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className="bg-transparent shadow appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                   id="price"
                   type="number"
                   placeholder="Price *"
@@ -215,8 +243,24 @@ function EditBookModal({
                   autoComplete="off"
                   min="0"
                 />
-              )}
-            </div>
+                <p className="text-xs text-red-400 -mt-2 mb-2">
+                  {formik.errors.price}
+                </p>
+              </div>
+            ) : (
+              <input
+                className="bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                id="price"
+                type="number"
+                placeholder="Price *"
+                onChange={formik.handleChange}
+                value={formik.values.price}
+                name="price"
+                onBlur={formik.handleBlur}
+                autoComplete="off"
+                min="0"
+              />
+            )}
             {formik.touched.description && formik.errors.description ? (
               <div>
                 <textarea
@@ -263,7 +307,7 @@ function EditBookModal({
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
                 />
               </svg>
-              <input type="file" className="hidden" />
+              <input type="file" className="hidden" onChange={onFileChange} />
             </label>
             <label className="flex text-primary items-center">
               <p className="mr-2">Are you donating this book?</p>
@@ -277,6 +321,7 @@ function EditBookModal({
             <button
               className="bg-secondary text-white font-semibold py-2 px-4 rounded-lg mb-4 container mt-2"
               type="submit"
+              onClick={updateBook}
             >
               Update Book
             </button>

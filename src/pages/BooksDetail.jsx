@@ -59,6 +59,8 @@ function BooksDetail({ match }) {
     getBook();
   }, [paramID, booksSlice]);
 
+  console.log("books detail genres: ", book.genres);
+
   return (
     <div className="bg-primary font-sans">
       <div className="sm:flex sm:justify-center">
@@ -151,6 +153,8 @@ function BooksDetail({ match }) {
                   description={book.description}
                   image={book.image}
                   isChecked={book.isChecked}
+                  matchURL={matchURL}
+                  paramID={paramID}
                 />
               )}
             />
@@ -161,7 +165,7 @@ function BooksDetail({ match }) {
               {book.genres?.map((genre, index) => (
                 <AnimateButton
                   key={index}
-                  text={genre}
+                  text={genre.value}
                   classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm mr-1"
                 />
               ))}
