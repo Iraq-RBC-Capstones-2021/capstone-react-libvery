@@ -1,9 +1,9 @@
 import HashLoader from "react-spinners/HashLoader";
 
-function Loader() {
+function Loader({ className, color }) {
   return (
-    <div className="flex w-screen h-screen justify-center items-center bg-white">
-      <HashLoader color="#F2E1D9" loading size={50} />
+    <div className={className}>
+      <HashLoader color={color} loading size={50} />
     </div>
   );
 }
