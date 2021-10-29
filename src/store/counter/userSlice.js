@@ -74,14 +74,12 @@ export const signIn = createAsyncThunk(
 
         dispatch(
           setActiveUser({
-            userName:
-              docSnap._document.data.value.mapValue.fields.username.stringValue,
+            userName: docSnap.data().username,
             userEmail: userCredential.user.email,
             uid: userCredential.user.uid,
-            userPhone:
-              docSnap._document.data.value.mapValue.fields.phone.stringValue,
-            userPhoto:
-              docSnap._document.data.value.mapValue.fields.photo.stringValue,
+            userPhone: docSnap.data().phone,
+            userPhoto: docSnap.data().photo,
+            favorites: docSnap.data().favorites,
           })
         );
       })
@@ -105,6 +103,7 @@ const userSlice = createSlice({
       state.userPhone = action.payload.userPhone;
       state.userPhoto = action.payload.userPhoto;
       state.uid = action.payload.uid;
+      state.favorites = action.payload.favorites;
     },
     setLogOut: (state) => {
       state.userName = null;
@@ -114,15 +113,15 @@ const userSlice = createSlice({
     },
     setFavorites: (state, action) => {
       const findFavBook = state.favorites.find(
-        (book) => book.book.id === action.payload.book.id
+        (book) => book.id === action.payload.id
       );
       if (!findFavBook) {
-        state.favorites = [...state.favorites, action.payload];
+        state.favorites = action.payload;
       }
     },
     setRemoveFavorites: (state, action) => {
       state.favorites = state.favorites.filter(
-        (book) => book.book.id !== action.payload
+        (book) => book.id !== action.payload
       );
     },
   },
