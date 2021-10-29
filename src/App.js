@@ -46,16 +46,15 @@ function App() {
         const docSnap = await getDoc(docRef);
         dispatch(
           setActiveUser({
-            userName:
-              docSnap._document.data.value.mapValue.fields.username.stringValue,
+            userName: docSnap.data().username,
             userEmail: user.email,
             uid: user.uid,
-            userPhone:
-              docSnap._document.data.value.mapValue.fields.phone.stringValue,
-            userPhoto:
-              docSnap._document.data.value.mapValue.fields.photo.stringValue,
+            userPhone: docSnap.data().phone,
+            userPhoto: docSnap.data().photo,
+            favorites: docSnap.data().favorites,
           })
         );
+
         setIsLoading(false);
       } else {
         dispatch(setLogOut());
