@@ -124,6 +124,8 @@ function BooksDetail({ match }) {
                   sellerUsername={bookInfo.sellerUsername}
                   email={bookInfo.email}
                   phone={bookInfo.phone}
+                  matchURL={matchURL}
+                  paramID={paramID}
                 />
               )}
             />
