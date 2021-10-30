@@ -4,6 +4,8 @@ import { FaFacebook, FaInstagram, FaTwitter, FaGithub } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { GiCheckMark } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { selectorUser } from "../store/counter/userSlice";
+import { useSelector } from "react-redux";
 
 import {
   HOME_ROUTE,
@@ -14,8 +16,9 @@ import {
 import Languages from "./Languages";
 
 function Footer() {
-  const { t } = useTranslation();
+  const userName = useSelector(selectorUser).userName;
 
+  const { t } = useTranslation();
   return (
     <footer>
       <div className="p-10 bg-gray-200 text-black">
@@ -55,12 +58,14 @@ function Footer() {
                 >
                   {t("books")}
                 </Link>
-                <Link
-                  to={FAVOURITES_ROUTE}
-                  className="mx-5 hover:text-secondary transform hover:scale-105"
-                >
-                  {t("favorites")}
-                </Link>
+                {userName ? (
+                  <Link
+                    to={FAVOURITES_ROUTE}
+                    className="mx-5 hover:text-secondary transform hover:scale-105"
+                  >
+                    {t("favorites")}
+                  </Link>
+                ) : null}
               </div>
               <div className="flex flex-col justify-end items-center mt-10 md:mt-16 mb-5">
                 <p className=" pb-1 md:mr-24 ">{t("never_miss_an_update")}</p>
