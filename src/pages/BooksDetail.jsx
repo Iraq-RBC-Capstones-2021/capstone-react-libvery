@@ -161,7 +161,7 @@ function BooksDetail({ match }) {
               {book.genres?.map((genre, index) => (
                 <AnimateButton
                   key={index}
-                  text={genre}
+                  text={genre.value}
                   classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm mr-1"
                 />
               ))}
@@ -172,11 +172,11 @@ function BooksDetail({ match }) {
             </p>
           </div>
           <p className="mb-4">{book.description}</p>
-          <div className="flex relative">
+          <div className="flex relative ">
             <Link to={`${matchURL}/edit-image`}>
               <AnimateButton
                 OnClickContact={() => setIsEditImageOpen(true)}
-                classStyle="absolute left-60 bg-secondary text-white rounded-xl -top-3 cursor-pointer"
+                classStyle="absolute z-40  left-60 bg-secondary text-white rounded-xl -top-3 cursor-pointer ml-24"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -200,28 +200,21 @@ function BooksDetail({ match }) {
                 <EditImageModal
                   isEditImageOpen={isEditImageOpen}
                   setIsEditImageOpen={setIsEditImageOpen}
+                  book={book}
                 />
               )}
             />
-            <Zoom>
-              <img
-                className="h-44 w-28 rounded-md mr-3"
-                src={page1}
-                alt="content preview page 1"
-              />
-            </Zoom>
-            <Zoom>
-              <img
-                className="h-44 w-28 rounded-md mr-3"
-                src={page2}
-                alt="content preview page 2"
-              />
-            </Zoom>
-            <img
-              className="h-44 w-28 rounded-md"
-              src={page3}
-              alt="content preview page 3"
-            />
+            {book.images?.map((bookImage) => (
+              <div className="z-0 ">
+                <Zoom>
+                  <img
+                    className="h-44 w-28 rounded-md mr-3 z-0"
+                    src={bookImage}
+                    alt="content preview page 1"
+                  />
+                </Zoom>
+              </div>
+            ))}
           </div>
         </motion.div>
       </div>
