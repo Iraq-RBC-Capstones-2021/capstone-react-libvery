@@ -14,8 +14,11 @@ const booksSlice = createSlice({
     emptyBooks: (state) => {
       state.books = [];
     },
+    fetchBooks: (state, action) => {
+      state.books = action.payload;
+    },
   },
 });
 
-export const { addBooks, emptyBooks, searchBooks } = booksSlice.actions;
+export const { addBooks, emptyBooks, fetchBooks } = booksSlice.actions;
 export default booksSlice.reducer;
