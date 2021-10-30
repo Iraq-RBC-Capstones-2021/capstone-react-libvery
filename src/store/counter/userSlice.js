@@ -13,6 +13,7 @@ const initialState = {
   userPhone: "",
   userPhoto: "",
   userBooks: [],
+  favorites: [],
   uid: "",
 };
 
@@ -45,6 +46,8 @@ export const signUp = createAsyncThunk(
             userPhone: data.values.userPhone,
             userPhoto: data.fileUrl,
             uid: userCredential.user.uid,
+            books: [],
+            favorites: [],
           })
         );
       })
@@ -71,14 +74,12 @@ export const signIn = createAsyncThunk(
 
         dispatch(
           setActiveUser({
-            userName:
-              docSnap._document.data.value.mapValue.fields.username.stringValue,
+            userName: docSnap.data().username,
             userEmail: userCredential.user.email,
             uid: userCredential.user.uid,
-            userPhone:
-              docSnap._document.data.value.mapValue.fields.phone.stringValue,
-            userPhoto:
-              docSnap._document.data.value.mapValue.fields.photo.stringValue,
+            userPhone: docSnap.data().phone,
+            userPhoto: docSnap.data().photo,
+            favorites: docSnap.data().favorites,
           })
         );
       })
@@ -102,18 +103,36 @@ const userSlice = createSlice({
       state.userPhone = action.payload.userPhone;
       state.userPhoto = action.payload.userPhoto;
       state.uid = action.payload.uid;
+      state.favorites = action.payload.favorites;
     },
-
     setLogOut: (state) => {
       state.userName = null;
       state.userEmail = null;
       state.userPhone = null;
       state.userPhoto = null;
     },
+    setFavorites: (state, action) => {
+      const findFavBook = state.favorites.find(
+        (book) => book.id === action.payload.id
+      );
+      if (!findFavBook) {
+        state.favorites = action.payload;
+      }
+    },
+    setRemoveFavorites: (state, action) => {
+      state.favorites = state.favorites.filter(
+        (book) => book.id !== action.payload
+      );
+    },
   },
 });
 
-export const { setActiveUser, setLogOut, setUpdateUserInfo } =
-  userSlice.actions;
+export const {
+  setActiveUser,
+  setLogOut,
+  setUpdateUserInfo,
+  setFavorites,
+  setRemoveFavorites,
+} = userSlice.actions;
 export const selectorUser = (state) => state.user;
 export default userSlice.reducer;

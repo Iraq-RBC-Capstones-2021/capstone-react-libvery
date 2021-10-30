@@ -2,24 +2,25 @@ import { motion } from "framer-motion";
 import React, { useState } from "react";
 import BookCard from "../components/BookCard";
 import Pagination from "../components/pagination/Pagination";
-import booksData from "../service/fakeData.json";
+import { selectorUser } from "../store/counter/userSlice.js";
+import { useSelector } from "react-redux";
 
 function Favourites() {
-  const [posts] = useState([...booksData]);
+  const user = useSelector(selectorUser);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
 
   //Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const howManyPages = Math.ceil(posts.length / postsPerPage);
+  const currentPosts = user.favorites?.slice(indexOfFirstPost, indexOfLastPost);
+  const howManyPages = Math.ceil(user.favorites?.length / postsPerPage);
 
   const booksArr = currentPosts.map((book) => (
     <div key={book.id} className="m-2">
       <BookCard
         id={book.id}
-        title={book.title}
+        title={book.bookTitle}
         genres={book.genres}
         image={book.image}
         rating={book.rating}
