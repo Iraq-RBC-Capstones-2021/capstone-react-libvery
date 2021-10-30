@@ -17,6 +17,7 @@ function Books() {
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [posts, setPosts] = useState(books);
+
   const [postsPerPage] = useState(8);
 
   const [searchVal, setSearchVal] = useState("");
@@ -114,7 +115,7 @@ function Books() {
   useEffect(() => {
     handleSearch(searchVal, dropVal, optionsArr);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchVal, dropVal]);
+  }, [searchVal, dropVal, books]);
 
   return (
     <>

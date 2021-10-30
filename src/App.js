@@ -33,6 +33,7 @@ import { onAuthStateChanged } from "@firebase/auth";
 import { doc, getDoc } from "@firebase/firestore";
 import { auth, db } from "./firebase";
 import { setActiveUser, setLogOut } from "./store/counter/userSlice";
+
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
