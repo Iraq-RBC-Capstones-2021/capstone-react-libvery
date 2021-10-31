@@ -21,7 +21,7 @@ function Favourites() {
       <BookCard
         id={book.id}
         title={book.bookTitle}
-        genres={book.genres.map((genre) => genre.label)}
+        genres={book.genres}
         image={book.image}
         rating={book.rating}
         price={book.price}

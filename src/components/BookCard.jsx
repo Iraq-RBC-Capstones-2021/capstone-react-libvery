@@ -17,18 +17,28 @@ import {
   setRemoveFavorites,
 } from "../store/counter/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { changeDropdown } from "../store/dropdownSlice";
+import { useHistory } from "react-router-dom";
 
 function BookCard({ image, genres, title, price, rating, id }) {
   const user = useSelector(selectorUser);
   const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  function handleClick(genre) {
+    history.push("/books");
+    dispatch(changeDropdown(genre));
+  }
 
   const genreButtons = genres?.map((genre, index) => {
     return (
       <button
         key={index}
         className="text-xs bg-primary rounded-2xl px-2.5 py-0.5 m-0.5 mt-1 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
+        onClick={() => handleClick(genre.label)}
       >
-        {genre}
+        {genre.label}
       </button>
     );
   });
