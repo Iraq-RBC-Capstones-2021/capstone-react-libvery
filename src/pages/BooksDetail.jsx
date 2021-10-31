@@ -11,8 +11,11 @@ import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { Route, Link } from "react-router-dom";
 import Loader from "../components/Loader";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
+import { selectorUser } from "../store/users/userSlice";
+import { changeDropdown } from "../store/dropdownSlice";
+import { useHistory } from "react-router-dom";
 
 const bookInfo = {
   image: "a URL",
@@ -30,6 +33,8 @@ const bookInfo = {
 };
 
 function BooksDetail({ match }) {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [isBookmarked, setBookmarked] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isEditBookOpen, setIsEditBookOpen] = useState(false);
@@ -41,6 +46,7 @@ function BooksDetail({ match }) {
   const paramID = match.params.id;
 
   const booksSlice = useSelector((state) => state.books.books);
+  const userUID = useSelector(selectorUser).uid;
 
   useEffect(() => {
     async function getBook() {
@@ -58,6 +64,11 @@ function BooksDetail({ match }) {
 
     getBook();
   }, [paramID, booksSlice]);
+
+  function handleClick(genre) {
+    history.push("/books");
+    dispatch(changeDropdown(genre));
+  }
 
   return (
     <div className="bg-primary font-sans">
@@ -122,6 +133,8 @@ function BooksDetail({ match }) {
                   sellerUsername={bookInfo.sellerUsername}
                   email={bookInfo.email}
                   phone={bookInfo.phone}
+                  matchURL={matchURL}
+                  paramID={paramID}
                 />
               )}
             />
@@ -131,29 +144,35 @@ function BooksDetail({ match }) {
               <span className="opacity-50">Author:</span>{" "}
               <span>{book.author}</span>
             </p>
-            <Link to={`${matchURL}/edit-book`}>
-              <AnimateButton
-                OnClickContact={() => setIsEditBookOpen(true)}
-                classStyle="bg-secondary text-white rounded-sm px-2 py-1"
-                text="Edit"
-              />
-            </Link>
-            <Route
-              path={`${matchURL}/edit-book`}
-              render={() => (
-                <EditBookModal
-                  isEditBookOpen={isEditBookOpen}
-                  setIsEditBookOpen={setIsEditBookOpen}
-                  bookTitle={book.bookTitle}
-                  author={book.author}
-                  genres={book.genres}
-                  price={book.price}
-                  description={book.description}
-                  image={book.image}
-                  isChecked={book.isChecked}
+            {userUID === book.uid ? (
+              <>
+                <Link to={`${matchURL}/edit-book`}>
+                  <AnimateButton
+                    OnClickContact={() => setIsEditBookOpen(true)}
+                    classStyle="bg-secondary text-white rounded-sm px-2 py-1"
+                    text="Edit"
+                  />
+                </Link>
+                <Route
+                  path={`${matchURL}/edit-book`}
+                  render={() => (
+                    <EditBookModal
+                      isEditBookOpen={isEditBookOpen}
+                      setIsEditBookOpen={setIsEditBookOpen}
+                      bookTitle={book.bookTitle}
+                      author={book.author}
+                      genres={book.genres}
+                      price={book.price}
+                      description={book.description}
+                      image={book.image}
+                      isChecked={book.isChecked}
+                      matchURL={matchURL}
+                      paramID={paramID}
+                    />
+                  )}
                 />
-              )}
-            />
+              </>
+            ) : null}
           </div>
           <div className="flex">
             <p className="flex-1 mb-4">
@@ -161,8 +180,9 @@ function BooksDetail({ match }) {
               {book.genres?.map((genre, index) => (
                 <AnimateButton
                   key={index}
-                  text={genre}
+                  text={genre.value}
                   classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm mr-1"
+                  OnClickContact={() => handleClick(genre.label)}
                 />
               ))}
             </p>
@@ -173,27 +193,31 @@ function BooksDetail({ match }) {
           </div>
           <p className="mb-4">{book.description}</p>
           <div className="flex relative">
-            <Link to={`${matchURL}/edit-image`}>
-              <AnimateButton
-                OnClickContact={() => setIsEditImageOpen(true)}
-                classStyle="absolute left-60 bg-secondary text-white rounded-xl -top-3 cursor-pointer"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                  />
-                </svg>
-              </AnimateButton>
-            </Link>
+            {userUID === book.uid ? (
+              <>
+                <Link to={`${matchURL}/edit-image`}>
+                  <AnimateButton
+                    OnClickContact={() => setIsEditImageOpen(true)}
+                    classStyle="absolute left-60 bg-secondary text-white rounded-xl -top-3 cursor-pointer"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      />
+                    </svg>
+                  </AnimateButton>
+                </Link>
+              </>
+            ) : null}
             <Route
               path={`${matchURL}/edit-image`}
               render={() => (

@@ -47,6 +47,7 @@ const initialValues = {
   image: "",
   isChecked: false,
   id: "",
+  uid: "",
   genres: [],
 };
 
@@ -82,7 +83,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
       await setDoc(doc(db, "books", `${uniqueID}`), {
         bookTitle: formik.values.bookTitle,
         author: formik.values.author,
-        genres: formik.values?.genres?.map((book) => book.value),
+        genres: formik.values.genres,
         price: !formik.values.isChecked ? formik.values.price : 0,
         description: formik.values.description,
         image: fileUrl,
@@ -91,12 +92,11 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
         createdAt: serverTimestamp(),
         rating: 0,
         uid: userUID,
+        images: [],
       });
 
       dispatch(addBooks({ ...formik.values, id: uniqueID, uid: userUID }));
       history.push(`/books/${uniqueID}`);
-      // this is to empty the books array after adding a book to render realtime data.
-      dispatch(emptyBooks());
       // this will add the toast message to the books detail when it is submitted and redirected to the book detail page.
       if (history.location.pathname === `/books/${uniqueID}`) {
         setTimeout(() => {
@@ -265,6 +265,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   classNamePrefix="select"
                   placeholder="Select genre(s) *"
                   onChange={(e) => {
+                    console.log("eeee: ", e);
                     formik.setFieldValue("genres", e);
                   }}
                   onBlur={formik.handleBlur}

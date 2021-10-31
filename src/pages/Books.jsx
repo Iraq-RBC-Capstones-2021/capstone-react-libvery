@@ -5,17 +5,23 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FiPlusCircle } from "react-icons/fi";
 import AddBookModal from "../components/AddBookModal";
 import AnimateButton from "../customs/AnimateButton";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Pagination from "../components/pagination/Pagination";
-
+import { Genres } from "../service/genres";
+import { changeDropdown } from "../store/dropdownSlice";
 import { fetchBooks } from "../store/books/booksSlice";
-import { useDispatch } from "react-redux";
+
 function Books() {
-  const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(8);
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
+  const dropVal = useSelector((state) => state.dropdown.dropdown);
+  const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [posts, setPosts] = useState(books);
+
+  const [postsPerPage] = useState(8);
+
+  const [searchVal, setSearchVal] = useState("");
 
   useEffect(() => {
     dispatch(fetchBooks());
@@ -25,8 +31,8 @@ function Books() {
   const indexOfLastPost = currentPage * postsPerPage;
 
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = books.slice(indexOfFirstPost, indexOfLastPost);
-  const howManyPages = Math.ceil(books.length / postsPerPage);
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const howManyPages = Math.ceil(posts.length / postsPerPage);
 
   const booksArr = currentPosts.map((book) => (
     <div key={book.id} className="m-2">
@@ -40,6 +46,82 @@ function Books() {
       />
     </div>
   ));
+
+  const optionsArr = Genres.map((genre, index) => {
+    return (
+      <option key={index} value={genre.label}>
+        {genre.label}
+      </option>
+    );
+  });
+
+  function handleGenres(option, dropdownVal, searchVal) {
+    if (option === dropdownVal) {
+      // eslint-disable-next-line array-callback-return
+      const data = books.filter((book) => {
+        let genresArr = book.genres;
+        let genresData = [];
+        genresData = genresArr.map((newGenre) => [
+          ...genresData,
+          newGenre.label,
+        ]);
+        genresData = genresData.join().toLowerCase();
+
+        if (genresData.includes(option.toLowerCase()) && searchVal === "") {
+          return book;
+        } else if (
+          genresData.includes(option.toLowerCase()) &&
+          book.bookTitle.toLowerCase().includes(searchVal.toLowerCase())
+        ) {
+          return book;
+        }
+      });
+      setPosts(data);
+    }
+  }
+
+  function handleSearch(searchVal, dropVal, optionsArr) {
+    if (dropVal === "All") {
+      // eslint-disable-next-line array-callback-return
+      const data1 = books.filter((book) => {
+        if (searchVal === "") {
+          return book;
+        } else if (
+          book.bookTitle.toLowerCase().includes(searchVal.toLowerCase())
+        ) {
+          return book;
+        }
+      });
+
+      setPosts([...data1]);
+    } else if (dropVal === "Free") {
+      // eslint-disable-next-line array-callback-return
+      const data2 = books.filter((book) => {
+        if (book.price === 0 && searchVal === "") {
+          return book;
+        }
+        if (
+          book.price === 0 &&
+          book.bookTitle.toLowerCase().includes(searchVal.toLowerCase())
+        ) {
+          return book;
+        }
+      });
+      setPosts(data2);
+    } else {
+      const dropVal1 = dropVal;
+      const searchVal1 = searchVal;
+      // eslint-disable-next-line array-callback-return
+      optionsArr.map((op) => {
+        handleGenres(op.props.value, dropVal1, searchVal1);
+      });
+    }
+  }
+
+  useEffect(() => {
+    handleSearch(searchVal, dropVal, optionsArr);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchVal, dropVal, books]);
 
   return (
     <>
@@ -61,18 +143,19 @@ function Books() {
               name="searchbar"
               id="searchbar"
               placeholder="Search"
+              value={searchVal}
+              onChange={(e) => setSearchVal(e.target.value)}
             />
             <p className="text-gray-400 text-2xl">|</p>
             <select
               className="p-0 px-1 w-28 h-10 ml-3 rounded-md focus:ring-transparent border-none"
               name="genres"
+              value={dropVal}
               id="genres"
+              onChange={(e) => dispatch(changeDropdown(e.target.value))}
             >
               <option value="All">All</option>
-              <option value="Adventure">Adventure</option>
-              <option value="Action">Action</option>
-              <option value="Drama">Drama</option>
-              <option value="Novel">Novel</option>
+              {optionsArr}
               <option value="Free">Free</option>
             </select>
           </div>
