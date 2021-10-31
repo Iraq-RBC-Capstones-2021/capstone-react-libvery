@@ -11,9 +11,11 @@ import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { Route, Link } from "react-router-dom";
 import Loader from "../components/Loader";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { selectorUser } from "../store/counter/userSlice";
+import { changeDropdown } from "../store/dropdownSlice";
+import { useHistory } from "react-router-dom";
 
 const bookInfo = {
   image: "a URL",
@@ -31,6 +33,8 @@ const bookInfo = {
 };
 
 function BooksDetail({ match }) {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [isBookmarked, setBookmarked] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isEditBookOpen, setIsEditBookOpen] = useState(false);
@@ -60,6 +64,11 @@ function BooksDetail({ match }) {
 
     getBook();
   }, [paramID, booksSlice]);
+
+  function handleClick(genre) {
+    history.push("/books");
+    dispatch(changeDropdown(genre));
+  }
 
   return (
     <div className="bg-primary font-sans">
@@ -173,6 +182,7 @@ function BooksDetail({ match }) {
                   key={index}
                   text={genre.value}
                   classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm mr-1"
+                  OnClickContact={() => handleClick(genre.label)}
                 />
               ))}
             </p>
