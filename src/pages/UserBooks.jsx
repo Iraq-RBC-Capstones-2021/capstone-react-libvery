@@ -7,10 +7,11 @@ import AddBookModal from "../components/AddBookModal";
 import AnimateButton from "../customs/AnimateButton";
 import { useSelector } from "react-redux";
 import Pagination from "../components/pagination/Pagination";
-
-import { fetchBooks } from "../store/books/booksSlice";
+import { selectorUser } from "../store/users/userSlice";
+import { fetchUserBooks } from "../store/books/booksSlice";
 import { useDispatch } from "react-redux";
-function Books() {
+function UserBooks() {
+  const user = useSelector(selectorUser);
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
@@ -18,8 +19,8 @@ function Books() {
   const books = useSelector((state) => state.books.books);
 
   useEffect(() => {
-    dispatch(fetchBooks());
-  }, [dispatch]);
+    dispatch(fetchUserBooks(user.uid));
+  }, [dispatch, user.uid]);
 
   //Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
@@ -31,6 +32,7 @@ function Books() {
   const booksArr = currentPosts.map((book) => (
     <div key={book.id} className="m-2">
       <BookCard
+        user_uid={user.uid}
         id={book.id}
         title={book.bookTitle}
         genres={book.genres}
@@ -53,29 +55,6 @@ function Books() {
         }}
       >
         <div className="flex justify-start items-center md:justify-center">
-          <div className="flex relative bg-white rounded m-2 py-0.5 focus focus-within:ring-2 focus-within:ring-black shadow appearance-none">
-            <AiOutlineSearch className="absolute left-1 mt-3 " />
-            <input
-              type="text"
-              className="p-0 pl-1 ml-5 bg-transparent border-none focus:ring-transparent sm:w-60 "
-              name="searchbar"
-              id="searchbar"
-              placeholder="Search"
-            />
-            <p className="text-gray-400 text-2xl">|</p>
-            <select
-              className="p-0 px-1 w-28 h-10 ml-3 rounded-md focus:ring-transparent border-none"
-              name="genres"
-              id="genres"
-            >
-              <option value="All">All</option>
-              <option value="Adventure">Adventure</option>
-              <option value="Action">Action</option>
-              <option value="Drama">Drama</option>
-              <option value="Novel">Novel</option>
-              <option value="Free">Free</option>
-            </select>
-          </div>
           <AnimateButton
             OnClickContact={() => setIsAddBookModalOpen(true)}
             classStyle="bg-secondary text-white rounded-full px-1 py-1"
@@ -103,4 +82,4 @@ function Books() {
   );
 }
 
-export default Books;
+export default UserBooks;

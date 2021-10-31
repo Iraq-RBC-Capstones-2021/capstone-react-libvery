@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import booksSlice from "./booksSlice";
-import userSlice from "./counter/userSlice";
+import booksSlice from "./books/booksSlice";
+import userSlice from "./users/userSlice";
 
 export const store = configureStore({
   reducer: {
     books: booksSlice,
     user: userSlice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });

@@ -10,7 +10,7 @@ import CloseButton from "../customs/CloseButton";
 import defaultImage from "../assets/team.svg";
 
 import { useSelector } from "react-redux";
-import { selectorUser } from "../store/counter/userSlice";
+import { selectorUser } from "../store/users/userSlice";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);

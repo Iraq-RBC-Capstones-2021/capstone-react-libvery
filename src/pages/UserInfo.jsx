@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import { selectorUser, setActiveUser } from "../store/counter/userSlice";
+import { selectorUser, setActiveUser } from "../store/users/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 import SignoutButton from "../components/SignoutButton";

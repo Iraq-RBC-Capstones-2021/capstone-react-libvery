@@ -27,12 +27,12 @@ import Loader from "./components/Loader";
 import { AnimatePresence } from "framer-motion";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { useDispatch } from "react-redux";
-import { addBooks } from "./store/booksSlice";
+import { addBooks } from "./store/books/booksSlice";
 
 import { onAuthStateChanged } from "@firebase/auth";
 import { doc, getDoc } from "@firebase/firestore";
 import { auth, db } from "./firebase";
-import { setActiveUser, setLogOut } from "./store/counter/userSlice";
+import { setActiveUser, setLogOut } from "./store/users/userSlice";
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
