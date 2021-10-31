@@ -53,7 +53,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
           </div>
           {user_uid ? (
             <AiOutlineDelete
-              onClick={() => dispatch(deleteBook(id))}
+              onClick={() => dispatch(deleteBook(id, user_uid))}
               size={29}
             />
           ) : (

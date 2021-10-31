@@ -20,7 +20,7 @@ function UserBooks() {
 
   useEffect(() => {
     dispatch(fetchUserBooks(user.uid));
-  }, [dispatch, user.uid]);
+  }, [dispatch, user.uid, books]);
 
   //Get current posts
   const indexOfLastPost = currentPage * postsPerPage;

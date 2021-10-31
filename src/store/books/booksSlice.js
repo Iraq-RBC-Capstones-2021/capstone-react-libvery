@@ -30,16 +30,12 @@ export const fetchUserBooks = createAsyncThunk(
     return data;
   }
 );
-export const deleteBook = createAsyncThunk("books/deleteBook", async (id) => {
-  try {
-    await deleteDoc(doc(db, "books", id));
-  } catch (error) {
-    console.log(
-      "🚀 ~ file: booksSlice.js ~ line 37 ~ deleteBook ~ error",
-      error
-    );
+export const deleteBook = createAsyncThunk(
+  "books/deleteBook",
+  async (id, uid) => {
+    await deleteDoc(doc(db, "books", id.toString()));
   }
-});
+);
 
 const booksSlice = createSlice({
   name: "books",
