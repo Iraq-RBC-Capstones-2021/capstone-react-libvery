@@ -4,9 +4,6 @@ import AnimateButton from "../customs/AnimateButton";
 import ContactModal from "../components/ContactModal";
 import EditBookModal from "../components/EditBookModal";
 import EditImageModal from "../components/EditImageModal";
-import page1 from "../assets/page1.png";
-import page2 from "../assets/page2.png";
-import page3 from "../assets/page3.png";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { Route, Link } from "react-router-dom";
@@ -204,8 +201,8 @@ function BooksDetail({ match }) {
                 />
               )}
             />
-            {book.images?.map((bookImage) => (
-              <div className="z-0 ">
+            {book.images?.map((bookImage, index) => (
+              <div className="z-0 " key={index}>
                 <Zoom>
                   <img
                     className="h-44 w-28 rounded-md mr-3 z-0"
