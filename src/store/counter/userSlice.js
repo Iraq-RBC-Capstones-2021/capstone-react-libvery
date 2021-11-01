@@ -24,39 +24,32 @@ export const signUp = createAsyncThunk(
       auth,
       data.values.email,
       data.values.password
-    )
-      .then((userCredential) => {
-        updateProfile(userCredential.user, {
-          displayName: data.values.userName,
-          photoURL: data.values.userPhoto,
-        });
-        setDoc(doc(db, "users", userCredential.user.uid), {
-          username: data.values.userName,
-          email: userCredential.user.email,
-          phone: data.values.userPhone,
-          photo: data.fileUrl,
+    ).then((userCredential) => {
+      updateProfile(userCredential.user, {
+        displayName: data.values.userName,
+        photoURL: data.values.userPhoto,
+      });
+      setDoc(doc(db, "users", userCredential.user.uid), {
+        username: data.values.userName,
+        email: userCredential.user.email,
+        phone: data.values.userPhone,
+        photo: data.fileUrl,
+        uid: userCredential.user.uid,
+        books: [],
+        favorites: [],
+      });
+      dispatch(
+        setActiveUser({
+          userName: data.values.userName,
+          userEmail: data.values.email,
+          userPhone: data.values.userPhone,
+          userPhoto: data.fileUrl,
           uid: userCredential.user.uid,
           books: [],
           favorites: [],
-        });
-        dispatch(
-          setActiveUser({
-            userName: data.values.userName,
-            userEmail: data.values.email,
-            userPhone: data.values.userPhone,
-            userPhoto: data.fileUrl,
-            uid: userCredential.user.uid,
-            books: [],
-            favorites: [],
-          })
-        );
-      })
-      .catch((error) => {
-        const { code } = error;
-        const { message } = error;
-        const { email } = error;
-        console.log(code, message, email);
-      });
+        })
+      );
+    });
   }
 );
 export const signIn = createAsyncThunk(
@@ -84,11 +77,12 @@ export const signIn = createAsyncThunk(
         );
       })
       .catch((error) => {
-        data.setErrors(`Failed to sign in ${error.message}`);
-        const { code } = error;
         const { message } = error;
-        const { email } = error;
-        console.log(code, message, email);
+        message === "Firebase: Error (auth/user-not-found)."
+          ? data.setErrors(`user not found`)
+          : message === "Firebase: Error (auth/wrong-password)."
+          ? data.setErrors(`Wrong Password`)
+          : data.setErrors(``);
       });
   }
 );

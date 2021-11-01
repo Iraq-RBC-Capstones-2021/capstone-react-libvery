@@ -57,8 +57,6 @@ function BookCard({ image, genres, title, price, rating, id }) {
         if (favDocSnap.exists()) {
           dispatch(setFavorites(favDocSnap.data().favorites));
         }
-      } else {
-        console.log("No such a doc");
       }
     } else {
       const docRef = doc(db, "books", `${id}`);

@@ -26,8 +26,8 @@ import Loader from "./components/Loader";
 
 import { AnimatePresence } from "framer-motion";
 import { collection, query, onSnapshot } from "firebase/firestore";
-import { useDispatch, useSelector } from "react-redux";
-import booksSlice, { addBooks, fetchBooks } from "./store/booksSlice";
+import { useDispatch } from "react-redux";
+import { fetchBooks } from "./store/booksSlice";
 
 import { onAuthStateChanged } from "@firebase/auth";
 import { doc, getDoc } from "@firebase/firestore";
@@ -78,7 +78,7 @@ function App() {
     return unsubscribe;
   }, [dispatch]);
 
-  // if (isLoading) return <Loader />;
+  if (isLoading) return <Loader />;
   return (
     <div className="bg-primary overflow-x-hidden">
       <Navbar />

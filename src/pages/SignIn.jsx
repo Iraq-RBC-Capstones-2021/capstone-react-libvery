@@ -83,7 +83,9 @@ const SignIn = () => {
               {!showPassword ? `${t("show")}` : `${t("hide")}`}
             </button>
           </div>
-
+          {errors && (
+            <p className=" text-red-600 w-full text-sm text-center">{errors}</p>
+          )}
           <button
             type="submit"
             className="block w-full bg-secondary p-4 rounded text-white font-bold	 hover:text-black transition duration-300"

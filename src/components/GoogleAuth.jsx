@@ -32,12 +32,7 @@ const GoogleAuth = () => {
         );
         history.push("/profile");
       })
-      .catch((error) => {
-        const { code } = error;
-        const { message } = error;
-        const { email } = error;
-        console.log(code, message, email);
-      });
+      .catch((error) => {});
   };
 
   return (
