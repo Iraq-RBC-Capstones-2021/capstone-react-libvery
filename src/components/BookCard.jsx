@@ -1,5 +1,5 @@
 import React from "react";
-import ReactStars from "react-rating-stars-component";
+// import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import { BOOKS_ROUTE } from "../routes";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -100,10 +100,10 @@ function BookCard({ image, genres, title, price, rating, id }) {
             />
           )}
         </div>
-        <div className="flex justify-start items-center">
+        {/* <div className="flex justify-start items-center">
           <ReactStars className="" size={20} isHalf={true} />
           <span className="pl-1 mt-1">{rating}</span>
-        </div>
+        </div> */}
         <p className="font-semibold pl-1">{price}</p>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
           <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">

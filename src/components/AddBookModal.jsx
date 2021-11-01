@@ -90,7 +90,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
         isChecked: formik.values.isChecked,
         id: uniqueID,
         createdAt: serverTimestamp(),
-        rating: 0,
+        // rating: 0,
         uid: userUID,
         images: [],
       });
