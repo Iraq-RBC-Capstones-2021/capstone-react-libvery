@@ -92,7 +92,7 @@ const SignIn = () => {
           </button>
 
           <div className="flex items-center  text-gray-800  font-light text-sm">
-            {t("don't_have_an_account")}?
+            {t("don't_have_an_account")}
             <span className="pl-2  font-bold">
               <Link to={SIGNUP_ROUTE}> {t("sign_up")}! </Link>
             </span>

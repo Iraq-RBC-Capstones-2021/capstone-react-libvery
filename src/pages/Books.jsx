@@ -7,11 +7,14 @@ import AddBookModal from "../components/AddBookModal";
 import AnimateButton from "../customs/AnimateButton";
 import { useSelector, useDispatch } from "react-redux";
 import Pagination from "../components/pagination/Pagination";
-import { Genres } from "../service/genres";
 import { changeDropdown } from "../store/dropdownSlice";
+import { useTranslation } from "react-i18next";
 
 function Books() {
   const dispatch = useDispatch();
+
+  const { t } = useTranslation();
+
   const books = useSelector((state) => state.books.books);
   const dropVal = useSelector((state) => state.dropdown.dropdown);
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
@@ -27,7 +30,14 @@ function Books() {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
   const howManyPages = Math.ceil(books.length / postsPerPage);
-
+  const Genres = [
+    { value: "action", label: `${t("action")}` },
+    { value: "adventure", label: `${t("adventure")}` },
+    { value: "drama", label: `${t("drama")}` },
+    { value: "comedy", label: `${t("comedy")}` },
+    { value: "horror", label: `${t("horror")}` },
+    { value: "romance", label: `${t("romance")}` },
+  ];
   const booksArr = currentPosts?.map((book) => (
     <div key={book.id} className="m-2">
       <BookCard
@@ -43,7 +53,7 @@ function Books() {
 
   const optionsArr = Genres.map((genre, index) => {
     return (
-      <option key={index} value={genre.label}>
+      <option key={index} value={genre.value}>
         {genre.label}
       </option>
     );
@@ -148,9 +158,9 @@ function Books() {
               id="genres"
               onChange={(e) => dispatch(changeDropdown(e.target.value))}
             >
-              <option value="All">All</option>
+              <option value="All">{t("all")}</option>
               {optionsArr}
-              <option value="Free">Free</option>
+              <option value="Free">{t("free")}</option>
             </select>
           </div>
           <AnimateButton

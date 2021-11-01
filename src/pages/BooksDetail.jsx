@@ -16,6 +16,7 @@ import { ToastContainer } from "react-toastify";
 import { selectorUser } from "../store/counter/userSlice";
 import { changeDropdown } from "../store/dropdownSlice";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const bookInfo = {
   image: "a URL",
@@ -34,6 +35,8 @@ const bookInfo = {
 
 function BooksDetail({ match }) {
   const history = useHistory();
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const [isBookmarked, setBookmarked] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -121,7 +124,7 @@ function BooksDetail({ match }) {
               <AnimateButton
                 OnClickContact={() => setIsContactModalOpen(true)}
                 classStyle="bg-secondary text-white rounded-sm px-2 py-1"
-                text="Contact Seller"
+                text={t("seller_contact")}
               />
             </Link>
             <Route
@@ -141,7 +144,7 @@ function BooksDetail({ match }) {
           </div>
           <div className="flex mb-4">
             <p className="flex-1">
-              <span className="opacity-50">Author:</span>{" "}
+              <span className="opacity-50"> {t("author")}:</span>{" "}
               <span>{book.author}</span>
             </p>
             {userUID === book.uid ? (
@@ -150,7 +153,7 @@ function BooksDetail({ match }) {
                   <AnimateButton
                     OnClickContact={() => setIsEditBookOpen(true)}
                     classStyle="bg-secondary text-white rounded-sm px-2 py-1"
-                    text="Edit"
+                    text={t("edit")}
                   />
                 </Link>
                 <Route
@@ -176,19 +179,19 @@ function BooksDetail({ match }) {
           </div>
           <div className="flex">
             <p className="flex-1 mb-4">
-              <span className="opacity-50">Genre: </span>
+              <span className="opacity-50"> {t("genre")}: </span>
               {book.genres?.map((genre, index) => (
                 <AnimateButton
                   key={index}
                   text={genre.value}
                   classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm mr-1"
-                  OnClickContact={() => handleClick(genre.label)}
+                  OnClickContact={() => handleClick(genre.value)}
                 />
               ))}
             </p>
             <p className="font-semibold relative">
-              Price: <small className="absolute left-12">$</small>
-              <span className="ml-2">{book.price}</span>
+              {t("price")} : <small>$ </small>
+              <span className="ml-1">{book.price}</span>
             </p>
           </div>
           <p className="mb-4">{book.description}</p>

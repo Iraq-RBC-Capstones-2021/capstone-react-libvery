@@ -6,12 +6,14 @@ import { useHistory } from "react-router-dom";
 import editIcon from "../assets/edit.svg";
 import trashIcon from "../assets/trash.svg";
 import plusIcon from "../assets/plus.svg";
+import { useTranslation } from "react-i18next";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
 
 function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
   const history = useHistory();
+  const { t } = useTranslation();
 
   const handleClose = () => {
     setIsEditImageOpen(false);
@@ -56,7 +58,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
           />
           <form className="font-sans">
             <h2 className="text-primary font-semibold flex justify-center mb-4 text-2xl">
-              Update Images
+              {t("add_images_from_the_book")}
             </h2>
             <div className="flex items-center">
               <label className="w-32 text-black flex items-center py-1 rounded-md cursor-pointer bg-primary hover:bg-secondary justify-center h-32 mx-auto mb-2">
@@ -104,7 +106,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen }) {
               className="bg-secondary text-white font-semibold py-2 px-10 rounded-lg mb-4 container mt-2"
               type="submit"
             >
-              Update Images
+              {t("add_images")}
             </button>
           </form>
         </motion.div>

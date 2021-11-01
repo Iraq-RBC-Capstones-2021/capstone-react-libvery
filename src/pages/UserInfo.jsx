@@ -5,10 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 
 import SignoutButton from "../components/SignoutButton";
 import { updateUserProfile } from "../service/user";
+import { useTranslation } from "react-i18next";
 
 const UserInfo = () => {
   const [showEditForm, setShowEditForm] = useState(false);
 
+  const { t } = useTranslation();
   const usernameRef = useRef();
   const phoneRef = useRef();
 
@@ -40,7 +42,7 @@ const UserInfo = () => {
           <>
             <div className="mb-4">
               <label className="block text-gray-500 text-sm mb-2">
-                Username
+                {t("name")}
               </label>
               <input
                 className="shadow appearance-none border-none rounded-lg  focus:outline-none outline-none w-full py-3 px-3 text-gray-500 font leading-tight  focus:shadow-outline font-extralight text-sm"
@@ -51,7 +53,7 @@ const UserInfo = () => {
             </div>
             <div className="mb-6">
               <label className="block text-gray-500 font text-sm mb-2">
-                Phone Number
+                {t("phone_number")}
               </label>
               <input
                 className="  border-none w-full 	 shadow appearance-none border  rounded-lg  py-3 px-3 text-gray-500 font mb-3 leading-tight focus:outline-none focus:shadow-outline font-extralight text-sm"
@@ -63,11 +65,17 @@ const UserInfo = () => {
           </>
         ) : (
           <div className="space-y-3 mb-10 font-bold text-lg">
-            <p>Name: {user.userName} </p>
-            <p>Email: {user.userEmail} </p>
             <p>
-              Phone Number:{" "}
-              {user.userPhone ? user.userPhone : `"🎃 👇 Add a phone number"`}{" "}
+              {t("name")}: {user.userName}{" "}
+            </p>
+            <p>
+              {t("email")}: {user.userEmail}{" "}
+            </p>
+            <p>
+              {t("phone_number")}:{" "}
+              {user.userPhone
+                ? user.userPhone
+                : `${t("please_add_a_phone_number")}`}{" "}
             </p>
           </div>
         )}
@@ -78,7 +86,7 @@ const UserInfo = () => {
             type="button"
             onClick={showEditForm ? handleUpdate : handleShowForm}
           >
-            {showEditForm ? "Save Changes" : "Edit"}
+            {showEditForm ? `${t("save_changes")}` : `${t("edit")}`}
           </button>
         </div>
         <div className="flex items-center justify-center ">
