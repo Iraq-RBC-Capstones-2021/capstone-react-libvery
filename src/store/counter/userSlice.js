@@ -112,7 +112,6 @@ const userSlice = createSlice({
       state.userPhoto = null;
     },
     setFavorites: (state, action) => {
-      console.log("🚀 ~ file: userSlice.js ~ line 115 ~ action", action);
       const findFavBook = state.favorites.find(
         (book) => book.id === action.payload.id
       );
@@ -121,13 +120,8 @@ const userSlice = createSlice({
       }
     },
     setRemoveFavorites: (state, action) => {
-      console.log("🚀 ~ file: userSlice.js ~ line 123 ~ action", action);
       state.favorites = state.favorites.filter(
         (book) => book.id !== action.payload
-      );
-      console.log(
-        "🚀 ~ file: userSlice.js ~ line 127 ~ state.favorites",
-        state.favorites
       );
     },
   },
