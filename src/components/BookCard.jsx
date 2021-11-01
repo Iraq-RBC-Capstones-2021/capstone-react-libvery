@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import { BOOKS_ROUTE } from "../routes";
@@ -19,10 +19,13 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { changeDropdown } from "../store/dropdownSlice";
 import { useHistory } from "react-router-dom";
+import MoonLoader from "react-spinners/MoonLoader";
 
 function BookCard({ image, genres, title, price, rating, id }) {
   const user = useSelector(selectorUser);
   const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const history = useHistory();
 
@@ -45,6 +48,7 @@ function BookCard({ image, genres, title, price, rating, id }) {
 
   const handleFav = async (id) => {
     if (!user.favorites.map((book) => book.id).includes(Number(id))) {
+      setIsLoading(true);
       const docRef = doc(db, "books", `${id}`);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -56,11 +60,13 @@ function BookCard({ image, genres, title, price, rating, id }) {
         const favDocSnap = await getDoc(favBooksRef);
         if (favDocSnap.exists()) {
           dispatch(setFavorites(favDocSnap.data().favorites));
+          setIsLoading(false);
         }
       } else {
         console.log("No such a doc");
       }
     } else {
+      setIsLoading(true);
       const docRef = doc(db, "books", `${id}`);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -69,6 +75,7 @@ function BookCard({ image, genres, title, price, rating, id }) {
           favorites: arrayRemove(docSnap.data()),
         });
         dispatch(setRemoveFavorites(id));
+        setIsLoading(false);
       }
     }
   };
@@ -86,18 +93,31 @@ function BookCard({ image, genres, title, price, rating, id }) {
         <div className="flex justify-between items-center px-1 pt-2">
           <h1 className="font-semibold">{title}</h1>
           {user.favorites?.map((book) => book.id).includes(Number(id)) ? (
-            <AiFillHeart
-              onClick={() => handleFav(id)}
-              size={29}
-              className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
-              color={"red"}
-            />
+            <>
+              {isLoading ? (
+                <MoonLoader size={20} color={"blue"} loading={isLoading} />
+              ) : (
+                <AiFillHeart
+                  onClick={() => handleFav(id)}
+                  size={29}
+                  className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
+                  color="red"
+                />
+              )}
+            </>
           ) : (
-            <AiOutlineHeart
-              onClick={() => handleFav(id)}
-              size={29}
-              className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
-            />
+            <>
+              {isLoading ? (
+                <MoonLoader size={20} color={"blue"} />
+              ) : (
+                <AiOutlineHeart
+                  onClick={() => handleFav(id)}
+                  size={29}
+                  className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
+                  color="black"
+                />
+              )}
+            </>
           )}
         </div>
         <div className="flex justify-start items-center">
