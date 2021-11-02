@@ -1,22 +1,77 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import { BOOKS_ROUTE } from "../routes";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
+import { db } from "../firebase";
+import {
+  selectorUser,
+  setFavorites,
+  setRemoveFavorites,
+} from "../store/counter/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { changeDropdown } from "../store/dropdownSlice";
+import { useHistory } from "react-router-dom";
 
 function BookCard({ image, genres, title, price, rating, id }) {
+  const user = useSelector(selectorUser);
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  function handleClick(genre) {
+    history.push("/books");
+    dispatch(changeDropdown(genre));
+  }
+
   const genreButtons = genres?.map((genre, index) => {
     return (
       <button
         key={index}
         className="text-xs bg-primary rounded-2xl px-2.5 py-0.5 m-0.5 mt-1 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
+        onClick={() => handleClick(genre.label)}
       >
-        {genre}
+        {genre.label}
       </button>
     );
   });
-  // we will get this from firestore as boolean
-  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleFav = async (id) => {
+    if (!user.favorites.map((book) => book.id).includes(Number(id))) {
+      const docRef = doc(db, "books", `${id}`);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const favBookRef = doc(db, "users", user.uid);
+        await updateDoc(favBookRef, {
+          favorites: arrayUnion(docSnap.data()),
+        });
+        const favBooksRef = doc(db, "users", user.uid);
+        const favDocSnap = await getDoc(favBooksRef);
+        if (favDocSnap.exists()) {
+          dispatch(setFavorites(favDocSnap.data().favorites));
+        }
+      } else {
+        console.log("No such a doc");
+      }
+    } else {
+      const docRef = doc(db, "books", `${id}`);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const favBookRef = doc(db, "users", user.uid);
+        await updateDoc(favBookRef, {
+          favorites: arrayRemove(docSnap.data()),
+        });
+        dispatch(setRemoveFavorites(id));
+      }
+    }
+  };
 
   return (
     <>
@@ -27,18 +82,19 @@ function BookCard({ image, genres, title, price, rating, id }) {
             {genreButtons}
           </div>
         </div>
+
         <div className="flex justify-between items-center px-1 pt-2">
           <h1 className="font-semibold">{title}</h1>
-          {isFavorite ? (
+          {user.favorites?.map((book) => book.id).includes(Number(id)) ? (
             <AiFillHeart
-              onClick={() => setIsFavorite((prev) => !prev)}
+              onClick={() => handleFav(id)}
               size={29}
               className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
               color={"red"}
             />
           ) : (
             <AiOutlineHeart
-              onClick={() => setIsFavorite((prev) => !prev)}
+              onClick={() => handleFav(id)}
               size={29}
               className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
             />
@@ -48,10 +104,7 @@ function BookCard({ image, genres, title, price, rating, id }) {
           <ReactStars className="" size={20} isHalf={true} />
           <span className="pl-1 mt-1">{rating}</span>
         </div>
-        <p className="font-semibold pl-1 relative">
-          <small className="absolute left-1">$</small>
-          <span className="ml-2">{price}</span>
-        </p>
+        <p className="font-semibold pl-1">{price}</p>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
           <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">
             Buy

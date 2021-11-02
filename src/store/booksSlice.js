@@ -11,9 +11,6 @@ const booksSlice = createSlice({
     addBooks: (state, action) => {
       state.books.push(action.payload);
     },
-    emptyBooks: (state) => {
-      state.books = [];
-    },
     fetchBooks: (state, action) => {
       state.books = action.payload;
     },

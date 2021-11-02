@@ -26,13 +26,15 @@ import Loader from "./components/Loader";
 
 import { AnimatePresence } from "framer-motion";
 import { collection, query, onSnapshot } from "firebase/firestore";
+
 import { useDispatch } from "react-redux";
 import { fetchBooks } from "./store/booksSlice";
 
 import { onAuthStateChanged } from "@firebase/auth";
-import { doc, getDoc, getDocs } from "@firebase/firestore";
+import { doc, getDoc } from "@firebase/firestore";
 import { auth, db } from "./firebase";
 import { setActiveUser, setLogOut } from "./store/counter/userSlice";
+
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -46,16 +48,15 @@ function App() {
         const docSnap = await getDoc(docRef);
         dispatch(
           setActiveUser({
-            userName:
-              docSnap._document.data.value.mapValue.fields.username.stringValue,
+            userName: docSnap.data().username,
             userEmail: user.email,
             uid: user.uid,
-            userPhone:
-              docSnap._document.data.value.mapValue.fields.phone.stringValue,
-            userPhoto:
-              docSnap._document.data.value.mapValue.fields.photo.stringValue,
+            userPhone: docSnap.data().phone,
+            userPhoto: docSnap.data().photo,
+            favorites: docSnap.data().favorites,
           })
         );
+
         setIsLoading(false);
       } else {
         dispatch(setLogOut());
