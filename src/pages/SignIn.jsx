@@ -31,7 +31,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(signIn({ emailRef, passwordRef, setErrors }));
     setLoading(false);
-    // history.goBack();
+    errors === "" && history.goBack();
   };
 
   if (loading) return <p>Loading ...</p>;
