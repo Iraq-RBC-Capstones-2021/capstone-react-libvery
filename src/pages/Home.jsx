@@ -13,9 +13,11 @@ import {
   limit,
   collection,
 } from "firebase/firestore";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
   const [slides, setSlides] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const q = query(
@@ -65,14 +67,17 @@ const Home = () => {
         >
           <div className="w-12/12 lg:w-4/12 ">
             <p className="text-xl font-light pt-10 text-center lg:text-left mb-10 font-sans">
-              Deliver, Browse and Buy books <br /> All from{" "}
-              <span className="font-bold text-2xl text-gray-800 ">Libvery</span>
+              {t("home_text_1")} <br />
+              <br />
+              <span className="font-bold text-2xl text-gray-800">
+                {t("home_text_2")}
+              </span>
             </p>
             <Link
               to={BOOKS_ROUTE}
               className="border-2 p-2 rounded-md flex justify-center w-44 mx-auto border-gray-800 hover:bg-gray-900 hover:text-white transition duration-300 lg:inline-block lg:text-center"
             >
-              Browse Books{" "}
+              {t("browse")} {t("books")}
             </Link>
           </div>
           <div className="rounded-xl md:w-12/12 lg:w-7/12 mt-20 md:mb-28 overflow-hidden">

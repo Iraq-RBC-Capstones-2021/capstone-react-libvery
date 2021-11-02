@@ -1,14 +1,17 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectorUser } from "../store/users/userSlice.js";
+import { selectorUser } from "../store/users/userSlice";
 
 import UserInfo from "./UserInfo";
 import Favourites from "./Favourites";
-import UserBooks from "./UserBooks";
+import Books from "./Books";
+import { useTranslation } from "react-i18next";
+
 function Profile(props) {
   const match = props.match.url;
 
+  const { t } = useTranslation();
   const location = useLocation();
 
   const user = useSelector(selectorUser);
@@ -43,9 +46,9 @@ function Profile(props) {
             width: "100px",
             textAlign: "center",
           }}
-          className="  pl-5"
+          className="pl-5"
         >
-          Favourites
+          {t("favourites")}
         </NavLink>
         <NavLink
           to={`${match}/my-books`}
@@ -58,7 +61,7 @@ function Profile(props) {
             textAlign: "center",
           }}
         >
-          My Books
+          {t("my_books")}
         </NavLink>
         <NavLink
           to={`${match}/user`}
@@ -72,7 +75,7 @@ function Profile(props) {
           }}
           className="  pr-5"
         >
-          User Info
+          {t("user_info")}
         </NavLink>
       </div>
 
@@ -81,7 +84,7 @@ function Profile(props) {
       ) : location.pathname === "/profile/favourites" ? (
         <Favourites />
       ) : (
-        <UserBooks />
+        <Books />
       )}
     </div>
   );

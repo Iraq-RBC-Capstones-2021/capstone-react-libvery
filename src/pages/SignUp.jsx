@@ -204,7 +204,7 @@ const SignUp = () => {
               } p-3 rounded outline-none focus:border-black placeholder-gray-400
                     form-input border  py-3 px-4 bg-white  text-gray-500 appearance-none  block pl-14 focus:outline-none
                     `}
-              placeholder={t("phone number")}
+              placeholder={t("phone_number")}
             />
           </div>
           {formik.touched.userPhone ? (
@@ -212,7 +212,7 @@ const SignUp = () => {
           ) : null}
 
           <label className="w-60 text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary justify-center">
-            <span>Upload photo</span>
+            <span>{t("upload_photo")}</span>
             <img src={uploadPhoto} className="h-6 w-9" alt="upload_photo" />
             <input
               type="file"
@@ -240,7 +240,7 @@ const SignUp = () => {
             {t("sign_up_button")}
           </button>
           <div className="flex items-center  text-gray-800  font-light text-sm">
-            {t("already_have_an_account")}?
+            {t("already_have_an_account")}
             <span className="pl-2  font-bold">
               <Link to={SIGNIN_ROUTE}> {t("sign_in")}</Link>
             </span>

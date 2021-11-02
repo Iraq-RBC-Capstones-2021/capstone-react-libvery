@@ -1,8 +1,8 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BOOKS_ROUTE } from "../routes";
-import { AiOutlineHeart, AiFillHeart, AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import {
   doc,
   getDoc,
@@ -18,11 +18,14 @@ import {
 } from "../store/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { changeDropdown } from "../store/dropdownSlice";
-import { deleteBook } from "../store/books/booksSlice";
+import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-function BookCard({ user_uid, image, genres, title, price, rating, id }) {
+function BookCard({ image, genres, title, price, rating, id }) {
   const user = useSelector(selectorUser);
   const dispatch = useDispatch();
+
+  const { t } = useTranslation();
 
   const history = useHistory();
 
@@ -36,7 +39,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
       <button
         key={index}
         className="text-xs bg-primary rounded-2xl px-2.5 py-0.5 m-0.5 mt-1 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
-        onClick={() => handleClick(genre.label)}
+        onClick={() => handleClick(genre.value)}
       >
         {genre.label}
       </button>
@@ -100,24 +103,14 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
             />
           )}
         </div>
-        <div className="flex justify-between items-center pr-1">
-          <div className="flex justify-start items-center">
-            <ReactStars className="" size={20} isHalf={true} />
-            <span className="pl-1 mt-1">{rating}</span>
-          </div>
-          {user_uid ? (
-            <AiOutlineDelete
-              onClick={() => dispatch(deleteBook(id, user_uid))}
-              size={29}
-            />
-          ) : (
-            <></>
-          )}
+        <div className="flex justify-start items-center">
+          <ReactStars className="" size={20} isHalf={true} />
+          <span className="pl-1 mt-1">{rating}</span>
         </div>
         <p className="font-semibold pl-1">{price}</p>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
           <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">
-            Buy
+            {t("buy")}
           </button>
         </Link>
       </div>
