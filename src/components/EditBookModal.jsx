@@ -61,7 +61,10 @@ function EditBookModal({
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values, actions) => {},
+    onSubmit: (values, actions) => {
+      history.goBack();
+      toast.success("Book Updated Successfully");
+    },
   });
 
   const history = useHistory();
@@ -158,13 +161,21 @@ function EditBookModal({
                 onBlur={formik.handleBlur}
                 autoComplete="off"
               />
-              <p className="text-xs text-red-400">{formik.errors.bookTitle}</p>
+              <p
+                className={
+                  formik.touched.bookTitle
+                    ? "block text-xs text-red-400"
+                    : "hidden"
+                }
+              >
+                {formik.errors.bookTitle}
+              </p>
             </div>
             <div>
               <input
                 className={`w-full
               ${
-                formik.errors.bookTitle ? `border-red-700` : `border-gray-200`
+                formik.errors.author ? `border-red-700` : `border-gray-200`
               } bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline
               `}
                 id="author"
@@ -176,7 +187,15 @@ function EditBookModal({
                 onBlur={formik.handleBlur}
                 autoComplete="off"
               />
-              <p className="text-xs text-red-400">{formik.errors.author}</p>
+              <p
+                className={
+                  formik.touched.author
+                    ? "block text-xs text-red-400"
+                    : "hidden"
+                }
+              >
+                {formik.errors.author}
+              </p>
             </div>
             <Select
               isMulti
