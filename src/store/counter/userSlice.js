@@ -67,12 +67,14 @@ export const signIn = createAsyncThunk(
 
         dispatch(
           setActiveUser({
-            userName: docSnap.data().username,
+            userName:
+              docSnap._document.data.value.mapValue.fields.username.stringValue,
             userEmail: userCredential.user.email,
             uid: userCredential.user.uid,
-            userPhone: docSnap.data().phone,
-            userPhoto: docSnap.data().photo,
-            favorites: docSnap.data().favorites,
+            userPhone:
+              docSnap._document.data.value.mapValue.fields.phone.stringValue,
+            userPhoto:
+              docSnap._document.data.value.mapValue.fields.photo.stringValue,
           })
         );
       })
@@ -104,6 +106,7 @@ const userSlice = createSlice({
       state.userEmail = null;
       state.userPhone = null;
       state.userPhoto = null;
+      state.uid = null;
     },
     setFavorites: (state, action) => {
       const findFavBook = state.favorites.find(
