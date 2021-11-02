@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { auth } from "../firebase.js";
 import { setLogOut } from "../store/users/userSlice.js";
 import { useHistory } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const SignoutButton = ({ className, setIsOptionOpened }) => {
   const dispatch = useDispatch();
@@ -18,9 +19,12 @@ const SignoutButton = ({ className, setIsOptionOpened }) => {
       })
       .catch((error) => console.log(error.message));
   };
+
+  const { t } = useTranslation();
+
   return (
     <button className={className} type="button" onClick={handleSignOut}>
-      Log Out
+      {t("sign_out")}
     </button>
   );
 };

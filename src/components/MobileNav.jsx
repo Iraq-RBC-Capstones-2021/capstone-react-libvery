@@ -8,6 +8,7 @@ import {
   BOOKS_ROUTE,
 } from "../routes";
 import userIcon from "../assets/userPlaceholder.svg";
+import { useTranslation } from "react-i18next";
 
 function MobileNav({ navbarOpen }) {
   const [isOptionOpened, setIsOptionOpened] = useState(false);
@@ -24,6 +25,8 @@ function MobileNav({ navbarOpen }) {
     return location.pathname === route ? "active" : "";
   };
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div className={navbarOpen ? "block" : "hidden"}>
@@ -33,28 +36,28 @@ function MobileNav({ navbarOpen }) {
             activeStyle={isActive(HOME_ROUTE) ? styles : {}}
             className="text-xl mb-2"
           >
-            Home
+            {t("home")}
           </NavLink>
           <NavLink
             to={BOOKS_ROUTE}
             activeStyle={isActive(BOOKS_ROUTE) ? styles : {}}
             className="text-xl mb-2"
           >
-            Books
+            {t("books")}
           </NavLink>
           <NavLink
             to={ABOUT_ROUTE}
             activeStyle={isActive(ABOUT_ROUTE) ? styles : {}}
             className="text-xl mb-2"
           >
-            About
+            {t("about")}
           </NavLink>
           <NavLink
             to={FAVOURITES_ROUTE}
             activeStyle={isActive(FAVOURITES_ROUTE) ? styles : {}}
             className="text-xl mb-2"
           >
-            Favourites
+            {t("favourites")}
           </NavLink>
           <div className="flex items-center">
             <img
@@ -62,7 +65,7 @@ function MobileNav({ navbarOpen }) {
               alt="user"
               className="w-10 h-10 border-2 rounded-full"
             />
-            <p className="opacity-50">Username</p>
+            <p className="opacity-50">{t("username")}</p>
             <div className="relative inline-block text-left">
               <div>
                 <button
@@ -104,7 +107,7 @@ function MobileNav({ navbarOpen }) {
                       tabIndex="-1"
                       id="menu-item-0"
                     >
-                      Profile
+                      {t("profile")}
                     </Link>
                     <form method="POST" action="#" role="none">
                       <button
@@ -114,7 +117,7 @@ function MobileNav({ navbarOpen }) {
                         tabIndex="-1"
                         id="menu-item-3"
                       >
-                        Sign out
+                        {t("sign_out")}
                       </button>
                     </form>
                   </div>
