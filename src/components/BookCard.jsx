@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ReactStars from "react-rating-stars-component";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { BOOKS_ROUTE } from "../routes";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart, AiOutlineDelete } from "react-icons/ai";
 import {
   doc,
   getDoc,
@@ -15,13 +15,13 @@ import {
   selectorUser,
   setFavorites,
   setRemoveFavorites,
-} from "../store/counter/userSlice";
+} from "../store/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { changeDropdown } from "../store/dropdownSlice";
-import { useHistory } from "react-router-dom";
 import MoonLoader from "react-spinners/MoonLoader";
+import { deleteBook } from "../store/books/booksSlice";
 
-function BookCard({ image, genres, title, price, rating, id }) {
+function BookCard({ user_uid, image, genres, title, price, rating, id }) {
   const user = useSelector(selectorUser);
   const dispatch = useDispatch();
 
@@ -120,9 +120,19 @@ function BookCard({ image, genres, title, price, rating, id }) {
             </>
           )}
         </div>
-        <div className="flex justify-start items-center">
-          <ReactStars className="" size={20} isHalf={true} />
-          <span className="pl-1 mt-1">{rating}</span>
+        <div className="flex justify-between items-center pr-1">
+          <div className="flex justify-start items-center">
+            <ReactStars className="" size={20} isHalf={true} />
+            <span className="pl-1 mt-1">{rating}</span>
+          </div>
+          {user_uid ? (
+            <AiOutlineDelete
+              onClick={() => dispatch(deleteBook(id, user_uid))}
+              size={29}
+            />
+          ) : (
+            <></>
+          )}
         </div>
         <p className="font-semibold pl-1">{price}</p>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
