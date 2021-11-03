@@ -10,6 +10,7 @@ import Pagination from "../components/pagination/Pagination";
 
 import { Genres } from "../service/genres";
 import { changeDropdown } from "../store/dropdownSlice";
+import { fetchBooks } from "../store/books/booksSlice";
 
 function Books() {
   const dispatch = useDispatch();
@@ -23,14 +24,21 @@ function Books() {
 
   const [searchVal, setSearchVal] = useState("");
 
+  useEffect(() => {
+    dispatch(fetchBooks());
+  }, [dispatch]);
+
   //Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
+
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
-  const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
-  const howManyPages = Math.ceil(books.length / postsPerPage);
+  // const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
+  // const howManyPages = Math.ceil(books.length / postsPerPage);
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const howManyPages = Math.ceil(posts.length / postsPerPage);
 
-  const booksArr = currentPosts?.map((book) => (
+  const booksArr = currentPosts.map((book) => (
     <div key={book.id} className="m-2">
       <BookCard
         id={book.id}

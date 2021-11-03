@@ -10,7 +10,7 @@ import { Route, Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import { selectorUser } from "../store/counter/userSlice";
+import { selectorUser } from "../store/users/userSlice";
 import { changeDropdown } from "../store/dropdownSlice";
 import { useHistory } from "react-router-dom";
 import page1 from "../assets/page1.png";
