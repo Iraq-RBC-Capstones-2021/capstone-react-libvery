@@ -5,27 +5,10 @@ import { Provider } from "react-redux";
 import App from "./App";
 import { store } from "./store";
 import { BrowserRouter as Router } from "react-router-dom";
-
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import HttpApi from "i18next-http-backend";
-import Loader from "./components/Loader";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "./components/Loader";
 
-i18n
-  .use(initReactI18next)
-  .use(LanguageDetector)
-  .use(HttpApi)
-  .init({
-    supportedLngs: ["en", "ar", "ku"],
-    fallbackLng: "en",
-    detection: {
-      order: ["cookie", "htmlTag", "localStorage", "path", "subdomain"],
-      caches: ["cookie"],
-    },
-    backend: { loadPath: "assets/locales/{{lng}}/translation.json" },
-  });
+import "./localization";
 
 ReactDOM.render(
   <Suspense

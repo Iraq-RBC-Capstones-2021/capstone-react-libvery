@@ -76,7 +76,7 @@ function Footer() {
                     className="w-52 h-7 pl-1"
                     name="newsletter"
                     id="newsletter"
-                    placeholder="Subscribe to our newsletter"
+                    placeholder={t("subscribe_to_our_newsletter")}
                   />
                   <button className="bg-blue-500 w-8 h-7 border-8 border-solid border-blue-500 flex justify-center items-center">
                     <GiCheckMark color="white" />
