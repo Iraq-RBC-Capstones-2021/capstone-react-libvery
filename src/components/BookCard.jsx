@@ -18,6 +18,7 @@ import {
 } from "../store/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { changeDropdown } from "../store/dropdownSlice";
+import { useTranslation } from "react-i18next";
 import MoonLoader from "react-spinners/MoonLoader";
 import { deleteBook } from "../store/books/booksSlice";
 
@@ -25,6 +26,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
   const user = useSelector(selectorUser);
   const dispatch = useDispatch();
 
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
 
   const history = useHistory();
@@ -39,7 +41,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
       <button
         key={index}
         className="text-xs bg-primary rounded-2xl px-2.5 py-0.5 m-0.5 mt-1 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
-        onClick={() => handleClick(genre.label)}
+        onClick={() => handleClick(genre.value)}
       >
         {genre.label}
       </button>
@@ -141,7 +143,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
         <p className="font-semibold pl-1">{price}</p>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
           <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">
-            Buy
+            {t("buy")}
           </button>
         </Link>
       </div>

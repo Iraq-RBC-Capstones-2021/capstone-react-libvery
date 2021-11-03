@@ -14,7 +14,8 @@ import { Link, useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { selectorUser } from "../store/users/userSlice";
 import Select from "react-select";
-import { Genres } from "../service/genres";
+// import { Genres } from "../service/genres";
+import { useTranslation } from "react-i18next";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -68,8 +69,16 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   const [uniqueID, setUniqueID] = useState("");
 
   const history = useHistory();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
-
+  const Genres = [
+    { value: "action", label: `${t("action")}` },
+    { value: "adventure", label: `${t("adventure")}` },
+    { value: "drama", label: `${t("drama")}` },
+    { value: "comedy", label: `${t("comedy")}` },
+    { value: "horror", label: `${t("horror")}` },
+    { value: "romance", label: `${t("romance")}` },
+  ];
   const userUID = useSelector(selectorUser).uid;
 
   async function addItemsToList() {
@@ -162,7 +171,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
               className="w-full space-y-4 max-w-lg bg-black rounded p-14 sm:max-w-3xl md:max-w-lg font-sans"
             >
               <p className="text-primary font-extrabold flex justify-center mb-4 sm:text-3xl text-4xl">
-                Add a book
+                {t("add_a_book")}
               </p>
               <div>
                 <input
@@ -173,7 +182,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
               `}
                   id="bookTitle"
                   type="text"
-                  placeholder="Book Title *"
+                  placeholder={t("book_title")}
                   onChange={formik.handleChange}
                   value={formik.values.bookTitle}
                   name="bookTitle"
@@ -199,7 +208,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   `}
                   id="author"
                   type="text"
-                  placeholder="Author *"
+                  placeholder={t("author")}
                   onChange={formik.handleChange}
                   value={formik.values.author}
                   name="author"
@@ -225,7 +234,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                     options={Genres}
                     className="basic-multi-select bg-green-300"
                     classNamePrefix="select"
-                    placeholder="Select genre(s) *"
+                    placeholder={t("select_genres")}
                     onChange={(e) => {
                       formik.setFieldValue("genres", e);
                     }}
@@ -254,9 +263,8 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   options={Genres}
                   className="basic-multi-select bg-green-300"
                   classNamePrefix="select"
-                  placeholder="Select genre(s) *"
+                  placeholder={t("select_genres")}
                   onChange={(e) => {
-                    console.log("eeee: ", e);
                     formik.setFieldValue("genres", e);
                   }}
                   onBlur={formik.handleBlur}
@@ -279,7 +287,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                 className="shadow bg-transparent   appearance-none border-primary  rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
                 id="price"
                 type="number"
-                placeholder="Price"
+                placeholder={t("price")}
                 onChange={formik.handleChange}
                 value={!formik.values.isChecked ? formik.values.price : 0}
                 name="price"
@@ -295,7 +303,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                     cols="22"
                     rows="5"
                     className="shadow bg-transparent   appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                    placeholder="Description"
+                    placeholder={t("description")}
                     onChange={formik.handleChange}
                     value={formik.values.description}
                     autoComplete="off"
@@ -311,14 +319,14 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   cols="22"
                   rows="5"
                   className="shadow bg-transparent  appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                  placeholder="Description"
+                  placeholder={t("description")}
                   onChange={formik.handleChange}
                   value={formik.values.description}
                   autoComplete="off"
                 ></textarea>
               )}
               <label className="w-full text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary justify-center ">
-                <span>Upload Book Cover</span>
+                <span>{t("upload_book_cover")}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -337,7 +345,9 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
               </label>
               {progress > 0 ? <p>Upload is {progress}% done</p> : null}
               <label className="flex text-black items-center">
-                <p className="mr-2 text-primary">Are you donating this book?</p>
+                <p className="mr-2 text-primary">
+                  {t("are_you_donating_this_book")}
+                </p>
                 <input
                   type="checkbox"
                   name="checkbox"
@@ -358,7 +368,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                 }}
                 disabled={uniqueID === ""}
               >
-                Add Book
+                {t("add_book")}
               </button>
             </form>
           </motion.div>

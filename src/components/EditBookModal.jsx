@@ -8,9 +8,10 @@ import { useHistory } from "react-router-dom";
 import { updateDoc, doc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { Genres } from "../service/genres";
+// import { Genres } from "../service/genres";
 import Select from "react-select";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -68,12 +69,20 @@ function EditBookModal({
   });
 
   const history = useHistory();
+  const { t } = useTranslation();
 
   const handleClose = () => {
     setIsEditBookOpen(false);
     history.goBack();
   };
-
+  const Genres = [
+    { value: "action", label: `${t("action")}` },
+    { value: "adventure", label: `${t("adventure")}` },
+    { value: "drama", label: `${t("drama")}` },
+    { value: "comedy", label: `${t("comedy")}` },
+    { value: "horror", label: `${t("horror")}` },
+    { value: "romance", label: `${t("romance")}` },
+  ];
   async function updateBook() {
     if (
       formik.values.bookTitle === "" ||
@@ -141,7 +150,7 @@ function EditBookModal({
             className="w-full max-w-lg bg-black rounded space-y-4  sm:max-w-2xl md:max-w-md font-sans p-8"
           >
             <h2 className="text-primary font-semibold flex justify-center mb-4 text-sm sm:text-xl">
-              Update Book Details
+              {t("update_book_detail")}
             </h2>
             <div>
               <input
@@ -154,7 +163,7 @@ function EditBookModal({
                   `}
                 id="bookTitle"
                 type="text"
-                placeholder="Book Title *"
+                placeholder={t("book_title")}
                 onChange={formik.handleChange}
                 value={formik.values.bookTitle}
                 name="bookTitle"
@@ -180,7 +189,7 @@ function EditBookModal({
               `}
                 id="author"
                 type="text"
-                placeholder="Author *"
+                placeholder={t("author")}
                 onChange={formik.handleChange}
                 value={formik.values.author}
                 name="author"
@@ -204,7 +213,7 @@ function EditBookModal({
               options={Genres}
               className="basic-multi-select bg-green-300"
               classNamePrefix="select"
-              placeholder="Select genre(s) *"
+              placeholder={t("select_genre")}
               onChange={(e) => {
                 formik.setFieldValue("genres", e);
               }}
@@ -247,7 +256,7 @@ function EditBookModal({
               autoComplete="off"
             ></textarea>
             <label className="text-white flex items-center py-1 rounded-md cursor-pointer bg-secondary bg-opacity-50 hover:bg-secondary container justify-center">
-              <span>Upload Book Cover</span>
+              <span>{t("upload_book_cover")}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -266,7 +275,7 @@ function EditBookModal({
             </label>
             {progress > 0 ? <p>Upload is {progress}% done</p> : null}
             <label className="flex text-primary items-center">
-              <p className="mr-2">Are you donating this book?</p>
+              <p className="mr-2">{t("are_you_donating_this_book")}</p>
               <input
                 type="checkbox"
                 name="yes"
@@ -284,7 +293,7 @@ function EditBookModal({
               type="submit"
               onClick={updateBook}
             >
-              Update Book
+              {t("update_book")}
             </button>
           </form>
         </motion.div>
