@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import "./pagination.css";
 
 function Pagination({ pages = 10, currentPage, setCurrentPage }) {
   const numberOfPages = [];
+
+  const { t } = useTranslation();
 
   for (let i = 1; i <= pages; i++) {
     numberOfPages.push(i);
@@ -55,11 +58,11 @@ function Pagination({ pages = 10, currentPage, setCurrentPage }) {
       <div className="pagination-container mb-5">
         <span>
           <button
-            className={currentButton === 1 ? "disabled" : ""}
+            className={currentButton === 1 ? "disabled text-sm" : "text-sm"}
             onClick={handlePrevbtn}
             disabled={currentPage === numberOfPages[0] ? true : false}
           >
-            Prev
+            {t("prev")}
           </button>
         </span>
         {pageDecrementBtn}
@@ -81,10 +84,14 @@ function Pagination({ pages = 10, currentPage, setCurrentPage }) {
         {pageIncrementBtn}
         <span>
           <button
-            className={currentButton === numberOfPages.length ? "disabled" : ""}
+            className={
+              currentButton === numberOfPages.length
+                ? "disabled text-sm"
+                : "text-sm"
+            }
             onClick={handleNextbtn}
           >
-            Next
+            {t("next")}
           </button>
         </span>
       </div>
