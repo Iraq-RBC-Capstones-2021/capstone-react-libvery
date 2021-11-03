@@ -13,7 +13,9 @@ import { ToastContainer } from "react-toastify";
 import { selectorUser } from "../store/counter/userSlice";
 import { changeDropdown } from "../store/dropdownSlice";
 import { useHistory } from "react-router-dom";
-
+import page1 from "../assets/page1.png";
+import page2 from "../assets/page2.png";
+import page3 from "../assets/page3.png";
 const bookInfo = {
   image: "a URL",
   id: "1",
@@ -196,14 +198,14 @@ function BooksDetail({ match }) {
                 <Link to={`${matchURL}/edit-image`}>
                   <AnimateButton
                     OnClickContact={() => setIsEditImageOpen(true)}
-                    classStyle="absolute left-60 bg-secondary text-white rounded-xl -top-3 cursor-pointer"
+                    classStyle="absolute ml-96  text-white rounded-xl -top-3 cursor-pointer  z-10"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke="currentColor"
+                      stroke="#BE856A"
                     >
                       <path
                         strokeLinecap="round"
@@ -226,8 +228,9 @@ function BooksDetail({ match }) {
                 />
               )}
             />
+
             {book.images?.map((bookImage, index) => (
-              <div className="z-0 " key={index}>
+              <div className="z-0" key={index}>
                 <Zoom>
                   <img
                     className="h-44 w-28 rounded-md mr-3 z-0"
