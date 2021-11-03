@@ -5,10 +5,13 @@ import { selectorUser } from "../store/users/userSlice.js";
 
 import UserInfo from "./UserInfo";
 import Favourites from "./Favourites";
+import { useTranslation } from "react-i18next";
+
 import UserBooks from "./UserBooks";
 function Profile(props) {
   const match = props.match.url;
 
+  const { t } = useTranslation();
   const location = useLocation();
 
   const user = useSelector(selectorUser);
@@ -45,7 +48,7 @@ function Profile(props) {
           }}
           className="  pl-5"
         >
-          Favourites
+          {t("favorites")}
         </NavLink>
         <NavLink
           to={`${match}/my-books`}
@@ -58,7 +61,7 @@ function Profile(props) {
             textAlign: "center",
           }}
         >
-          My Books
+          {t("my_books")}
         </NavLink>
         <NavLink
           to={`${match}/user`}
@@ -72,7 +75,7 @@ function Profile(props) {
           }}
           className="  pr-5"
         >
-          User Info
+          {t("name")}
         </NavLink>
       </div>
 
