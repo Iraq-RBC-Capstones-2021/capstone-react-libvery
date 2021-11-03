@@ -1,5 +1,5 @@
-import React from "react";
-import ReactStars from "react-rating-stars-component";
+import React, { useState } from "react";
+// import ReactStars from "react-rating-stars-component";
 import { Link, useHistory } from "react-router-dom";
 import { BOOKS_ROUTE } from "../routes";
 import { AiOutlineHeart, AiFillHeart, AiOutlineDelete } from "react-icons/ai";
@@ -18,11 +18,14 @@ import {
 } from "../store/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { changeDropdown } from "../store/dropdownSlice";
+import MoonLoader from "react-spinners/MoonLoader";
 import { deleteBook } from "../store/books/booksSlice";
 
 function BookCard({ user_uid, image, genres, title, price, rating, id }) {
   const user = useSelector(selectorUser);
   const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const history = useHistory();
 
@@ -45,6 +48,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
 
   const handleFav = async (id) => {
     if (!user.favorites.map((book) => book.id).includes(Number(id))) {
+      setIsLoading(true);
       const docRef = doc(db, "books", `${id}`);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -56,11 +60,13 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
         const favDocSnap = await getDoc(favBooksRef);
         if (favDocSnap.exists()) {
           dispatch(setFavorites(favDocSnap.data().favorites));
+          setIsLoading(false);
         }
       } else {
         console.log("No such a doc");
       }
     } else {
+      setIsLoading(true);
       const docRef = doc(db, "books", `${id}`);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -69,6 +75,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
           favorites: arrayRemove(docSnap.data()),
         });
         dispatch(setRemoveFavorites(id));
+        setIsLoading(false);
       }
     }
   };
@@ -86,25 +93,38 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
         <div className="flex justify-between items-center px-1 pt-2">
           <h1 className="font-semibold">{title}</h1>
           {user.favorites?.map((book) => book.id).includes(Number(id)) ? (
-            <AiFillHeart
-              onClick={() => handleFav(id)}
-              size={29}
-              className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
-              color={"red"}
-            />
+            <>
+              {isLoading ? (
+                <MoonLoader size={20} color={"blue"} loading={isLoading} />
+              ) : (
+                <AiFillHeart
+                  onClick={() => handleFav(id)}
+                  size={29}
+                  className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
+                  color="red"
+                />
+              )}
+            </>
           ) : (
-            <AiOutlineHeart
-              onClick={() => handleFav(id)}
-              size={29}
-              className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
-            />
+            <>
+              {isLoading ? (
+                <MoonLoader size={20} color={"blue"} />
+              ) : (
+                <AiOutlineHeart
+                  onClick={() => handleFav(id)}
+                  size={29}
+                  className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
+                  color="black"
+                />
+              )}
+            </>
           )}
         </div>
         <div className="flex justify-between items-center pr-1">
-          <div className="flex justify-start items-center">
+          {/* <div className="flex justify-start items-center">
             <ReactStars className="" size={20} isHalf={true} />
             <span className="pl-1 mt-1">{rating}</span>
-          </div>
+          </div> */}
           {user_uid ? (
             <AiOutlineDelete
               onClick={() => dispatch(deleteBook(id, user_uid))}
@@ -114,6 +134,10 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
             <></>
           )}
         </div>
+        {/* <div className="flex justify-start items-center">
+          <ReactStars className="" size={20} isHalf={true} />
+          <span className="pl-1 mt-1">{rating}</span>
+        </div> */}
         <p className="font-semibold pl-1">{price}</p>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
           <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">
