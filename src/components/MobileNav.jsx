@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import SignoutButton from "./SignoutButton";
 import { selectorUser } from "../store/users/userSlice";
 import { useSelector } from "react-redux";
+import userIcon from "../assets/User.svg";
 
 function MobileNav({ navbarOpen }) {
   const [isOptionOpened, setIsOptionOpened] = useState(false);
@@ -64,11 +65,19 @@ function MobileNav({ navbarOpen }) {
             {t("favourites")}
           </NavLink>
           <div className="flex items-center">
-            <img
-              src={user.userPhoto}
-              alt="user"
-              className="w-10 h-10 rounded-full"
-            />
+            {user.uid ? (
+              <img
+                src={user.userPhoto}
+                alt="user"
+                className="w-10 h-10 rounded-full"
+              />
+            ) : (
+              <img
+                src={userIcon}
+                alt="user"
+                className="w-10 h-10 rounded-full"
+              />
+            )}
             <p className="opacity-50">{user.userName}</p>
             <div className="relative inline-block text-left">
               <div>
