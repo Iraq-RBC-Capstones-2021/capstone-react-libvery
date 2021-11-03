@@ -34,8 +34,10 @@ function Books() {
   const indexOfLastPost = currentPage * postsPerPage;
 
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
+
   const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
   const howManyPages = Math.ceil(books.length / postsPerPage);
+
   const Genres = [
     { value: "action", label: `${t("action")}` },
     { value: "adventure", label: `${t("adventure")}` },
@@ -50,7 +52,7 @@ function Books() {
       <BookCard
         id={book.id}
         title={book.bookTitle}
-        genres={book.genres}
+        genres={book.genres.map((genre) => genre.value)}
         image={book.image}
         rating={book.rating}
         price={book.price}
