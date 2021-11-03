@@ -7,7 +7,10 @@ import {
   FAVOURITES_ROUTE,
   BOOKS_ROUTE,
 } from "../routes";
-import userIcon from "../assets/userPlaceholder.svg";
+import { useTranslation } from "react-i18next";
+import SignoutButton from "./SignoutButton";
+import { selectorUser } from "../store/users/userSlice";
+import { useSelector } from "react-redux";
 
 function MobileNav({ navbarOpen }) {
   const [isOptionOpened, setIsOptionOpened] = useState(false);
@@ -24,6 +27,10 @@ function MobileNav({ navbarOpen }) {
     return location.pathname === route ? "active" : "";
   };
 
+  const { t } = useTranslation();
+
+  const user = useSelector(selectorUser);
+
   return (
     <>
       <div className={navbarOpen ? "block" : "hidden"}>
@@ -33,36 +40,36 @@ function MobileNav({ navbarOpen }) {
             activeStyle={isActive(HOME_ROUTE) ? styles : {}}
             className="text-xl mb-2"
           >
-            Home
+            {t("home")}
           </NavLink>
           <NavLink
             to={BOOKS_ROUTE}
             activeStyle={isActive(BOOKS_ROUTE) ? styles : {}}
             className="text-xl mb-2"
           >
-            Books
+            {t("books")}
           </NavLink>
           <NavLink
             to={ABOUT_ROUTE}
             activeStyle={isActive(ABOUT_ROUTE) ? styles : {}}
             className="text-xl mb-2"
           >
-            About
+            {t("about")}
           </NavLink>
           <NavLink
             to={FAVOURITES_ROUTE}
             activeStyle={isActive(FAVOURITES_ROUTE) ? styles : {}}
             className="text-xl mb-2"
           >
-            Favourites
+            {t("favourites")}
           </NavLink>
           <div className="flex items-center">
             <img
-              src={userIcon}
+              src={user.userPhoto}
               alt="user"
-              className="w-10 h-10 border-2 rounded-full"
+              className="w-10 h-10 rounded-full"
             />
-            <p className="opacity-50">Username</p>
+            <p className="opacity-50">{user.userName}</p>
             <div className="relative inline-block text-left">
               <div>
                 <button
@@ -97,26 +104,36 @@ function MobileNav({ navbarOpen }) {
                   tabIndex="-1"
                 >
                   <div className="py-1" role="none">
-                    <Link
-                      to={`${PROFILE_ROUTE}/user`}
-                      className="text-gray-700 block px-4 py-2 text-sm capitalize"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="menu-item-0"
-                    >
-                      Profile
-                    </Link>
-                    <form method="POST" action="#" role="none">
-                      <button
-                        type="submit"
-                        className="text-gray-700 block w-full text-left px-4 py-2 text-sm"
+                    {user.uid ? (
+                      <div>
+                        <Link
+                          to={`${PROFILE_ROUTE}/user`}
+                          className="text-gray-700 block px-4 py-2 text-sm capitalize"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="menu-item-0"
+                        >
+                          {t("profile")}
+                        </Link>
+                        <SignoutButton
+                          className="text-gray-700 block w-full text-left px-4 py-2 text-sm transition hover:bg-blue-600 hover:text-white"
+                          setIsOptionOpened={setIsOptionOpened}
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="menu-item-1"
+                        />
+                      </div>
+                    ) : (
+                      <Link
+                        to="/signin"
+                        className="text-gray-700 block w-full text-left px-4 py-2 text-sm transition hover:bg-blue-600 hover:text-white"
                         role="menuitem"
                         tabIndex="-1"
-                        id="menu-item-3"
+                        id="menu-item-1"
                       >
-                        Sign out
-                      </button>
-                    </form>
+                        {t("signin")}
+                      </Link>
+                    )}
                   </div>
                 </div>
               ) : (
