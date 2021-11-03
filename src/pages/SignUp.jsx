@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { useDispatch } from "react-redux";
-import { signUp } from "../store/counter/userSlice";
+import { signUp } from "../store/users/userSlice";
 
 import Email from "../assets/Email.svg";
 import Key from "../assets/Key.svg";

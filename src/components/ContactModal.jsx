@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import { motion } from "framer-motion";
 import CloseButton from "../customs/CloseButton";
 import { useSelector } from "react-redux";
-import { selectorUser } from "../store/counter/userSlice";
+import { selectorUser } from "../store/users/userSlice";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import Loader from "../components/Loader";

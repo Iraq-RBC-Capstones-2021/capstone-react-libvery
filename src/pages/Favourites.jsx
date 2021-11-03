@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import React, { useState } from "react";
 import BookCard from "../components/BookCard";
 import Pagination from "../components/pagination/Pagination";
-import { selectorUser } from "../store/counter/userSlice.js";
+import { selectorUser } from "../store/users/userSlice.js";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 

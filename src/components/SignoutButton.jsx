@@ -2,7 +2,7 @@ import { signOut } from "@firebase/auth";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { auth } from "../firebase.js";
-import { setLogOut } from "../store/counter/userSlice.js";
+import { setLogOut } from "../store/users/userSlice.js";
 import { useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
 
