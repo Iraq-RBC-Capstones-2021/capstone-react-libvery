@@ -1,22 +1,39 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Route, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 import { motion } from "framer-motion";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+import { ToastContainer } from "react-toastify";
+
+import Loader from "../components/Loader";
 import AnimateButton from "../customs/AnimateButton";
 import ContactModal from "../components/ContactModal";
 import EditBookModal from "../components/EditBookModal";
 import EditImageModal from "../components/EditImageModal";
-import Zoom from "react-medium-image-zoom";
-import "react-medium-image-zoom/dist/styles.css";
-import { Route, Link } from "react-router-dom";
-import Loader from "../components/Loader";
+
+import {
+  selectorUser,
+  setFavorites,
+  setRemoveFavorites,
+} from "../store/users/userSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { ToastContainer } from "react-toastify";
-import { selectorUser } from "../store/users/userSlice";
 import { changeDropdown } from "../store/dropdownSlice";
-import { useHistory } from "react-router-dom";
+
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  getDoc,
+  updateDoc,
+} from "@firebase/firestore";
+import { db } from "../firebase";
+
 import page1 from "../assets/page1.png";
 import page2 from "../assets/page2.png";
 import page3 from "../assets/page3.png";
-import { useTranslation } from "react-i18next";
 
 const bookInfo = {
   image: "a URL",
@@ -38,7 +55,6 @@ function BooksDetail({ match }) {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
-  const [isBookmarked, setBookmarked] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isEditBookOpen, setIsEditBookOpen] = useState(false);
   const [isEditImageOpen, setIsEditImageOpen] = useState(false);
@@ -50,7 +66,7 @@ function BooksDetail({ match }) {
 
   const booksSlice = useSelector((state) => state.books.books);
   const userUID = useSelector(selectorUser).uid;
-
+  const favBooks = useSelector(selectorUser).favorites;
   useEffect(() => {
     async function getBook() {
       setIsImageLoading(true);
@@ -72,6 +88,37 @@ function BooksDetail({ match }) {
     history.push("/books");
     dispatch(changeDropdown(genre));
   }
+
+  const handleFav = async (id) => {
+    if (!favBooks.map((book) => book.id).includes(Number(id))) {
+      const docRef = doc(db, "books", `${id}`);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const favBookRef = doc(db, "users", userUID);
+        await updateDoc(favBookRef, {
+          favorites: arrayUnion(docSnap.data()),
+        });
+        const favBooksRef = doc(db, "users", userUID);
+        const favDocSnap = await getDoc(favBooksRef);
+        if (favDocSnap.exists()) {
+          dispatch(setFavorites(favDocSnap.data().favorites));
+        }
+      } else {
+        console.log("No such a doc");
+      }
+    } else {
+      const docRef = doc(db, "books", `${id}`);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const favBookRef = doc(db, "users", userUID);
+        await updateDoc(favBookRef, {
+          favorites: arrayRemove(docSnap.data()),
+        });
+        dispatch(setRemoveFavorites(Number(id)));
+      }
+    }
+  };
+
   return (
     <div className="bg-primary font-sans">
       <div className="sm:flex sm:justify-center">
@@ -94,11 +141,15 @@ function BooksDetail({ match }) {
           <div className="absolute top-0 right-0 bg-red-50 rounded-bl-2xl rounded-br-2xl">
             <AnimateButton>
               <svg
-                onClick={() => setBookmarked(!isBookmarked)}
+                onClick={() => handleFav(paramID)}
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-10 w-10 cursor-pointer"
                 viewBox="0 0 20 20"
-                fill={`${isBookmarked ? "#f44336" : "#c2c2c2"}`}
+                fill={`${
+                  favBooks?.map((book) => book.id).includes(Number(paramID))
+                    ? "#f44336"
+                    : "#c2c2c2"
+                }`}
               >
                 <path
                   fillRule="evenodd"
