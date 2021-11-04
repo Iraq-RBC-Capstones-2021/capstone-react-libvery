@@ -173,26 +173,13 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
               <p className="text-primary font-extrabold flex justify-center mb-4 sm:text-3xl text-4xl">
                 {t("add_a_book")}
               </p>
-              {formik.touched.bookTitle && formik.errors.bookTitle ? (
-                <div>
-                  <input
-                    className="shadow bg-transparent appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                    id="bookTitle"
-                    type="text"
-                    placeholder={t("book_title")}
-                    onChange={formik.handleChange}
-                    value={formik.values.bookTitle}
-                    name="bookTitle"
-                    onBlur={formik.handleBlur}
-                    autoComplete="off"
-                  />
-                  <p className="text-xs text-red-400 -mt-2 mb-2">
-                    {formik.errors.bookTitle}
-                  </p>
-                </div>
-              ) : (
+              <div>
                 <input
-                  className="shadow bg-transparent border-primary  appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className={`w-full
+              ${
+                formik.errors.bookTitle ? `border-red-700` : `border-gray-200`
+              } bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mt-2
+              `}
                   id="bookTitle"
                   type="text"
                   placeholder={t("book_title")}
@@ -202,28 +189,23 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   onBlur={formik.handleBlur}
                   autoComplete="off"
                 />
-              )}
-
-              {formik.touched.author && formik.errors.author ? (
-                <div>
-                  <input
-                    className="shadow bg-transparent  appearance-none border border-red-400 rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
-                    id="author"
-                    type="text"
-                    placeholder={t("author")}
-                    onChange={formik.handleChange}
-                    value={formik.values.author}
-                    name="author"
-                    onBlur={formik.handleBlur}
-                    autoComplete="off"
-                  />
-                  <p className="text-xs text-red-400 -mt-2 mb-2">
-                    {formik.errors.author}
-                  </p>
-                </div>
-              ) : (
+                <p
+                  className={
+                    formik.touched.bookTitle
+                      ? "block text-xs text-red-400"
+                      : "hidden"
+                  }
+                >
+                  {formik.errors.bookTitle}
+                </p>
+              </div>
+              <div>
                 <input
-                  className="shadow bg-transparent border-primary  appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mb-2"
+                  className={`w-full
+                  ${
+                    formik.errors.author ? `border-red-700` : `border-gray-200`
+                  } bg-transparent shadow appearance-none border-primary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline mt-2
+                  `}
                   id="author"
                   type="text"
                   placeholder={t("author")}
@@ -233,7 +215,16 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   onBlur={formik.handleBlur}
                   autoComplete="off"
                 />
-              )}
+                <p
+                  className={
+                    formik.touched.author
+                      ? "block text-xs text-red-400"
+                      : "hidden"
+                  }
+                >
+                  {formik.errors.author}
+                </p>
+              </div>
               {formik.touched.genres && formik.errors.genres ? (
                 <div>
                   <Select
