@@ -15,7 +15,6 @@ const el = document.getElementById("root");
 Modal.setAppElement(el);
 
 function EditImageModal({ isEditImageOpen, setIsEditImageOpen, book }) {
-  // const [images, setImages] = useState([]);
   const [images, setImages] = useState(book.images);
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);

@@ -33,10 +33,8 @@ function Books() {
 
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
-  // const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
-  // const howManyPages = Math.ceil(books.length / postsPerPage);
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const howManyPages = Math.ceil(posts.length / postsPerPage);
+  const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
+  const howManyPages = Math.ceil(books.length / postsPerPage);
 
   const booksArr = currentPosts.map((book) => (
     <div key={book.id} className="m-2">
