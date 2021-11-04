@@ -49,7 +49,8 @@ function BooksDetail({ match }) {
   const paramID = match.params.id;
 
   const booksSlice = useSelector((state) => state.books.books);
-  const userUID = useSelector(selectorUser).uid;
+  const user = useSelector(selectorUser);
+  const { userName, uid } = user;
 
   useEffect(() => {
     async function getBook() {
@@ -91,23 +92,25 @@ function BooksDetail({ match }) {
               />
             )}
           </Zoom>
-          <div className="absolute top-0 right-0 bg-red-50 rounded-bl-2xl rounded-br-2xl">
-            <AnimateButton>
-              <svg
-                onClick={() => setBookmarked(!isBookmarked)}
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-10 w-10 cursor-pointer"
-                viewBox="0 0 20 20"
-                fill={`${isBookmarked ? "#f44336" : "#c2c2c2"}`}
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </AnimateButton>
-          </div>
+          {userName && (
+            <div className="absolute top-0 right-1  rounded-bl-2xl rounded-br-2xl">
+              <AnimateButton>
+                <svg
+                  onClick={() => setBookmarked(!isBookmarked)}
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-10 w-10 cursor-pointer"
+                  viewBox="0 0 20 20"
+                  fill={`${isBookmarked ? "#f44336" : "#c2c2c2"}`}
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </AnimateButton>
+            </div>
+          )}
         </motion.div>
         <motion.div
           initial={{ opacity: 0, x: -100 }}
@@ -122,7 +125,7 @@ function BooksDetail({ match }) {
             >
               <AnimateButton
                 OnClickContact={() => setIsContactModalOpen(true)}
-                classStyle="bg-secondary text-white rounded-sm px-2 py-1"
+                classStyle="bg-secondary text-white rounded-md px-2 py-1"
                 text={t("seller_contact")}
               />
             </Link>
@@ -146,12 +149,12 @@ function BooksDetail({ match }) {
               <span className="opacity-50"> {t("author")}:</span>{" "}
               <span>{book.author}</span>
             </p>
-            {userUID === book.uid ? (
+            {uid === book.uid ? (
               <>
                 <Link to={`${matchURL}/edit-book`}>
                   <AnimateButton
                     OnClickContact={() => setIsEditBookOpen(true)}
-                    classStyle="bg-secondary text-white rounded-sm px-2 py-1"
+                    classStyle="bg-secondary text-white rounded-md px-2 py-1"
                     text={t("edit")}
                   />
                 </Link>
@@ -183,7 +186,7 @@ function BooksDetail({ match }) {
                 <AnimateButton
                   key={index}
                   text={genre.value}
-                  classStyle="bg-black text-white rounded-xl cursor-pointer py-1 px-1 text-sm mr-1"
+                  classStyle="bg-black text-white rounded-md cursor-pointer py-0.5 px-1.5 text-sm mr-1"
                   OnClickContact={() => handleClick(genre.value)}
                 />
               ))}
@@ -196,7 +199,7 @@ function BooksDetail({ match }) {
           <p className="mb-4">{book.description}</p>
 
           <div className="flex relative">
-            {userUID === book.uid ? (
+            {uid === book.uid ? (
               <>
                 <Link to={`${matchURL}/edit-image`}>
                   <AnimateButton

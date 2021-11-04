@@ -94,39 +94,39 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
 
         <div className="flex justify-between items-center px-1 pt-2">
           <h1 className="font-semibold">{title}</h1>
-          {user.favorites?.map((book) => book.id).includes(Number(id)) ? (
+          {user.userName && (
             <>
-              {isLoading ? (
-                <MoonLoader size={20} color={"blue"} loading={isLoading} />
+              {user.favorites?.map((book) => book.id).includes(Number(id)) ? (
+                <>
+                  {isLoading ? (
+                    <MoonLoader size={20} color={"blue"} loading={isLoading} />
+                  ) : (
+                    <AiFillHeart
+                      onClick={() => handleFav(id)}
+                      size={29}
+                      className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
+                      color="red"
+                    />
+                  )}
+                </>
               ) : (
-                <AiFillHeart
-                  onClick={() => handleFav(id)}
-                  size={29}
-                  className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
-                  color="red"
-                />
-              )}
-            </>
-          ) : (
-            <>
-              {isLoading ? (
-                <MoonLoader size={20} color={"blue"} />
-              ) : (
-                <AiOutlineHeart
-                  onClick={() => handleFav(id)}
-                  size={29}
-                  className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
-                  color="black"
-                />
+                <>
+                  {isLoading ? (
+                    <MoonLoader size={20} color={"blue"} />
+                  ) : (
+                    <AiOutlineHeart
+                      onClick={() => handleFav(id)}
+                      size={29}
+                      className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
+                      color="black"
+                    />
+                  )}
+                </>
               )}
             </>
           )}
         </div>
         <div className="flex justify-between items-center pr-1">
-          {/* <div className="flex justify-start items-center">
-            <ReactStars className="" size={20} isHalf={true} />
-            <span className="pl-1 mt-1">{rating}</span>
-          </div> */}
           {user_uid ? (
             <AiOutlineDelete
               onClick={() => dispatch(deleteBook(id, user_uid))}
@@ -136,11 +136,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
             <></>
           )}
         </div>
-        {/* <div className="flex justify-start items-center">
-          <ReactStars className="" size={20} isHalf={true} />
-          <span className="pl-1 mt-1">{rating}</span>
-        </div> */}
-        <p className="font-semibold pl-1">{price}</p>
+        <p className="font-semibold pl-1"> $ {price}</p>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
           <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">
             {t("buy")}
