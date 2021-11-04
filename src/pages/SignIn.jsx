@@ -32,6 +32,7 @@ const SignIn = () => {
     setLoading(true);
     dispatch(signIn({ emailRef, passwordRef, setErrors, history }));
     setLoading(false);
+    history.goBack();
   };
   if (loading) return <p>Loading ...</p>;
   return (
