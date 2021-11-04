@@ -75,25 +75,25 @@ function BooksDetail({ match }) {
   }
   return (
     <div className="bg-primary font-sans">
-      <div className="sm:flex sm:justify-center">
+      <div className="md:flex md:justify-center">
         <motion.div
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
-          className="relative m-4 flex justify-center"
+          className="relative mt-4 mb-4 md:m-4 flex justify-center"
         >
           <Zoom>
             {isImageLoading ? (
               <Loader className="flex items-center h-full md:mr-44" />
             ) : (
               <img
-                className="flex-1 object-cover rounded-md sm:max-w-xs md:max-w-sm lg:max-w-lg"
+                className="flex-1 object-cover rounded-md max-w-xs sm:max-w-lg md:max-w-sm lg:max-w-lg"
                 src={book.image}
                 alt={book.title}
               />
             )}
           </Zoom>
           {userName && (
-            <div className="absolute top-0 right-1  rounded-bl-2xl rounded-br-2xl">
+            <div className="absolute top-1 right-12  sm:right-40 md:right-1 rounded-bl-2xl rounded-br-2xl">
               <AnimateButton>
                 <svg
                   onClick={() => setBookmarked(!isBookmarked)}
@@ -115,7 +115,7 @@ function BooksDetail({ match }) {
         <motion.div
           initial={{ opacity: 0, x: -100 }}
           animate={{ opacity: 1, x: 0 }}
-          className="m-4 sm:max-w-sm lg:max-w-2xl"
+          className="m-7 sm:ml-36 md:m-4  max-w-md sm:max-w-sm md:max-w-md lg:max-w-2xl"
         >
           <div className="flex mb-4">
             <h1 className="font-semibold flex-1 text-xl">{book.bookTitle}</h1>
@@ -199,31 +199,6 @@ function BooksDetail({ match }) {
           <p className="mb-4">{book.description}</p>
 
           <div className="flex relative">
-            {uid === book.uid ? (
-              <>
-                <Link to={`${matchURL}/edit-image`}>
-                  <AnimateButton
-                    OnClickContact={() => setIsEditImageOpen(true)}
-                    classStyle="absolute ml-96  text-white rounded-xl -top-3 cursor-pointer  z-10"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="#BE856A"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                      />
-                    </svg>
-                  </AnimateButton>
-                </Link>
-              </>
-            ) : null}
             <Route
               path={`${matchURL}/edit-image`}
               render={() => (
@@ -241,33 +216,58 @@ function BooksDetail({ match }) {
                   <div className="z-0" key={index}>
                     <Zoom>
                       <img
-                        className="h-44 w-28 rounded-md mr-3 z-0"
+                        className="h-28 w-24 md:h-48 md:w-32 lg:h-60 lg:w-52 rounded-md md:mr-2 mr-10 lg:mr-4 z-0"
                         src={bookImage}
                         alt="content preview page 1"
                       />
                     </Zoom>
                   </div>
                 ))}
+                {uid === book.uid ? (
+                  <>
+                    <Link to={`${matchURL}/edit-image`}>
+                      <AnimateButton
+                        OnClickContact={() => setIsEditImageOpen(true)}
+                        classStyle="absolute right-2 md:right-0 text-white rounded-xl -top-3 cursor-pointer  z-10"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-8 w-8"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="#BE856A"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                          />
+                        </svg>
+                      </AnimateButton>
+                    </Link>
+                  </>
+                ) : null}
               </>
             ) : (
               <>
                 <Zoom>
                   <img
-                    className="h-44 w-28 rounded-md mr-3 z-0"
+                    className="h-48 w-36  lg:h-64 md:w-48 rounded-md  lg:mr-7 mt-10 z-0"
                     src={page1}
                     alt="content preview page 1"
                   />
                 </Zoom>
                 <Zoom>
                   <img
-                    className="h-44 w-28 rounded-md mr-3 z-0"
+                    className="h-48 w-36  lg:h-64 md:w-48 rounded-md  lg:mr-7 mt-10 z-0"
                     src={page2}
                     alt="content preview page 1"
                   />
                 </Zoom>
                 <Zoom>
                   <img
-                    className="h-44 w-28 rounded-md mr-3 z-0"
+                    className="h-48 w-36  lg:h-64 md:w-48 rounded-md  lg:mr-7 mt-10 z-0"
                     src={page3}
                     alt="content preview page 1"
                   />

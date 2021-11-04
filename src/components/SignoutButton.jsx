@@ -17,18 +17,12 @@ const SignoutButton = ({ className, setIsOptionOpened, onShowMenu }) => {
         dispatch(setLogOut());
         history.replace("/");
         setIsOptionOpened(false);
+        onShowMenu();
       })
       .catch((error) => console.log(error.message));
   };
   return (
-    <button
-      className={className}
-      type="button"
-      onClick={() => {
-        handleSignOut();
-        onShowMenu();
-      }}
-    >
+    <button className={className} type="button" onClick={handleSignOut}>
       {t("sign_out")}
     </button>
   );
