@@ -85,7 +85,6 @@ function BooksDetail({ match }) {
   }
 
   const handleFav = async (id) => {
-    console.log("🚀 ~ file: BooksDetail.jsx ~ line 77 ~ handleFav ~ id", id);
     if (!favBooks.map((book) => book.id).includes(Number(id))) {
       const docRef = doc(db, "books", `${id}`);
       const docSnap = await getDoc(docRef);
