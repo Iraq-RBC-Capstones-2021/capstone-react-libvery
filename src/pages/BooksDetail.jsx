@@ -17,7 +17,7 @@ import {
   selectorUser,
   setFavorites,
   setRemoveFavorites,
-} from "../store/counter/userSlice";
+} from "../store/users/userSlice";
 import { changeDropdown } from "../store/dropdownSlice";
 import { useHistory } from "react-router-dom";
 import {
