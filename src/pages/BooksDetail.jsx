@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Route, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 import { motion } from "framer-motion";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+import { ToastContainer } from "react-toastify";
+
+import Loader from "../components/Loader";
 import AnimateButton from "../customs/AnimateButton";
 import ContactModal from "../components/ContactModal";
 import EditBookModal from "../components/EditBookModal";
 import EditImageModal from "../components/EditImageModal";
-import page1 from "../assets/page1.png";
-import page2 from "../assets/page2.png";
-import page3 from "../assets/page3.png";
-import Zoom from "react-medium-image-zoom";
-import "react-medium-image-zoom/dist/styles.css";
-import { Route, Link } from "react-router-dom";
-import Loader from "../components/Loader";
-import { useSelector, useDispatch } from "react-redux";
-import { ToastContainer } from "react-toastify";
+
 import {
   selectorUser,
   setFavorites,
   setRemoveFavorites,
 } from "../store/users/userSlice";
+import { useSelector, useDispatch } from "react-redux";
 import { changeDropdown } from "../store/dropdownSlice";
-import { useHistory } from "react-router-dom";
+
 import {
   arrayRemove,
   arrayUnion,
@@ -28,7 +30,10 @@ import {
   updateDoc,
 } from "@firebase/firestore";
 import { db } from "../firebase";
-import { useTranslation } from "react-i18next";
+
+import page1 from "../assets/page1.png";
+import page2 from "../assets/page2.png";
+import page3 from "../assets/page3.png";
 
 const bookInfo = {
   image: "a URL",
@@ -240,20 +245,21 @@ function BooksDetail({ match }) {
             </p>
           </div>
           <p className="mb-4">{book.description}</p>
+
           <div className="flex relative">
             {userUID === book.uid ? (
               <>
                 <Link to={`${matchURL}/edit-image`}>
                   <AnimateButton
                     OnClickContact={() => setIsEditImageOpen(true)}
-                    classStyle="absolute left-60 bg-secondary text-white rounded-xl -top-3 cursor-pointer"
+                    classStyle="absolute ml-96  text-white rounded-xl -top-3 cursor-pointer  z-10"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke="currentColor"
+                      stroke="#BE856A"
                     >
                       <path
                         strokeLinecap="round"
@@ -272,28 +278,50 @@ function BooksDetail({ match }) {
                 <EditImageModal
                   isEditImageOpen={isEditImageOpen}
                   setIsEditImageOpen={setIsEditImageOpen}
+                  book={book}
                 />
               )}
             />
-            <Zoom>
-              <img
-                className="h-44 w-28 rounded-md mr-3"
-                src={page1}
-                alt="content preview page 1"
-              />
-            </Zoom>
-            <Zoom>
-              <img
-                className="h-44 w-28 rounded-md mr-3"
-                src={page2}
-                alt="content preview page 2"
-              />
-            </Zoom>
-            <img
-              className="h-44 w-28 rounded-md"
-              src={page3}
-              alt="content preview page 3"
-            />
+
+            {book?.images?.length > 0 ? (
+              <>
+                {book.images?.map((bookImage, index) => (
+                  <div className="z-0" key={index}>
+                    <Zoom>
+                      <img
+                        className="h-44 w-28 rounded-md mr-3 z-0"
+                        src={bookImage}
+                        alt="content preview page 1"
+                      />
+                    </Zoom>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <>
+                <Zoom>
+                  <img
+                    className="h-44 w-28 rounded-md mr-3 z-0"
+                    src={page1}
+                    alt="content preview page 1"
+                  />
+                </Zoom>
+                <Zoom>
+                  <img
+                    className="h-44 w-28 rounded-md mr-3 z-0"
+                    src={page2}
+                    alt="content preview page 1"
+                  />
+                </Zoom>
+                <Zoom>
+                  <img
+                    className="h-44 w-28 rounded-md mr-3 z-0"
+                    src={page3}
+                    alt="content preview page 1"
+                  />
+                </Zoom>
+              </>
+            )}
           </div>
         </motion.div>
       </div>

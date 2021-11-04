@@ -34,8 +34,10 @@ function Books() {
   const indexOfLastPost = currentPage * postsPerPage;
 
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
+
   const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
   const howManyPages = Math.ceil(books.length / postsPerPage);
+
   const Genres = [
     { value: "action", label: `${t("action")}` },
     { value: "adventure", label: `${t("adventure")}` },
@@ -50,7 +52,7 @@ function Books() {
       <BookCard
         id={book.id}
         title={book.bookTitle}
-        genres={book.genres}
+        genres={book.genres.map((genre) => genre.value)}
         image={book.image}
         rating={book.rating}
         price={book.price}
@@ -150,7 +152,7 @@ function Books() {
             <AiOutlineSearch className="absolute left-1 mt-3 " />
             <input
               type="text"
-              className="p-0 pl-1 ml-5 bg-transparent border-none focus:ring-transparent sm:w-60 "
+              className="p-0 pl-1 ml-5 bg-transparent border-none focus:ring-transparent w-32 sm:w-60 "
               name="searchbar"
               id="searchbar"
               placeholder="Search"
@@ -159,7 +161,7 @@ function Books() {
             />
             <p className="text-gray-400 text-2xl">|</p>
             <select
-              className="p-0 px-1 w-28 h-10 ml-3 rounded-md focus:ring-transparent border-none"
+              className="p-0 px-1 w-20 h-10 ml-3 rounded-md focus:ring-transparent border-none"
               name="genres"
               value={dropVal}
               id="genres"
