@@ -7,12 +7,12 @@ import * as Yup from "yup";
 import { setDoc, doc } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { addBooks } from "../store/booksSlice";
+import { addBooks, emptyBooks } from "../store/books/booksSlice";
 import { serverTimestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { Link, useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { selectorUser } from "../store/counter/userSlice";
+import { selectorUser } from "../store/users/userSlice";
 import Select from "react-select";
 // import { Genres } from "../service/genres";
 import { useTranslation } from "react-i18next";
@@ -99,7 +99,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
         isChecked: formik.values.isChecked,
         id: uniqueID,
         createdAt: serverTimestamp(),
-        rating: 0,
+        // rating: 0,
         uid: userUID,
         images: [],
       });

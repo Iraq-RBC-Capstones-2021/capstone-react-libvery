@@ -9,7 +9,7 @@ import Key from "../assets/Key.svg";
 import SigninIllustration from "../assets/SigninIllustration.svg";
 
 import GoogleAuth from "../components/GoogleAuth";
-import { signIn } from "../store/counter/userSlice";
+import { signIn } from "../store/users/userSlice";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);

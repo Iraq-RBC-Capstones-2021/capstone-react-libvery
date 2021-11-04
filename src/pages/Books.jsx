@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Pagination from "../components/pagination/Pagination";
 import { changeDropdown } from "../store/dropdownSlice";
 import { useTranslation } from "react-i18next";
+import { fetchBooks } from "../store/books/booksSlice";
 
 function Books() {
   const dispatch = useDispatch();
@@ -25,8 +26,13 @@ function Books() {
 
   const [searchVal, setSearchVal] = useState("");
 
+  useEffect(() => {
+    dispatch(fetchBooks());
+  }, [dispatch]);
+
   //Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
+
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
   const howManyPages = Math.ceil(books.length / postsPerPage);
@@ -38,7 +44,8 @@ function Books() {
     { value: "horror", label: `${t("horror")}` },
     { value: "romance", label: `${t("romance")}` },
   ];
-  const booksArr = currentPosts?.map((book) => (
+
+  const booksArr = currentPosts.map((book) => (
     <div key={book.id} className="m-2">
       <BookCard
         id={book.id}

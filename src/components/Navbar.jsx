@@ -19,7 +19,7 @@ import dropdownMenu from "../assets/dorpdownMenu.svg";
 import SignoutButton from "./SignoutButton";
 
 import { useSelector } from "react-redux";
-import { selectorUser } from "../store/counter/userSlice";
+import { selectorUser } from "../store/users/userSlice";
 
 function Navbar() {
   const [navbarOpen, setNavbarOpen] = useState(false);

@@ -1,13 +1,12 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectorUser } from "../store/counter/userSlice.js";
+import { selectorUser } from "../store/users/userSlice.js";
 
 import UserInfo from "./UserInfo";
 import Favourites from "./Favourites";
-import Books from "./Books";
 import { useTranslation } from "react-i18next";
-
+import UserBooks from "./UserBooks";
 function Profile(props) {
   const match = props.match.url;
 
@@ -84,7 +83,7 @@ function Profile(props) {
       ) : location.pathname === "/profile/favourites" ? (
         <Favourites />
       ) : (
-        <Books />
+        <UserBooks />
       )}
     </div>
   );
