@@ -80,7 +80,6 @@ function BooksDetail({ match }) {
     history.push("/books");
     dispatch(changeDropdown(genre));
   }
-  console.log(favBooks.map((book) => book.id).includes(Number(paramID)));
 
   const handleFav = async (id) => {
     console.log("🚀 ~ file: BooksDetail.jsx ~ line 77 ~ handleFav ~ id", id);

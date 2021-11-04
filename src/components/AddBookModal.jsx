@@ -265,7 +265,6 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
                   classNamePrefix="select"
                   placeholder="Select genre(s) *"
                   onChange={(e) => {
-                    console.log("eeee: ", e);
                     formik.setFieldValue("genres", e);
                   }}
                   onBlur={formik.handleBlur}
