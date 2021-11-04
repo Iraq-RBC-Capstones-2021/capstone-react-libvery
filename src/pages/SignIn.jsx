@@ -29,6 +29,7 @@ const SignIn = () => {
 
   const handleSignin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     dispatch(signIn({ emailRef, passwordRef, setErrors, history }));
     setLoading(false);
   };

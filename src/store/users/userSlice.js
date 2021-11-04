@@ -24,39 +24,41 @@ export const signUp = createAsyncThunk(
       auth,
       data.values.email,
       data.values.password
-    ).then((userCredential) => {
-      updateProfile(userCredential.user, {
-        displayName: data.values.userName,
-        photoURL: data.values.userPhoto,
-      });
-      setDoc(doc(db, "users", userCredential.user.uid), {
-        username: data.values.userName,
-        email: userCredential.user.email,
-        phone: data.values.userPhone,
-        photo: data.fileUrl,
-        uid: userCredential.user.uid,
-        books: [],
-        favorites: [],
-      });
-      dispatch(
-        setActiveUser({
-          userName: data.values.userName,
-          userEmail: data.values.email,
-          userPhone: data.values.userPhone,
-          userPhoto: data.fileUrl,
+    )
+      .then((userCredential) => {
+        updateProfile(userCredential.user, {
+          displayName: data.values.userName,
+          photoURL: data.values.userPhoto,
+        });
+        setDoc(doc(db, "users", userCredential.user.uid), {
+          username: data.values.userName,
+          email: userCredential.user.email,
+          phone: data.values.userPhone,
+          photo: data.fileUrl,
           uid: userCredential.user.uid,
           books: [],
           favorites: [],
-        }).catch((error) => {
-          const { message } = error;
-          message === "Firebase: Error (auth/user-not-found)."
-            ? data.setErrors(`user not found`)
-            : message === "Firebase: Error (auth/wrong-password)."
-            ? data.setErrors(`Wrong Password`)
-            : data.setErrors(``);
-        })
-      );
-    });
+        });
+        dispatch(
+          setActiveUser({
+            userName: data.values.userName,
+            userEmail: data.values.email,
+            userPhone: data.values.userPhone,
+            userPhoto: data.fileUrl,
+            uid: userCredential.user.uid,
+            books: [],
+            favorites: [],
+          })
+        );
+      })
+      .catch((error) => {
+        console.log("🚀 ~ file: userSlice.js ~ line 55 ~ error", error);
+        const { message } = error;
+        console.log("🚀 ~ file: userSlice.js ~ line 56 ~ message", message);
+        message === "Firebase: Error (auth/email-already-in-use)."
+          ? data.setErrors(`Email already in use`)
+          : data.history.push("/profile/user");
+      });
   }
 );
 export const signIn = createAsyncThunk(
@@ -71,7 +73,6 @@ export const signIn = createAsyncThunk(
         data.setErrors("");
         const docRef = doc(db, "users", userCredential.user.uid);
         const docSnap = await getDoc(docRef);
-
         dispatch(
           setActiveUser({
             userName:
@@ -88,10 +89,10 @@ export const signIn = createAsyncThunk(
       .catch((error) => {
         const { message } = error;
         message === "Firebase: Error (auth/user-not-found)."
-          ? data.setErrors(`user not found`)
+          ? data.setErrors(`User not found`)
           : message === "Firebase: Error (auth/wrong-password)."
           ? data.setErrors(`Wrong Password`)
-          : data.setErrors(``);
+          : data.history.goBack();
       });
   }
 );
