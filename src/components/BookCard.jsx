@@ -64,8 +64,6 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
           dispatch(setFavorites(favDocSnap.data().favorites));
           setIsLoading(false);
         }
-      } else {
-        console.log("No such a doc");
       }
     } else {
       setIsLoading(true);

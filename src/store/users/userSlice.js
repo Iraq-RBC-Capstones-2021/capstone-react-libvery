@@ -52,10 +52,12 @@ export const signUp = createAsyncThunk(
         );
       })
       .catch((error) => {
-        const { code } = error;
+        console.log("🚀 ~ file: userSlice.js ~ line 55 ~ error", error);
         const { message } = error;
-        const { email } = error;
-        console.log(code, message, email);
+        console.log("🚀 ~ file: userSlice.js ~ line 56 ~ message", message);
+        message === "Firebase: Error (auth/email-already-in-use)."
+          ? data.setErrors(`Email already in use`)
+          : data.history.push("/profile/user");
       });
   }
 );
@@ -71,24 +73,26 @@ export const signIn = createAsyncThunk(
         data.setErrors("");
         const docRef = doc(db, "users", userCredential.user.uid);
         const docSnap = await getDoc(docRef);
-
         dispatch(
           setActiveUser({
-            userName: docSnap.data().username,
+            userName:
+              docSnap._document.data.value.mapValue.fields.username.stringValue,
             userEmail: userCredential.user.email,
             uid: userCredential.user.uid,
-            userPhone: docSnap.data().phone,
-            userPhoto: docSnap.data().photo,
-            favorites: docSnap.data().favorites,
+            userPhone:
+              docSnap._document.data.value.mapValue.fields.phone.stringValue,
+            userPhoto:
+              docSnap._document.data.value.mapValue.fields.photo.stringValue,
           })
         );
       })
       .catch((error) => {
-        data.setErrors(`Failed to sign in ${error.message}`);
-        const { code } = error;
         const { message } = error;
-        const { email } = error;
-        console.log(code, message, email);
+        message === "Firebase: Error (auth/user-not-found)."
+          ? data.setErrors(`User not found`)
+          : message === "Firebase: Error (auth/wrong-password)."
+          ? data.setErrors(`Wrong Password`)
+          : data.history.goBack();
       });
   }
 );
@@ -110,6 +114,7 @@ const userSlice = createSlice({
       state.userEmail = null;
       state.userPhone = null;
       state.userPhoto = null;
+      state.uid = null;
     },
     setFavorites: (state, action) => {
       const findFavBook = state.favorites.find(

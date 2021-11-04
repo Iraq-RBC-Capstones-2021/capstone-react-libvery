@@ -18,7 +18,7 @@ const SignoutButton = ({ className, setIsOptionOpened }) => {
         history.replace("/");
         setIsOptionOpened(false);
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => error.message);
   };
   return (
     <button className={className} type="button" onClick={handleSignOut}>

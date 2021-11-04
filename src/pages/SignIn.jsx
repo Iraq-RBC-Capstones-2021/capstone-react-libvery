@@ -29,11 +29,11 @@ const SignIn = () => {
 
   const handleSignin = async (e) => {
     e.preventDefault();
-    dispatch(signIn({ emailRef, passwordRef, setErrors }));
+    setLoading(true);
+    dispatch(signIn({ emailRef, passwordRef, setErrors, history }));
     setLoading(false);
     history.goBack();
   };
-
   if (loading) return <p>Loading ...</p>;
   return (
     <div className="min-h-screen flex  items-center justify-around flex-wrap  bg-primary font-sans ">
@@ -41,7 +41,6 @@ const SignIn = () => {
         <h1 className="text-4xl font-bold font-sans	 mb-10 text-black">
           {t("sign_in")} 📚
         </h1>
-        {errors}
         <form className="space-y-5" onSubmit={handleSignin}>
           <div className="relative">
             <img
@@ -54,9 +53,9 @@ const SignIn = () => {
               type="email"
               ref={emailRef}
               className="w-full border-1 
-                        border-gray-200 p-3 rounded outline-none  focus:border-black placeholder-gray-400
-                        form-input border  py-3 px-4  appearance-none  block pl-14 focus:outline-none
-                        "
+              border-gray-200 p-3 rounded outline-none  focus:border-black placeholder-gray-400
+              form-input border  py-3 px-4  appearance-none  block pl-14 focus:outline-none
+              "
               placeholder={t("email")}
             />
           </div>
@@ -71,9 +70,9 @@ const SignIn = () => {
               type={!showPassword ? "password" : "text"}
               ref={passwordRef}
               className="w-full border-1 
-                        border-gray-200 p-3 rounded outline-none focus:border-black placeholder-gray-400
-                        form-input border  py-3 px-4 bg-white   appearance-none  block pl-14 focus:outline-none
-                        "
+              border-gray-200 p-3 rounded outline-none focus:border-black placeholder-gray-400
+              form-input border  py-3 px-4 bg-white   appearance-none  block pl-14 focus:outline-none
+              "
               placeholder={t("password")}
             />
             <button
@@ -83,6 +82,9 @@ const SignIn = () => {
               {!showPassword ? `${t("show")}` : `${t("hide")}`}
             </button>
           </div>
+          {errors && (
+            <p className=" text-red-600 w-full text-sm text-center">{errors}</p>
+          )}
 
           <button
             type="submit"
