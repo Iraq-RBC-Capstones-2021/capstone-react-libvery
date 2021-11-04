@@ -32,8 +32,7 @@ import { fetchBooks } from "./store/booksSlice";
 import { onAuthStateChanged } from "@firebase/auth";
 import { doc, getDoc } from "@firebase/firestore";
 import { auth, db } from "./firebase";
-import { setActiveUser, setLogOut } from "./store/counter/userSlice";
-
+import { setActiveUser, setLogOut } from "./store/users/userSlice";
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
