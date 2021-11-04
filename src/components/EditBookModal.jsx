@@ -45,6 +45,7 @@ function EditBookModal({
   price,
   description,
   paramID,
+  image,
 }) {
   const [progress, setProgress] = useState(0);
   const [fileUrl, setFileUrl] = useState("");
@@ -55,7 +56,7 @@ function EditBookModal({
     genres: genres,
     price: price,
     description: description,
-    image: "",
+    image: image,
     isChecked: false,
   };
 
@@ -98,7 +99,7 @@ function EditBookModal({
         genres: formik.values.genres,
         price: !formik.values.isChecked ? formik.values.price : 0,
         description: formik.values.description,
-        image: fileUrl,
+        image: fileUrl || image,
         isChecked: formik.values.isChecked,
       });
     }
