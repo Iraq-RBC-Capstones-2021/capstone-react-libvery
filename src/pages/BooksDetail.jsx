@@ -68,7 +68,6 @@ function BooksDetail({ match }) {
     history.push("/books");
     dispatch(changeDropdown(genre));
   }
-
   return (
     <div className="bg-primary font-sans">
       <div className="sm:flex sm:justify-center">
@@ -229,17 +228,45 @@ function BooksDetail({ match }) {
               )}
             />
 
-            {book.images?.map((bookImage, index) => (
-              <div className="z-0" key={index}>
+            {book?.images?.length > 0 ? (
+              <>
+                {book.images?.map((bookImage, index) => (
+                  <div className="z-0" key={index}>
+                    <Zoom>
+                      <img
+                        className="h-44 w-28 rounded-md mr-3 z-0"
+                        src={bookImage}
+                        alt="content preview page 1"
+                      />
+                    </Zoom>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <>
                 <Zoom>
                   <img
                     className="h-44 w-28 rounded-md mr-3 z-0"
-                    src={bookImage}
+                    src={page1}
                     alt="content preview page 1"
                   />
                 </Zoom>
-              </div>
-            ))}
+                <Zoom>
+                  <img
+                    className="h-44 w-28 rounded-md mr-3 z-0"
+                    src={page2}
+                    alt="content preview page 1"
+                  />
+                </Zoom>
+                <Zoom>
+                  <img
+                    className="h-44 w-28 rounded-md mr-3 z-0"
+                    src={page3}
+                    alt="content preview page 1"
+                  />
+                </Zoom>
+              </>
+            )}
           </div>
         </motion.div>
       </div>
