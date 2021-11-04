@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
-import { setActiveUser } from "../store/counter/userSlice";
+import { setActiveUser } from "../store/users/userSlice";
 
 import Google from "../assets/Google.svg";
 

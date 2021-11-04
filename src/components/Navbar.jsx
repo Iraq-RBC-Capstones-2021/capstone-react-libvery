@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Menu from "./Menu";
 import MobileNav from "./MobileNav";
+import { useTranslation } from "react-i18next";
 
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {
@@ -18,11 +19,12 @@ import dropdownMenu from "../assets/dorpdownMenu.svg";
 import SignoutButton from "./SignoutButton";
 
 import { useSelector } from "react-redux";
-import { selectorUser } from "../store/counter/userSlice";
+import { selectorUser } from "../store/users/userSlice";
 
 function Navbar() {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [isOptionOpened, setIsOptionOpened] = useState(false);
+  const { t } = useTranslation();
 
   const user = useSelector(selectorUser);
   const { userName, userPhoto } = user;
@@ -56,7 +58,7 @@ function Navbar() {
               activeStyle={isActive(HOME_ROUTE) ? styles : {}}
               className="text-xl mr-3"
             >
-              Home
+              {t("home")}
             </NavLink>
           </div>
           <div>
@@ -65,7 +67,7 @@ function Navbar() {
               activeStyle={isActive(BOOKS_ROUTE) ? styles : {}}
               className="text-xl mr-3"
             >
-              Books
+              {t("books")}
             </NavLink>
           </div>
           <div>
@@ -74,7 +76,7 @@ function Navbar() {
               activeStyle={isActive(ABOUT_ROUTE) ? styles : {}}
               className="text-xl mr-3"
             >
-              About
+              {t("about")}
             </NavLink>
           </div>
           {userName && (
@@ -84,7 +86,7 @@ function Navbar() {
                 activeStyle={isActive(FAVOURITES_ROUTE) ? styles : {}}
                 className="text-xl"
               >
-                Favourites
+                {t("favorites")}
               </NavLink>
             </div>
           )}
@@ -97,9 +99,11 @@ function Navbar() {
           />
           <p className="opacity-50 pl-3">
             {userName ? (
-              <>Hello, {userName}</>
+              <>
+                {t("hello")}, {userName}
+              </>
             ) : (
-              <Link to={SIGNIN_ROUTE}> Sign In </Link>
+              <Link to={SIGNIN_ROUTE}> {t("sign_in")} </Link>
             )}
           </p>
           <div className="relative inline-block text-left">
@@ -138,7 +142,7 @@ function Navbar() {
                     id="menu-item-0"
                     onClick={() => setIsOptionOpened(false)}
                   >
-                    Profile
+                    {t("profile")}
                   </NavLink>
                   <SignoutButton
                     className="text-gray-700 block w-full text-left px-4 py-2 text-sm transition hover:bg-blue-600 hover:text-white"

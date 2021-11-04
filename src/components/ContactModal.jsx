@@ -5,16 +5,19 @@ import Modal from "react-modal";
 import { motion } from "framer-motion";
 import CloseButton from "../customs/CloseButton";
 import { useSelector } from "react-redux";
-import { selectorUser } from "../store/counter/userSlice";
+import { selectorUser } from "../store/users/userSlice";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import Loader from "../components/Loader";
+import { useTranslation } from "react-i18next";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
 
 function ContactModal({ isContactModalOpen, setIsContactModalOpen, paramID }) {
   const history = useHistory();
+  const { t } = useTranslation();
+
   const userName = useSelector(selectorUser).userName;
 
   const [sellerUID, setSellerUID] = useState([]);
@@ -131,12 +134,11 @@ function ContactModal({ isContactModalOpen, setIsContactModalOpen, paramID }) {
             </>
           ) : (
             <>
-              you have to{" "}
+              {t("you_have_to")}
               <Link to={SIGNIN_ROUTE} className="font-bold text-primary">
-                {" "}
-                Sign In{" "}
-              </Link>{" "}
-              to see the seller contacts
+                {t("sign_in")}
+              </Link>
+              {t("to_see_the_seller_contact")}
             </>
           )}
         </motion.div>

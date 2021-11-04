@@ -4,7 +4,7 @@ import { FaFacebook, FaInstagram, FaTwitter, FaGithub } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { GiCheckMark } from "react-icons/gi";
 import { Link } from "react-router-dom";
-import { selectorUser } from "../store/counter/userSlice";
+import { selectorUser } from "../store/users/userSlice";
 import { useSelector } from "react-redux";
 
 import {
@@ -76,7 +76,7 @@ function Footer() {
                     className="w-52 h-7 pl-1"
                     name="newsletter"
                     id="newsletter"
-                    placeholder="Subscribe to our newsletter"
+                    placeholder={t("subscribe_to_our_newsletter")}
                   />
                   <button className="bg-blue-500 w-8 h-7 border-8 border-solid border-blue-500 flex justify-center items-center">
                     <GiCheckMark color="white" />

@@ -9,7 +9,7 @@ import Key from "../assets/Key.svg";
 import SigninIllustration from "../assets/SigninIllustration.svg";
 
 import GoogleAuth from "../components/GoogleAuth";
-import { signIn } from "../store/counter/userSlice";
+import { signIn } from "../store/users/userSlice";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -92,7 +92,7 @@ const SignIn = () => {
           </button>
 
           <div className="flex items-center  text-gray-800  font-light text-sm">
-            {t("don't_have_an_account")}?
+            {t("don't_have_an_account")}
             <span className="pl-2  font-bold">
               <Link to={SIGNUP_ROUTE}> {t("sign_up")}! </Link>
             </span>
