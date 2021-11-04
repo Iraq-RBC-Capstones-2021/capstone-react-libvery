@@ -47,6 +47,13 @@ export const signUp = createAsyncThunk(
           uid: userCredential.user.uid,
           books: [],
           favorites: [],
+        }).catch((error) => {
+          const { message } = error;
+          message === "Firebase: Error (auth/user-not-found)."
+            ? data.setErrors(`user not found`)
+            : message === "Firebase: Error (auth/wrong-password)."
+            ? data.setErrors(`Wrong Password`)
+            : data.setErrors(``);
         })
       );
     });

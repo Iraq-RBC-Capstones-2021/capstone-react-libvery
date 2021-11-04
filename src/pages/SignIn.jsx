@@ -29,11 +29,9 @@ const SignIn = () => {
 
   const handleSignin = async (e) => {
     e.preventDefault();
-    dispatch(signIn({ emailRef, passwordRef, setErrors }));
+    dispatch(signIn({ emailRef, passwordRef, setErrors, history }));
     setLoading(false);
-    errors === "" && history.goBack();
   };
-
   if (loading) return <p>Loading ...</p>;
   return (
     <div className="min-h-screen flex  items-center justify-around flex-wrap  bg-primary font-sans ">
