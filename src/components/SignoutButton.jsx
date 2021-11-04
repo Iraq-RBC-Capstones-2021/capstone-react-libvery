@@ -6,7 +6,7 @@ import { setLogOut } from "../store/users/userSlice.js";
 import { useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
 
-const SignoutButton = ({ className, setIsOptionOpened }) => {
+const SignoutButton = ({ className, setIsOptionOpened, onShowMenu }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { t } = useTranslation();
@@ -21,7 +21,14 @@ const SignoutButton = ({ className, setIsOptionOpened }) => {
       .catch((error) => console.log(error.message));
   };
   return (
-    <button className={className} type="button" onClick={handleSignOut}>
+    <button
+      className={className}
+      type="button"
+      onClick={() => {
+        handleSignOut();
+        onShowMenu();
+      }}
+    >
       {t("sign_out")}
     </button>
   );

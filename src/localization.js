@@ -6,7 +6,7 @@ import HttpApi from "i18next-http-backend";
 const resources = {
   en: {
     translation: {
-      sign_in: "Log In",
+      sign_in: "Sign In",
       sign_in_button: "Sign in",
       sign_up_button: "Sign Up",
       "don't_have_an_account": "Don't have an account?",
@@ -35,7 +35,7 @@ const resources = {
       contact_us: "Contact Us",
       home: "Home",
       books: "Books",
-      favorites: "Favorites",
+      favourites: "Favorites",
       phone_number: "Phone Number",
       never_miss_an_update: "Never miss an update",
       home_text_1: "Deliver, Browse and Buy books",
@@ -197,7 +197,7 @@ const resources = {
       contact_us: "تواصل معنا",
       home: "الصفحة الرئيسية",
       books: "الكتب",
-      favorites: "الكتب المفضلة",
+      favourites: "الكتب المفضلة",
       phone_number: "رقم الهاتف",
       never_miss_an_update: "لا تفوتوا التحديثات",
       home_text_1: "تصفّح الكتب، شراؤها أو حتى اقتناؤها مجاناً",
