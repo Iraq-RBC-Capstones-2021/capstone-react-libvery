@@ -41,7 +41,9 @@ const validationSchema = Yup.object().shape({
 
 const SignUp = () => {
   const [fileUrl, setFileUrl] = useState("");
+  const [errors, setErrors] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const history = useHistory();
 
   const { t } = useTranslation();
@@ -64,10 +66,7 @@ const SignUp = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      setIsLoading(true);
-      dispatch(signUp({ values, fileUrl }));
-      history.push("/profile");
-      setIsLoading(false);
+      dispatch(signUp({ values, fileUrl, setErrors, history }));
     },
   });
 
@@ -232,7 +231,9 @@ const SignUp = () => {
             />
             {t("terms_and_conditions")}
           </div>
-
+          {errors && (
+            <p className=" text-red-600 w-full text-sm text-center">{errors}</p>
+          )}
           <button
             type="submit"
             className="block w-full bg-secondary p-4 rounded text-white font-bold	 hover:text-black transition duration-300"

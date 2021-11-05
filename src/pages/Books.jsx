@@ -10,12 +10,13 @@ import Pagination from "../components/pagination/Pagination";
 import { changeDropdown } from "../store/dropdownSlice";
 import { useTranslation } from "react-i18next";
 import { fetchBooks } from "../store/books/booksSlice";
+import { selectorUser } from "../store/users/userSlice";
 
 function Books() {
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
-
+  const user = useSelector(selectorUser);
   const books = useSelector((state) => state.books.books);
   const dropVal = useSelector((state) => state.dropdown.dropdown);
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
@@ -172,19 +173,23 @@ function Books() {
               <option value="Free">{t("free")}</option>
             </select>
           </div>
-          <AnimateButton
-            OnClickContact={() => setIsAddBookModalOpen(true)}
-            classStyle="bg-secondary text-white rounded-full px-1 py-1"
-          >
-            <FiPlusCircle
-              onClick={() => setIsAddBookModalOpen(true)}
-              size={27}
-            />
-          </AnimateButton>
-          <AddBookModal
-            isAddBookModalOpen={isAddBookModalOpen}
-            setIsAddBookModalOpen={setIsAddBookModalOpen}
-          />
+          {user.userName && (
+            <>
+              <AnimateButton
+                OnClickContact={() => setIsAddBookModalOpen(true)}
+                classStyle="bg-secondary text-white rounded-full px-1 py-1"
+              >
+                <FiPlusCircle
+                  onClick={() => setIsAddBookModalOpen(true)}
+                  size={27}
+                />
+              </AnimateButton>
+              <AddBookModal
+                isAddBookModalOpen={isAddBookModalOpen}
+                setIsAddBookModalOpen={setIsAddBookModalOpen}
+              />
+            </>
+          )}
         </div>
         <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:justify-center py-5">
           {booksArr}

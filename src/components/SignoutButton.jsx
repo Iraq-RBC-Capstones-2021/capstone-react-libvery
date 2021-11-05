@@ -19,7 +19,7 @@ const SignoutButton = ({ className, setIsOptionOpened, onShowMenu }) => {
         setIsOptionOpened(false);
         onShowMenu();
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => error.message);
   };
   return (
     <button className={className} type="button" onClick={handleSignOut}>
