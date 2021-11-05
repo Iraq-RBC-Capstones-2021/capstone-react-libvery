@@ -280,7 +280,7 @@ function BooksDetail({ match }) {
                     <Link to={`${matchURL}/edit-image`}>
                       <AnimateButton
                         OnClickContact={() => setIsEditImageOpen(true)}
-                        classStyle="absolute right-2 md:right-0 text-white rounded-xl -top-3 cursor-pointer  z-10"
+                        classStyle="absolute right-5 md:right-0 text-white rounded-xl -top-3 cursor-pointer  z-10"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -324,6 +324,31 @@ function BooksDetail({ match }) {
                     alt="content preview page 1"
                   />
                 </Zoom>
+                {uid === book.uid ? (
+                  <>
+                    <Link to={`${matchURL}/edit-image`}>
+                      <AnimateButton
+                        OnClickContact={() => setIsEditImageOpen(true)}
+                        classStyle="absolute right-5 md:right-0 text-white rounded-xl -top-3 cursor-pointer  z-10"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-8 w-8"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="#BE856A"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                          />
+                        </svg>
+                      </AnimateButton>
+                    </Link>
+                  </>
+                ) : null}
               </>
             )}
           </div>

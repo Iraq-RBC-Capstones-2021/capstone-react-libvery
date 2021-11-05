@@ -98,7 +98,7 @@ const resources = {
       hide: "شاردنەوە",
       email: "ئیمەیڵ ئەدرێس",
       password: "وشەی نهێنی",
-      username: "ناو",
+      name: "ناو",
       confirm_password: "دڵنیابوونەوە لە پاسۆردەکە",
       terms_and_conditions: "یاسا و مەرجاکنم قبووڵە",
       about: "دەربارە ",

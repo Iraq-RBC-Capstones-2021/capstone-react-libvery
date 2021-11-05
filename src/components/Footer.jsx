@@ -63,7 +63,7 @@ function Footer() {
                     to={FAVOURITES_ROUTE}
                     className="mx-5 hover:text-secondary transform hover:scale-105"
                   >
-                    {t("favorites")}
+                    {t("favourites")}
                   </Link>
                 ) : null}
               </div>
