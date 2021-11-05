@@ -35,6 +35,10 @@ function Footer() {
   }
 
   const { t } = useTranslation();
+
+  function handleScroll() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
   return (
     <footer>
       <div className="p-10 bg-gray-200 text-black">
@@ -57,18 +61,21 @@ function Footer() {
             <div className="flex flex-col">
               <div className="flex justify-center mt-2">
                 <Link
+                  onClick={handleScroll}
                   to={HOME_ROUTE}
                   className="mx-5 hover:text-secondary transform hover:scale-105"
                 >
                   {t("home")}
                 </Link>
                 <Link
+                  onClick={handleScroll}
                   to={ABOUT_ROUTE}
                   className="mx-5 hover:text-secondary transform hover:scale-105"
                 >
                   {t("about")}
                 </Link>
                 <Link
+                  onClick={handleScroll}
                   to={BOOKS_ROUTE}
                   className="mx-5 hover:text-secondary transform hover:scale-105"
                 >
@@ -76,6 +83,7 @@ function Footer() {
                 </Link>
                 {userName ? (
                   <Link
+                    onClick={handleScroll}
                     to={FAVOURITES_ROUTE}
                     className="mx-5 hover:text-secondary transform hover:scale-105"
                   >
