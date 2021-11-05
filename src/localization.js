@@ -17,7 +17,7 @@ const resources = {
       hide: "Hide",
       email: "E-mail Address",
       password: "Password",
-      username: "Username",
+      name: "Username",
       confirm_password: "Password confirmation",
       terms_and_conditions: "I Accept Terms and Conditions",
       about: "About ",
