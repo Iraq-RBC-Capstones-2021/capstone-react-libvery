@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import projectLogo from "../assets/projectLogo.svg";
 import { FaFacebook, FaInstagram, FaTwitter, FaGithub } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
@@ -15,8 +15,24 @@ import {
 } from "../routes";
 import Languages from "./Languages";
 
+import { collection, addDoc } from "@firebase/firestore";
+import { db } from "../firebase";
+import { toast } from "react-toastify";
+
 function Footer() {
   const userName = useSelector(selectorUser).userName;
+  const [newsletter, setNewsletter] = useState("");
+
+  function handleNewsletter(e) {
+    toast.success("Successfully Subscribed", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+    addDoc(collection(db, "emails"), {
+      email: newsletter,
+    }).then(() => {
+      setNewsletter("");
+    });
+  }
 
   const { t } = useTranslation();
   return (
@@ -72,13 +88,18 @@ function Footer() {
 
                 <div className="flex items-center md:mr-2">
                   <input
-                    type="text"
-                    className="w-52 h-7 pl-1"
+                    value={newsletter}
+                    type="email"
+                    className="w-56 h-7 pl-1"
                     name="newsletter"
                     id="newsletter"
                     placeholder={t("subscribe_to_our_newsletter")}
+                    onChange={(e) => setNewsletter(e.target.value)}
                   />
-                  <button className="bg-blue-500 w-8 h-7 border-8 border-solid border-blue-500 flex justify-center items-center">
+                  <button
+                    onClick={handleNewsletter}
+                    className="bg-blue-500 w-8 h-7 border-8 border-solid border-blue-500 flex justify-center items-center"
+                  >
                     <GiCheckMark color="white" />
                   </button>
                 </div>
