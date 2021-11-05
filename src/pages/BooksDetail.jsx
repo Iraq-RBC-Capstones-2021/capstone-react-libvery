@@ -329,7 +329,8 @@ function BooksDetail({ match }) {
                     <Link to={`${matchURL}/edit-image`}>
                       <AnimateButton
                         OnClickContact={() => setIsEditImageOpen(true)}
-                        classStyle="absolute right-5 md:right-0 text-white rounded-xl -top-3 cursor-pointer  z-10"
+                        classStyle="absolute
+                         right-0 md:right-0 text-white rounded-xl -top-0 cursor-pointer  z-10"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
