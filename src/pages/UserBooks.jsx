@@ -54,7 +54,7 @@ function UserBooks() {
           x: 0,
         }}
       >
-        <div className="flex justify-start items-center md:justify-center">
+        <div className="flex  items-center justify-center">
           <AnimateButton
             OnClickContact={() => setIsAddBookModalOpen(true)}
             classStyle="bg-secondary text-white rounded-full px-1 py-1"
@@ -69,7 +69,7 @@ function UserBooks() {
             setIsAddBookModalOpen={setIsAddBookModalOpen}
           />
         </div>
-        <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:justify-center py-5">
+        <div className=" grid sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 md:ml-28 md:mr-28 md:justify-center py-5">
           {booksArr}
         </div>
         <Pagination
