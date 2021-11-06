@@ -86,7 +86,7 @@ function Navbar() {
                 activeStyle={isActive(FAVOURITES_ROUTE) ? styles : {}}
                 className="text-xl"
               >
-                {t("favorites")}
+                {t("favourites")}
               </NavLink>
             </div>
           )}
