@@ -52,9 +52,7 @@ export const signUp = createAsyncThunk(
         );
       })
       .catch((error) => {
-        console.log("🚀 ~ file: userSlice.js ~ line 55 ~ error", error);
         const { message } = error;
-        console.log("🚀 ~ file: userSlice.js ~ line 56 ~ message", message);
         message === "Firebase: Error (auth/email-already-in-use)."
           ? data.setErrors(`Email already in use`)
           : data.history.push("/profile/user");

@@ -105,6 +105,7 @@ function BooksDetail({ match }) {
           dispatch(setFavorites(favDocSnap.data().favorites));
         }
       } else {
+        // eslint-disable-next-line
         console.log("No such a doc");
       }
     } else {
