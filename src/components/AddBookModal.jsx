@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { addBooks, emptyBooks } from "../store/books/booksSlice";
+import { addBooks } from "../store/books/booksSlice";
 import { serverTimestamp } from "firebase/firestore";
 import { Link, useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";

@@ -17,7 +17,6 @@ import formPhone from "../assets/formPhone.svg";
 import Phone from "../assets/Phone.svg";
 import uploadPhoto from "../assets/uploadPhoto.svg";
 
-import Loader from "../components/Loader";
 import { storeImage } from "../service/utls";
 
 const validationSchema = Yup.object().shape({
@@ -42,7 +41,6 @@ const validationSchema = Yup.object().shape({
 const SignUp = () => {
   const [fileUrl, setFileUrl] = useState("");
   const [errors, setErrors] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
 
   const history = useHistory();
@@ -70,7 +68,6 @@ const SignUp = () => {
     },
   });
 
-  if (isLoading) return <Loader />;
   return (
     <div className="min-h-screen flex  items-center md:space-x-44  justify-center flex-wrap  bg-primary font-sans ">
       <div className="bg-white m-5 p-10 md:p-16 rounded-xl shadow-2xl md:w-6/12 lg:w-5/12 ">

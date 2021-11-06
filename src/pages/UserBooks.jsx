@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import BookCard from "../components/BookCard";
-import { AiOutlineSearch } from "react-icons/ai";
 import { FiPlusCircle } from "react-icons/fi";
 import AddBookModal from "../components/AddBookModal";
 import AnimateButton from "../customs/AnimateButton";
