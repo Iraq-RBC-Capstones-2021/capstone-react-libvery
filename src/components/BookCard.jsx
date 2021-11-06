@@ -127,6 +127,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
         <div className="flex justify-between items-center pr-1">
           {user_uid ? (
             <AiOutlineDelete
+              className="cursor-pointer"
               onClick={() => dispatch(deleteBook(id, user_uid))}
               size={29}
             />

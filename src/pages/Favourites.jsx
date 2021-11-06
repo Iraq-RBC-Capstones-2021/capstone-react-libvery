@@ -15,8 +15,11 @@ function Favourites() {
   //Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = user.favorites?.slice(indexOfFirstPost, indexOfLastPost);
-  const howManyPages = Math.ceil(user.favorites?.length / postsPerPage);
+  const currentPosts = user?.favorites?.slice(
+    indexOfFirstPost,
+    indexOfLastPost
+  );
+  const howManyPages = Math.ceil(user?.favorites?.length / postsPerPage);
 
   const booksArr = currentPosts.map((book) => (
     <div key={book.id} className="m-2">
@@ -43,7 +46,7 @@ function Favourites() {
     >
       <div className="flex flex-col ">
         <h1 className="p-3 mt-3 shadow appearance-none font-sans font-semibold text-gray-800 self-center tracking-wide text-lg sm:text-xl md:text-2xl lg:text-3xl">
-          {user.favorites.length === 0
+          {user?.favorites.length === 0
             ? `😃 ${t("no_favorite_books_here")} `
             : `${t("your_Favorite_Books_Are_Here")}`}
         </h1>

@@ -77,7 +77,8 @@ function App() {
     return unsubscribe;
   }, [dispatch]);
 
-  if (isLoading) return <Loader />;
+  if (isLoading)
+    return <Loader className="flex justify-center items-center h-screen" />;
   return (
     <div className="bg-primary overflow-x-hidden">
       <Navbar />
