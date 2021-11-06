@@ -43,16 +43,16 @@ const SignUp = () => {
   const [fileUrl, setFileUrl] = useState("");
   const [errors, setErrors] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const history = useHistory();
 
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
+
   const onFileChange = async (e) => {
-    setIsLoading(true);
-    storeImage(e, { setFileUrl });
-    setIsLoading(false);
+    storeImage(e, { setFileUrl, setProgress });
   };
 
   const formik = useFormik({
@@ -221,6 +221,7 @@ const SignUp = () => {
               className="hidden"
             />
           </label>
+          {progress >= 0 ? <p>Upload is {progress}% done</p> : null}
 
           <div className="flex items-center pb-5 text-gray-800  font-light text-sm">
             <input
