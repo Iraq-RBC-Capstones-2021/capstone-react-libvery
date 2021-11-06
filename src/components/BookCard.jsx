@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-// import ReactStars from "react-rating-stars-component";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+import ReactStars from "react-rating-stars-component";
+import { Link } from "react-router-dom";
 import { BOOKS_ROUTE } from "../routes";
-import { AiOutlineHeart, AiFillHeart, AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import {
   doc,
   getDoc,
@@ -17,17 +17,18 @@ import {
   setRemoveFavorites,
 } from "../store/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { setRatings } from "../store/ratingsSlice";
 import { changeDropdown } from "../store/dropdownSlice";
-import { useTranslation } from "react-i18next";
-import MoonLoader from "react-spinners/MoonLoader";
-import { deleteBook } from "../store/books/booksSlice";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 
-function BookCard({ user_uid, image, genres, title, price, rating, id }) {
+function BookCard({ image, genres, title, price, rating, id }) {
   const user = useSelector(selectorUser);
   const dispatch = useDispatch();
 
-  const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false);
+  const [currentRating, setCurrentRating] = useState(rating);
+
+  const books = useSelector((state) => state.books);
 
   const history = useHistory();
 
@@ -41,7 +42,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
       <button
         key={index}
         className="text-xs bg-primary rounded-2xl px-2.5 py-0.5 m-0.5 mt-1 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
-        onClick={() => handleClick(genre.value)}
+        onClick={() => handleClick(genre.label)}
       >
         {genre.label}
       </button>
@@ -50,7 +51,6 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
 
   const handleFav = async (id) => {
     if (!user.favorites.map((book) => book.id).includes(Number(id))) {
-      setIsLoading(true);
       const docRef = doc(db, "books", `${id}`);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -62,11 +62,11 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
         const favDocSnap = await getDoc(favBooksRef);
         if (favDocSnap.exists()) {
           dispatch(setFavorites(favDocSnap.data().favorites));
-          setIsLoading(false);
         }
+      } else {
+        console.log("No such a doc");
       }
     } else {
-      setIsLoading(true);
       const docRef = doc(db, "books", `${id}`);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -75,10 +75,72 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
           favorites: arrayRemove(docSnap.data()),
         });
         dispatch(setRemoveFavorites(id));
-        setIsLoading(false);
       }
     }
   };
+
+  async function setRating(newR) {
+    const washingtonRef = doc(db, "books", `${id}`);
+
+    const totalRating =
+      books.books.find((book) => book.id === id).totalRating + newR;
+
+    const totalRaters =
+      books.books.find((book) => book.id === id).totalRaters + 1;
+
+    const rating = totalRating / totalRaters;
+
+    if (!user.uid) {
+      return;
+    } else {
+      if (
+        books.books.find((book) => book.id === id).ratersUID.includes(user.uid)
+      ) {
+        toast.error("You already rated this book");
+        return;
+      } else {
+        if (totalRating && totalRaters && rating) {
+          await updateDoc(washingtonRef, {
+            rating: rating,
+            totalRating: totalRating,
+            totalRaters: totalRaters,
+            ratersUID: arrayUnion(user.uid),
+          });
+          dispatch(
+            setRatings({
+              totalRaters: totalRaters + 1,
+              totalRating: totalRating + newR,
+              rating: totalRating / totalRaters,
+              ratersUID: arrayUnion(user.uid),
+            })
+          );
+          toast.success("You rated this book successfully");
+        } else {
+          await updateDoc(washingtonRef, {
+            rating: newR,
+            totalRating: newR,
+            totalRaters: 1,
+            ratersUID: arrayUnion(user.uid),
+          });
+          dispatch(
+            setRatings({
+              totalRaters: 1,
+              totalRating: newR,
+              rating: newR,
+              ratersUID: arrayUnion(user.uid),
+            })
+          );
+          toast.success("You rated this book successfully");
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (books.books.find((book) => book.id === id)) {
+      setCurrentRating(books.books.find((book) => book.id === id).rating);
+    }
+  }, [books.books, id]);
 
   return (
     <>
@@ -92,53 +154,35 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
 
         <div className="flex justify-between items-center px-1 pt-2">
           <h1 className="font-semibold">{title}</h1>
-          {user.userName && (
-            <>
-              {user.favorites?.map((book) => book.id).includes(Number(id)) ? (
-                <>
-                  {isLoading ? (
-                    <MoonLoader size={20} color={"blue"} loading={isLoading} />
-                  ) : (
-                    <AiFillHeart
-                      onClick={() => handleFav(id)}
-                      size={29}
-                      className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
-                      color="red"
-                    />
-                  )}
-                </>
-              ) : (
-                <>
-                  {isLoading ? (
-                    <MoonLoader size={20} color={"blue"} />
-                  ) : (
-                    <AiOutlineHeart
-                      onClick={() => handleFav(id)}
-                      size={29}
-                      className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
-                      color="black"
-                    />
-                  )}
-                </>
-              )}
-            </>
-          )}
-        </div>
-        <div className="flex justify-between items-center pr-1">
-          {user_uid ? (
-            <AiOutlineDelete
-              className="cursor-pointer"
-              onClick={() => dispatch(deleteBook(id, user_uid))}
+          {user.favorites?.map((book) => book.id).includes(Number(id)) ? (
+            <AiFillHeart
+              onClick={() => handleFav(id)}
               size={29}
+              className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
+              color={"red"}
             />
           ) : (
-            <></>
+            <AiOutlineHeart
+              onClick={() => handleFav(id)}
+              size={29}
+              className="transform transition ease-in duration-100 hover:-translate-y-0.5 cursor-pointer"
+            />
           )}
         </div>
-        <p className="font-semibold pl-1"> $ {price}</p>
+        <div className="flex justify-start items-center">
+          <ReactStars
+            className=""
+            size={20}
+            isHalf={true}
+            value={currentRating}
+            onChange={(newR) => setRating(newR)}
+          />
+          <span className="pl-1 mt-1">{currentRating}</span>
+        </div>
+        <p className="font-semibold pl-1">{price}</p>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
           <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">
-            {t("buy")}
+            Buy
           </button>
         </Link>
       </div>

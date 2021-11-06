@@ -4,7 +4,7 @@ import CloseButton from "../customs/CloseButton";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, arrayUnion } from "firebase/firestore";
 import { db, storage } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addBooks, emptyBooks } from "../store/books/booksSlice";
@@ -93,7 +93,7 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
         bookTitle: formik.values.bookTitle,
         author: formik.values.author,
         genres: formik.values.genres,
-        price: !formik.values.isChecked ? formik.values.price : 0,
+        price: !formik.values.isChecked ? formik.values.price || 0 : 0,
         description: formik.values.description,
         image: fileUrl,
         isChecked: formik.values.isChecked,
@@ -102,6 +102,10 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
         // rating: 0,
         uid: userUID,
         images: [],
+        ratersUID: arrayUnion(),
+        rating: 0,
+        totalRaters: 0,
+        totalRating: 0,
       });
 
       dispatch(addBooks({ ...formik.values, id: uniqueID, uid: userUID }));
