@@ -40,7 +40,7 @@ function Books() {
   const howManyPages = Math.ceil(books.length / postsPerPage);
 
   const Genres = [
-    { value: "action", label: `${t("action")}` },
+    { value: "action", label: `${t("Action")}` },
     { value: "adventure", label: `${t("adventure")}` },
     { value: "drama", label: `${t("drama")}` },
     { value: "comedy", label: `${t("comedy")}` },
@@ -53,7 +53,7 @@ function Books() {
       <BookCard
         id={book.id}
         title={book.bookTitle}
-        genres={book.genres.map((genre) => genre.value)}
+        genres={book.genres}
         image={book.image}
         rating={book.rating}
         price={book.price}
@@ -162,7 +162,7 @@ function Books() {
             />
             <p className="text-gray-400 text-2xl">|</p>
             <select
-              className="p-0 px-1 w-20 h-10 ml-3 rounded-md focus:ring-transparent border-none"
+              className="p-0 px-1 w-28 h-10 ml-3 rounded-md focus:ring-transparent border-none"
               name="genres"
               value={dropVal}
               id="genres"
