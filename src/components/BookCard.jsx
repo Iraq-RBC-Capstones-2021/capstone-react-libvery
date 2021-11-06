@@ -107,7 +107,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
       } else {
         if (totalRating && totalRaters && rating) {
           await updateDoc(washingtonRef, {
-            rating: rating,
+            rating: rating.toFixed(1),
             totalRating: totalRating,
             totalRaters: totalRaters,
             ratersUID: arrayUnion(user.uid),
@@ -207,7 +207,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
             value={currentRating}
             onChange={(newR) => setRating(newR)}
           />
-          <span className="pl-1 mt-1">{currentRating}</span>
+          <span className="pl-1 mt-1">{currentRating}(5)</span>
         </div>
         <p className="font-semibold pl-1"> $ {price}</p>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
