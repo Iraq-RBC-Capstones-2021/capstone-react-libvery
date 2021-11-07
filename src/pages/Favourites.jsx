@@ -21,7 +21,7 @@ function Favourites() {
   );
   const howManyPages = Math.ceil(user?.favorites?.length / postsPerPage);
 
-  const booksArr = currentPosts.map((book) => (
+  const booksArr = currentPosts?.map((book) => (
     <div key={book.id} className="m-2">
       <BookCard
         id={book.id}
@@ -44,13 +44,15 @@ function Favourites() {
         x: 0,
       }}
     >
-      <div className="flex flex-col ">
+      <div
+        className={`flex flex-col ${user?.favorites?.length === 0 && "mb-96"}`}
+      >
         <h1 className="p-3 mt-3 shadow appearance-none font-sans font-semibold text-gray-800 self-center tracking-wide text-lg sm:text-xl md:text-2xl lg:text-3xl">
-          {user?.favorites.length === 0
+          {user?.favorites?.length === 0
             ? `😃 ${t("no_favorite_books_here")} `
             : `${t("your_Favorite_Books_Are_Here")}`}
         </h1>
-        <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:justify-center py-5">
+        <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 md:ml-28 md:mr-28 md:justify-center py-5">
           {booksArr}
         </div>
       </div>

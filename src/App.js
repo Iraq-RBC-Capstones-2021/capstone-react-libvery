@@ -80,7 +80,7 @@ function App() {
   if (isLoading)
     return <Loader className="flex justify-center items-center h-screen" />;
   return (
-    <div className="bg-primary overflow-x-hidden">
+    <div className="bg-primary overflow-x-hidden min-h-screen">
       <Navbar />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location}>

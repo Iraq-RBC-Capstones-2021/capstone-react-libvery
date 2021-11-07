@@ -8,7 +8,7 @@ import trashIcon from "../assets/trash.svg";
 import plusIcon from "../assets/plus.svg";
 import { doc, updateDoc, arrayRemove } from "firebase/firestore";
 import { db } from "../firebase";
-import { getDownloadURL, ref, uploadBytes } from "@firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import { storage } from "../firebase";
 import Loader from "./Loader";
 import { useTranslation } from "react-i18next";
@@ -29,12 +29,18 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen, book }) {
   };
 
   const onFileChange = async (event, imageIndex) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     for (let i = 0; i < event.target.files.length; i++) {
       const file = event.target.files[i];
       const storageRef = ref(storage, file.name);
-      await uploadBytes(storageRef, file);
+      const uploadTask = uploadBytesResumable(storageRef, file);
       const uploadedImage = await getDownloadURL(storageRef);
+      uploadTask.on("state_changed", (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(progress);
+      });
       const imageURL = images[imageIndex];
       let newUrl;
       if (imageURL) {
@@ -46,7 +52,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen, book }) {
       newImagesArray[imageIndex] = newUrl;
       setImages(newImagesArray);
     }
-    setIsLoading(false);
+    // setIsLoading(false);
   };
 
   const handleAddImages = async (e) => {
@@ -136,6 +142,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen, book }) {
                   className="hidden"
                 />
               </label>
+
               <div>
                 <label className=" text-black flex items-center rounded-md cursor-pointe">
                   <img
@@ -208,6 +215,7 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen, book }) {
                 />
               </div>
             </div>
+
             <div className="flex items-center">
               <label className="w-32 text-black flex items-center rounded-md cursor-pointer bg-primary hover:bg-secondary justify-center h-32 mx-auto mb-2">
                 <img
@@ -256,6 +264,9 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen, book }) {
                 />
               </div>
             </div>
+            <p className="text-primary text-center">
+              {progress > 0 ? <p>Upload is {progress}% done</p> : null}
+            </p>
             <button
               className="bg-secondary text-white font-semibold py-2 px-10 rounded-lg mb-4 container mt-2"
               type="submit"

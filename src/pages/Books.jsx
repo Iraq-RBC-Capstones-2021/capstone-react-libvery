@@ -148,7 +148,11 @@ function Books() {
           x: 0,
         }}
       >
-        <div className="flex justify-start items-center md:justify-center">
+        <div
+          className={`flex justify-start items-center md:justify-center ${
+            booksArr?.length === 0 && "mb-96"
+          }`}
+        >
           <div className="flex relative bg-white rounded m-2 py-0.5 focus focus-within:ring-2 focus-within:ring-black shadow appearance-none">
             <AiOutlineSearch className="absolute left-1 mt-3 " />
             <input
@@ -191,7 +195,7 @@ function Books() {
             </>
           )}
         </div>
-        <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:justify-center py-5">
+        <div className="grid sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 md:ml-28 md:mr-28 md:justify-center py-5">
           {booksArr}
         </div>
         <Pagination
