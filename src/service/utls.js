@@ -11,5 +11,5 @@ export const storeImage = async (e, { setFileUrl, setProgress }) => {
     );
     setProgress(progress);
   });
-  setFileUrl(await getDownloadURL(storageRef));
+  await getDownloadURL(storageRef).then((storageRef) => setFileUrl(storageRef));
 };

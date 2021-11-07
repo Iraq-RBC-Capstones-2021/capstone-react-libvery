@@ -40,7 +40,9 @@ function Books() {
   const howManyPages = Math.ceil(books.length / postsPerPage);
 
   const Genres = [
-    { value: "action", label: `${t("Action")}` },
+    { value: "action", label: `${t("action")}` },
+    { value: "novel", label: `${t("novel")}` },
+    { value: "fiction", label: `${t("fiction")}` },
     { value: "adventure", label: `${t("adventure")}` },
     { value: "drama", label: `${t("drama")}` },
     { value: "comedy", label: `${t("comedy")}` },

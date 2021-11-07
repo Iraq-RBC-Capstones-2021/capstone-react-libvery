@@ -13,7 +13,6 @@ import { Link, useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { selectorUser } from "../store/users/userSlice";
 import Select from "react-select";
-// import { Genres } from "../service/genres";
 import { useTranslation } from "react-i18next";
 import { storeImage } from "../service/utls";
 
@@ -73,6 +72,8 @@ function AddBookModal({ isAddBookModalOpen, setIsAddBookModalOpen }) {
   const dispatch = useDispatch();
   const Genres = [
     { value: "action", label: `${t("action")}` },
+    { value: "novel", label: `${t("novel")}` },
+    { value: "fiction", label: `${t("fiction")}` },
     { value: "adventure", label: `${t("adventure")}` },
     { value: "drama", label: `${t("drama")}` },
     { value: "comedy", label: `${t("comedy")}` },
