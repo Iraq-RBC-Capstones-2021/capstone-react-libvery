@@ -50,6 +50,7 @@ export const signUp = createAsyncThunk(
             favorites: [],
           })
         );
+        data.history.push("/profile/user");
       })
       .catch((error) => {
         const { message } = error;
@@ -73,16 +74,15 @@ export const signIn = createAsyncThunk(
         const docSnap = await getDoc(docRef);
         dispatch(
           setActiveUser({
-            userName:
-              docSnap._document.data.value.mapValue.fields.username.stringValue,
+            userName: docSnap.data().username,
             userEmail: userCredential.user.email,
             uid: userCredential.user.uid,
-            userPhone:
-              docSnap._document.data.value.mapValue.fields.phone.stringValue,
-            userPhoto:
-              docSnap._document.data.value.mapValue.fields.photo.stringValue,
+            userPhone: docSnap.data().phone,
+            userPhoto: docSnap.data().photo,
+            favorites: docSnap.data().favorites,
           })
         );
+        data.history.goBack();
       })
       .catch((error) => {
         const { message } = error;
@@ -90,7 +90,7 @@ export const signIn = createAsyncThunk(
           ? data.setErrors(`User not found`)
           : message === "Firebase: Error (auth/wrong-password)."
           ? data.setErrors(`Wrong Password`)
-          : data.history.goBack();
+          : data.setErrors(``);
       });
   }
 );

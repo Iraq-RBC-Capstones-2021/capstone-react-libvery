@@ -23,6 +23,7 @@ import MoonLoader from "react-spinners/MoonLoader";
 import { deleteBook } from "../store/books/booksSlice";
 
 function BookCard({ user_uid, image, genres, title, price, rating, id }) {
+  console.log("🚀 ~ file: BookCard.jsx ~ line 26 ~ BookCard ~ genres", genres);
   const user = useSelector(selectorUser);
   const dispatch = useDispatch();
 
@@ -47,6 +48,10 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
       </button>
     );
   });
+  console.log(
+    "🚀 ~ file: BookCard.jsx ~ line 51 ~ genreButtons ~ genreButtons",
+    genreButtons
+  );
 
   const handleFav = async (id) => {
     if (!user.favorites.map((book) => book.id).includes(Number(id))) {
