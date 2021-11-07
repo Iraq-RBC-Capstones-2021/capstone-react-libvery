@@ -20,7 +20,8 @@ import { db } from "../firebase";
 import { toast } from "react-toastify";
 
 function Footer() {
-  const userName = useSelector(selectorUser).userName;
+  const user = useSelector(selectorUser);
+  const { userName } = user;
   const [newsletter, setNewsletter] = useState("");
 
   function handleNewsletter(e) {
@@ -41,7 +42,7 @@ function Footer() {
   }
   return (
     <footer>
-      <div className="p-10 bg-gray-200 text-black">
+      <div className={`p-10 bg-gray-200 text-black `}>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 gap-x-40 ">
             <div className="mb-5 flex flex-col justify-around items-center">

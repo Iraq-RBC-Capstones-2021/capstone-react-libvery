@@ -41,7 +41,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
     return (
       <button
         key={index}
-        className="text-xs bg-primary rounded-2xl px-2.5 py-0.5 m-0.5 mt-1 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
+        className="text-xs bg-white rounded-2xl px-2.5  py-0.5 m-0.5 ml-1.5 mt-1 transform transition ease-in duration-100 hover:-translate-y-0.5 opacity-80"
         onClick={() => handleClick(genre.value)}
       >
         {genre.value}
@@ -87,7 +87,7 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
 
   return (
     <>
-      <div className="bg-cards rounded-xl font-sans  overflow-hidden shadow-md w-full md:w-60 lg:w-72  p-3 transform transition ease-in-out duration-200 hover:-translate-y-0.5 mx-auto md:mt-5 mb-1 sm:mb-2 md:mb-0">
+      <div className="bg-cards rounded-xl font-sans  overflow-hidden shadow-md w-full  lg:w-72  p-3 transform transition ease-in-out duration-200 hover:-translate-y-0.5 mx-auto md:mt-5 mb-1 sm:mb-2 md:mb-0">
         <div className="rounded-xl overflow-hidden relative h-60">
           <img className="w-full h-full object-cover" src={image} alt="book" />
           <div className="absolute flex flex-wrap top-0.5 left-0">
