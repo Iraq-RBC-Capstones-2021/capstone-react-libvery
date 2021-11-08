@@ -34,7 +34,9 @@ function EditImageModal({ isEditImageOpen, setIsEditImageOpen, book }) {
       const file = event.target.files[i];
       const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
-      const uploadedImage = await getDownloadURL(storageRef);
+      const uploadedImage = await getDownloadURL(storageRef).then(
+        (storageRef) => storageRef
+      );
       uploadTask.on("state_changed", (snapshot) => {
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100

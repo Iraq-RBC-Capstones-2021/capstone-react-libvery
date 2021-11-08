@@ -23,7 +23,6 @@ import MoonLoader from "react-spinners/MoonLoader";
 import { deleteBook } from "../store/books/booksSlice";
 
 function BookCard({ user_uid, image, genres, title, price, rating, id }) {
-  console.log("🚀 ~ file: BookCard.jsx ~ line 26 ~ BookCard ~ genres", genres);
   const user = useSelector(selectorUser);
   const dispatch = useDispatch();
 
@@ -48,10 +47,6 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
       </button>
     );
   });
-  console.log(
-    "🚀 ~ file: BookCard.jsx ~ line 51 ~ genreButtons ~ genreButtons",
-    genreButtons
-  );
 
   const handleFav = async (id) => {
     if (!user.favorites.map((book) => book.id).includes(Number(id))) {
@@ -98,7 +93,14 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
         <div className="flex justify-between items-center px-1 pt-2">
           <h1 className="font-semibold">{title}</h1>
           {user.userName && (
-            <>
+            <div className="flex">
+              {user_uid && (
+                <AiOutlineDelete
+                  className="cursor-pointer text-red-600"
+                  onClick={() => dispatch(deleteBook(id, user_uid))}
+                  size={29}
+                />
+              )}
               {user.favorites?.map((book) => book.id).includes(Number(id)) ? (
                 <>
                   {isLoading ? (
@@ -126,21 +128,12 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
                   )}
                 </>
               )}
-            </>
+            </div>
           )}
         </div>
         <div className="flex justify-between items-center pr-1">
-          {user_uid ? (
-            <AiOutlineDelete
-              className="cursor-pointer"
-              onClick={() => dispatch(deleteBook(id, user_uid))}
-              size={29}
-            />
-          ) : (
-            <></>
-          )}
+          <p className="font-semibold pl-1"> $ {price}</p>
         </div>
-        <p className="font-semibold pl-1"> $ {price}</p>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
           <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">
             {t("buy")}

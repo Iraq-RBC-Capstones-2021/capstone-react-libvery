@@ -6,12 +6,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
 import { updateDoc, doc } from "firebase/firestore";
-import { db, storage } from "../firebase";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-// import { Genres } from "../service/genres";
+import { db } from "../firebase";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { storeImage } from "../service/utls";
 
 const el = document.getElementById("root");
 Modal.setAppElement(el);
@@ -78,6 +77,8 @@ function EditBookModal({
   };
   const Genres = [
     { value: "action", label: `${t("action")}` },
+    { value: "novel", label: `${t("novel")}` },
+    { value: "fiction", label: `${t("fiction")}` },
     { value: "adventure", label: `${t("adventure")}` },
     { value: "drama", label: `${t("drama")}` },
     { value: "comedy", label: `${t("comedy")}` },
@@ -106,17 +107,7 @@ function EditBookModal({
   }
 
   const onFileChange = async (e) => {
-    const file = e.target.files[0];
-    const storageRef = ref(storage, file.name);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    uploadTask.on("state_changed", (snapshot) => {
-      const progress = Math.round(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      );
-      setProgress(progress);
-    });
-    setFileUrl(await getDownloadURL(storageRef));
+    storeImage(e, { setFileUrl, setProgress });
   };
 
   return (
