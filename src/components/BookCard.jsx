@@ -210,9 +210,8 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
             value={currentRating}
             onChange={(newR) => setRating(newR)}
           />
-          <span className="pl-1 mt-1">{currentRating}(5)</span>
+          <span className="pl-1 mt-1">{currentRating}</span>
         </div>
-        <p className="font-semibold pl-1"> $ {price}</p>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
           <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">
             {t("buy")}
