@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-// import ReactStars from "react-rating-stars-component";
+import React, { useState, useEffect } from "react";
+import ReactStars from "react-rating-stars-component";
 import { Link, useHistory } from "react-router-dom";
 import { BOOKS_ROUTE } from "../routes";
 import { AiOutlineHeart, AiFillHeart, AiOutlineDelete } from "react-icons/ai";
@@ -21,6 +21,8 @@ import { changeDropdown } from "../store/dropdownSlice";
 import { useTranslation } from "react-i18next";
 import MoonLoader from "react-spinners/MoonLoader";
 import { deleteBook } from "../store/books/booksSlice";
+import { toast } from "react-toastify";
+import { setRatings } from "../store/ratingsSlice";
 
 function BookCard({ user_uid, image, genres, title, price, rating, id }) {
   const user = useSelector(selectorUser);
@@ -35,6 +37,9 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
     history.push("/books");
     dispatch(changeDropdown(genre));
   }
+
+  const [currentRating, setCurrentRating] = useState(rating);
+  const books = useSelector((state) => state.books);
 
   const genreButtons = genres?.map((genre, index) => {
     return (
@@ -79,6 +84,69 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
       }
     }
   };
+
+  async function setRating(newR) {
+    const washingtonRef = doc(db, "books", `${id}`);
+
+    const totalRating =
+      books.books.find((book) => book.id === id).totalRating + newR;
+
+    const totalRaters =
+      books.books.find((book) => book.id === id).totalRaters + 1;
+
+    const rating = totalRating / totalRaters;
+
+    if (!user.uid) {
+      return;
+    } else {
+      if (
+        books.books.find((book) => book.id === id).ratersUID.includes(user.uid)
+      ) {
+        toast.error("You already rated this book");
+        return;
+      } else {
+        if (totalRating && totalRaters && rating) {
+          await updateDoc(washingtonRef, {
+            rating: rating.toFixed(1),
+            totalRating: totalRating,
+            totalRaters: totalRaters,
+            ratersUID: arrayUnion(user.uid),
+          });
+          dispatch(
+            setRatings({
+              totalRaters: totalRaters + 1,
+              totalRating: totalRating + newR,
+              rating: totalRating / totalRaters,
+              ratersUID: arrayUnion(user.uid),
+            })
+          );
+          toast.success("You rated this book successfully");
+        } else {
+          await updateDoc(washingtonRef, {
+            rating: newR,
+            totalRating: newR,
+            totalRaters: 1,
+            ratersUID: arrayUnion(user.uid),
+          });
+          dispatch(
+            setRatings({
+              totalRaters: 1,
+              totalRating: newR,
+              rating: newR,
+              ratersUID: arrayUnion(user.uid),
+            })
+          );
+          toast.success("You rated this book successfully");
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (books.books.find((book) => book.id === id)) {
+      setCurrentRating(books.books.find((book) => book.id === id).rating);
+    }
+  }, [books.books, id]);
 
   return (
     <>
@@ -133,6 +201,16 @@ function BookCard({ user_uid, image, genres, title, price, rating, id }) {
         </div>
         <div className="flex justify-between items-center pr-1">
           <p className="font-semibold pl-1"> $ {price}</p>
+        </div>
+        <div className="flex justify-start items-center">
+          <ReactStars
+            className=""
+            size={20}
+            isHalf={true}
+            value={currentRating}
+            onChange={(newR) => setRating(newR)}
+          />
+          <span className="pl-1 mt-1">{currentRating}</span>
         </div>
         <Link to={`${BOOKS_ROUTE}/${id}`} className="text-white font-semibold">
           <button className="bg-secondary text-white rounded-xl p-1 w-full mt-3 transform transition ease-in-out duration-100 hover:-translate-y-0.5">
